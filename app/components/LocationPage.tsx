@@ -62,7 +62,7 @@ export default function LocationPage({ city, region, coverage }: LocationPagePro
       <section
         style={{
           position: 'relative',
-          background: '#070f1b',
+          background: '#252528',
           paddingTop: '180px',
           paddingBottom: '80px',
           overflow: 'hidden',
@@ -77,7 +77,7 @@ export default function LocationPage({ city, region, coverage }: LocationPagePro
             transform: 'translateX(-50%)',
             width: '800px',
             height: '800px',
-            background: 'radial-gradient(circle, rgba(242,101,34,0.07) 0%, transparent 65%)',
+            background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)',
             pointerEvents: 'none',
           }}
           aria-hidden="true"
@@ -164,8 +164,8 @@ export default function LocationPage({ city, region, coverage }: LocationPagePro
                     width: '28px',
                     height: '28px',
                     borderRadius: '50%',
-                    background: 'rgba(242,101,34,0.12)',
-                    border: '1px solid rgba(242,101,34,0.3)',
+                    background: 'rgba(252,212,21,0.12)',
+                    border: '1px solid rgba(252,212,21,0.3)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',

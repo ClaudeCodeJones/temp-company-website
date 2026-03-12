@@ -17,7 +17,7 @@ export default function ApplicationSection() {
 
   if (submitted) {
     return (
-      <section ref={sectionRef} id="apply" style={{ background: '#0A1623', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Apply now">
+      <section ref={sectionRef} id="apply" style={{ background: '#252528', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Apply now">
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ maxWidth: '640px', margin: '0 auto', textAlign: 'center' }}>
             <div style={{
@@ -57,7 +57,7 @@ export default function ApplicationSection() {
 
   return (
     <>
-      <section id="apply" style={{ background: '#0A1623', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Apply now">
+      <section id="apply" style={{ background: '#252528', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Apply now">
         <div ref={sectionRef} style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div className="two-col-grid" style={{ alignItems: 'start' }}>
 
@@ -74,7 +74,7 @@ export default function ApplicationSection() {
                 Fill in the form and one of our team will be in touch. We review every application and aim to respond within a few business days.
               </p>
 
-              <div className="reveal d5" style={{ marginTop: '40px', padding: '24px', background: 'rgba(242,101,34,0.06)', border: '1px solid rgba(242,101,34,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
+              <div className="reveal d5" style={{ marginTop: '40px', padding: '24px', background: 'rgba(252,212,21,0.06)', border: '1px solid rgba(252,212,21,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
                 <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff', marginBottom: '8px' }}>
                   Important for Casual Applicants
                 </p>

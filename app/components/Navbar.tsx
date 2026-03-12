@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import { brand } from '../../config/brand'
-import { site } from '../../config/site'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -47,12 +46,14 @@ export default function Navbar() {
     }
   }
 
-  const isActive = (href: string) => pathname === href
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/')
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/about-us', label: 'About Us' },
-    ...(site.hasCareersPage ? [{ href: '/careers', label: 'Careers', scrollTop: true }] : []),
+    { href: '/hire-staff', label: 'Hire Staff' },
+    { href: '/find-work', label: 'Find Work' },
+    { href: '/about-us', label: 'About' },
     { href: '/contact', label: 'Contact' },
   ]
 
@@ -74,8 +75,8 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-6">
-          {navLinks.map(({ href, label, scrollTop }) => (
-            <Link key={href} href={href} className={`nav-link${isActive(href) ? ' active' : ''}`} onClick={scrollTop ? () => window.scrollTo({ top: 0 }) : undefined}>
+          {navLinks.map(({ href, label }) => (
+            <Link key={href} href={href} className={`nav-link${isActive(href) ? ' active' : ''}`}>
               {label}
             </Link>
           ))}
@@ -83,14 +84,12 @@ export default function Navbar() {
 
         {/* CTA + hamburger */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          {site.hasQuoteForm && (
-            <div id="hdrcta-wrap">
-              <Link id="hdrcta" href="/estimate" className="btn-orange" style={{ fontSize: '0.8rem', padding: '10px 20px' }}>
-                Get an Estimate
-                <ArrowRight size={14} strokeWidth={1.5} aria-hidden="true" />
-              </Link>
-            </div>
-          )}
+          <div id="hdrcta-wrap">
+            <Link id="hdrcta" href="/hire-staff/request-staff" className="btn-orange" style={{ fontSize: '0.8rem', padding: '10px 20px' }}>
+              Request Staff
+              <ArrowRight size={14} strokeWidth={1.5} aria-hidden="true" />
+            </Link>
+          </div>
           <button
             id="ham-btn"
             onClick={toggleMenu}
@@ -108,22 +107,20 @@ export default function Navbar() {
       {/* Mobile menu */}
       <div id="mobile-menu" className={`fixed left-0 right-0 top-[96px] w-full max-w-full overflow-x-hidden z-40 ${menuOpen ? 'open' : ''}`} style={{ background: 'var(--bg-mid)', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {navLinks.map(({ href, label, scrollTop }, i) => (
+          {navLinks.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
               className="nav-link"
               style={{ fontSize: '1rem', padding: '8px 0', borderBottom: i < navLinks.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}
-              onClick={() => { closeMenu(); if (scrollTop) window.scrollTo({ top: 0 }) }}
+              onClick={closeMenu}
             >
               {label}
             </Link>
           ))}
-          {site.hasQuoteForm && (
-            <Link id="mobcta" href="/estimate" className="lg:hidden btn-orange w-full" style={{ textAlign: 'center', marginTop: '8px' }} onClick={closeMenu}>
-              Get an Estimate
-            </Link>
-          )}
+          <Link id="mobcta" href="/hire-staff/request-staff" className="lg:hidden btn-orange w-full" style={{ textAlign: 'center', marginTop: '8px' }} onClick={closeMenu}>
+            Request Staff
+          </Link>
         </div>
       </div>
     </nav>

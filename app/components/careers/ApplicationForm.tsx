@@ -78,8 +78,8 @@ function RadioOption({
       />
       <span style={{
         width: '16px', height: '16px', borderRadius: '50%', flexShrink: 0,
-        border: checked ? '2px solid #fd4f00' : '2px solid #9ca3af',
-        background: checked ? '#fd4f00' : 'transparent',
+        border: checked ? '2px solid #fcd415' : '2px solid #9ca3af',
+        background: checked ? '#fcd415' : 'transparent',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         {checked && <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#fff' }} />}
@@ -362,9 +362,9 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           <div style={fieldGroupStyle}>
             <label style={labelStyle}>Right to Work (NZ)</label>
             <SelectWrapper value={form.rightToWork} onChange={v => set('rightToWork', v)} error={errors.rightToWork} placeholder="Select one">
-              <option value="NZ Citizen / Resident (no work restrictions)" style={{ background: '#1F2D3D', color: '#fff' }}>NZ Citizen / Resident (no work restrictions)</option>
-              <option value="Valid Work Visa" style={{ background: '#1F2D3D', color: '#fff' }}>Valid Work Visa</option>
-              <option value="No current right to work in NZ" style={{ background: '#1F2D3D', color: '#fff' }}>No current right to work in NZ</option>
+              <option value="NZ Citizen / Resident (no work restrictions)" style={{ background: '#404044', color: '#fff' }}>NZ Citizen / Resident (no work restrictions)</option>
+              <option value="Valid Work Visa" style={{ background: '#404044', color: '#fff' }}>Valid Work Visa</option>
+              <option value="No current right to work in NZ" style={{ background: '#404044', color: '#fff' }}>No current right to work in NZ</option>
             </SelectWrapper>
             <FieldError msg={errors.rightToWork} />
           </div>
@@ -390,7 +390,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
             <label style={labelStyle}>Applying For</label>
             <SelectWrapper value={form.branch} onChange={v => set('branch', v)} error={errors.branch} placeholder="Select branch">
               {branchList.map(b => (
-                <option key={b.slug} value={b.name} style={{ background: '#1F2D3D', color: '#fff' }}>{b.name}</option>
+                <option key={b.slug} value={b.name} style={{ background: '#404044', color: '#fff' }}>{b.name}</option>
               ))}
             </SelectWrapper>
             <FieldError msg={errors.branch} />

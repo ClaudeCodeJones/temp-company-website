@@ -97,14 +97,14 @@ export default function ContactPageClient() {
     <section
       style={{
         position: 'relative',
-        background: '#070f1b',
+        background: '#252528',
         paddingTop: '180px',
         paddingBottom: '56px',
         overflow: 'hidden',
       }}
       aria-label="Contact hero"
     >
-      <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(242,101,34,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
+      <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
 
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
         <div className="reveal" style={{ marginBottom: '20px' }}>
@@ -184,12 +184,12 @@ export default function ContactPageClient() {
       <section style={{ background: 'var(--bg-dark)', padding: '36px 0 100px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
 
-          <div style={{ marginBottom: '32px', padding: '24px', background: 'rgba(242,101,34,0.06)', border: '1px solid rgba(242,101,34,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
-            <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff', marginBottom: '8px' }}>Looking for an Estimate?</p>
+          <div style={{ marginBottom: '32px', padding: '24px', background: 'rgba(252,212,21,0.06)', border: '1px solid rgba(252,212,21,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
+            <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff', marginBottom: '8px' }}>Looking for Staff?</p>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)', marginBottom: '14px' }}>
-              If you&apos;re looking for pricing for traffic management on a project or job, please use our{' '}
-              <a href="/estimate" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Get an Estimate</a>{' '}
-              page so we can gather the details needed to provide an accurate quote.
+              If you need temporary or contract workers, please use our{' '}
+              <a href="/hire-staff/request-staff" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Request Staff</a>{' '}
+              form so we can match you with the right people.
             </p>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)' }}>For general enquiries, feel free to use the form below.</p>
           </div>
@@ -252,7 +252,7 @@ export default function ContactPageClient() {
               <div style={fieldStyle}>
                 <label htmlFor="branch" style={labelStyle}>Branch</label>
                 <SelectWrapper id="branch" value={form.branch} onChange={v => set('branch', v)} error={errors.branch} placeholder="Select a branch">
-                  {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: '#0d1f33', color: '#fff' }}>{b.name}</option>)}
+                  {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: '#252528', color: '#fff' }}>{b.name}</option>)}
                 </SelectWrapper>
                 <FieldError msg={errors.branch} />
               </div>

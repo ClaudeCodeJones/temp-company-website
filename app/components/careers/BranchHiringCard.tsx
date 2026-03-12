@@ -37,7 +37,7 @@ export default function BranchHiringCard({ item }: { item: Branch }) {
         gap: '16px',
         transition: 'transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.28s ease',
       }}
-      className="hiring-card hover:-translate-y-1 hover:shadow-[0_14px_40px_rgba(242,101,34,0.14)]"
+      className="hiring-card hover:-translate-y-1 hover:shadow-[0_14px_40px_rgba(252,212,21,0.14)]"
     >
       {/* Header */}
       <div>
@@ -135,7 +135,7 @@ export default function BranchHiringCard({ item }: { item: Branch }) {
             {/* Mobile: text link */}
             <Link
               href={`/careers?branch=${item.slug}#apply`}
-              className="md:hidden inline-flex items-center gap-2 text-xs font-medium transition duration-200 hover:text-[#fd4f00]"
+              className="md:hidden inline-flex items-center gap-2 text-xs font-medium transition duration-200 hover:text-[#fcd415]"
               style={{ color: colors.text }}
             >
               Apply Now
@@ -144,7 +144,7 @@ export default function BranchHiringCard({ item }: { item: Branch }) {
             {/* Desktop: full-width pill */}
             <Link
               href={`/careers?branch=${item.slug}#apply`}
-              className="hidden md:inline-flex items-center justify-center gap-2 w-full rounded-full border bg-transparent px-8 text-xs font-medium transition duration-200 hover:text-[#fd4f00] hover:border-[#fd4f00]/60 active:scale-[0.98]"
+              className="hidden md:inline-flex items-center justify-center gap-2 w-full rounded-full border bg-transparent px-8 text-xs font-medium transition duration-200 hover:text-[#fcd415] hover:border-[#fcd415]/60 active:scale-[0.98]"
               style={{ paddingTop: '14px', paddingBottom: '14px', color: colors.text, borderColor: `${colors.text}40` }}
             >
               Apply Now

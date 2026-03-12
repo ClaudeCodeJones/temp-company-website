@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Technical Blueprint — Men at Work Traffic Management Website</title>
+<title>Technical Blueprint — The Temp Company Website</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
 
@@ -351,7 +351,7 @@
 <!-- COVER -->
 <div class="cover">
   <div class="cover-label">Technical Blueprint</div>
-  <h1>Men at Work Traffic Management<br>Website Architecture</h1>
+  <h1>The Temp Company<br>Website Architecture</h1>
   <p style="color:#5a6a7e;font-size:0.9rem;max-width:560px;margin-top:12px;">
     A comprehensive architectural reference documenting every system, pattern, and decision used in this website — produced to support conversion into a reusable contractor-business website template.
   </p>
@@ -744,21 +744,21 @@ min-width: 1024px  /* Desktop: header CTA visible, desktop nav */</pre>
 
   <h3>Metadata Architecture</h3>
   <pre>// Root layout (app/layout.tsx)
-metadataBase: new URL('https://www.menatwork.co.nz')
-title: 'Men at Work Traffic Management'
+metadataBase: new URL('https://www.thetempcompany.co.nz')
+title: 'The Temp Company'
 openGraph: { title, description, url, siteName, type: 'website' }
 twitter: { card: 'summary_large_image', title, description }
 
 // Each page overrides with its own export const metadata
-title: 'Traffic Management Christchurch | Men at Work'
+title: 'Labour Hire Christchurch | The Temp Company'
 description: '...'
-alternates: { canonical: '/traffic-management-christchurch' }</pre>
+alternates: { canonical: '/christchurch' }</pre>
 
   <h3>Page Title Structure</h3>
   <pre>{Keyword} | {Brand}
-Traffic Management Christchurch | Men at Work
-Contact Men at Work Traffic Management
-Privacy Policy | Men at Work Traffic Management</pre>
+Labour Hire Christchurch | The Temp Company
+Contact The Temp Company
+Privacy Policy | The Temp Company</pre>
 
   <h3>Sitemap (<code>app/sitemap.ts</code>)</h3>
   <p>Dynamic, returns 10 URLs. Homepage priority 1.0, all others 0.8. <code>changeFrequency: 'monthly'</code>, <code>lastModified: new Date()</code>.</p>
@@ -794,7 +794,7 @@ H3 — sub-items within sections</pre>
 
   <h3>Entity Clarity</h3>
   <ul>
-    <li>Company name stated consistently: "Men at Work Traffic Management" (formal) and "Men at Work" (conversational)</li>
+    <li>Company name stated consistently: "The Temp Company" (formal and conversational)</li>
     <li>Parent entity "MW Group" used correctly and consistently</li>
     <li>Location signals repeated across: city names in URLs, H1s, metadata, JSON-LD, body copy</li>
   </ul>
@@ -886,9 +886,9 @@ Secondary: Phone number</pre>
   <table>
     <thead><tr><th>Form</th><th>Recipient</th><th>Subject Pattern</th></tr></thead>
     <tbody>
-      <tr><td>Contact</td><td>office@menatwork.co.nz</td><td>Men at Work Website Enquiry - {Name} ({Branch})</td></tr>
-      <tr><td>Estimate</td><td>nathan.jones@menatwork.co.nz</td><td>Estimate Request - {ProjectName} ({CompanyName})</td></tr>
-      <tr><td>Application</td><td>nathan.jones@menatwork.co.nz</td><td>Job Application - {FullName} ({Branch}, {Experience})</td></tr>
+      <tr><td>Contact</td><td>info@thetempcompany.co.nz</td><td>The Temp Company Website Enquiry - {Name} ({Branch})</td></tr>
+      <tr><td>Estimate</td><td>info@thetempcompany.co.nz</td><td>Staff Request - {ProjectName} ({CompanyName})</td></tr>
+      <tr><td>Application</td><td>info@thetempcompany.co.nz</td><td>Job Application - {FullName} ({Branch}, {Experience})</td></tr>
     </tbody>
   </table>
 </section>
@@ -1142,19 +1142,19 @@ AUTOSEND_API_KEY=your_autosend_key_here</pre>
   <h3>Step 1 — Extract Brand Config File</h3>
   <p>Create <code>config/brand.ts</code>:</p>
   <pre>export const brand = {
-  name:        'COMPANY NAME',
-  shortName:   'SHORT NAME',
-  tagline:     'Your tagline here.',
-  domain:      'https://www.example.com',
-  phone:       '0800 000 000',
-  email:       'office@example.com',
-  emailFrom:   'website@example.com',
-  emailTo:     'contact@example.com',
+  name:        'The Temp Company',
+  shortName:   'Temp Company',
+  tagline:     'Temporary staff and labour hire for traffic management and civil projects',
+  domain:      'https://www.thetempcompany.co.nz',
+  phone:       '',
+  email:       'info@thetempcompany.co.nz',
+  emailFrom:   'website@thetempcompany.co.nz',
+  emailTo:     'info@thetempcompany.co.nz',
   social: {
-    facebook: 'https://facebook.com/yourpage',
-    linkedin: 'https://linkedin.com/company/yourcompany',
+    facebook: '',
+    linkedin: '',
   },
-  copyright: '2026 YOUR COMPANY. All rights reserved.',
+  copyright: '2026 The Temp Company. All rights reserved.',
 }</pre>
 
   <h3>Step 2 — Neutralise Brand Colours</h3>
@@ -1250,7 +1250,7 @@ AUTOSEND_API_KEY=your_autosend_key_here</pre>
 
   <hr>
   <p style="font-size:0.75rem;color:#94a3b8;text-align:center;margin-top:32px;">
-    Generated 2026-03-11 &nbsp;|&nbsp; Men at Work Traffic Management Website &nbsp;|&nbsp; Technical Blueprint v1.0
+    Generated 2026-03-11 &nbsp;|&nbsp; The Temp Company Website &nbsp;|&nbsp; Technical Blueprint v1.0
   </p>
 </section>
 

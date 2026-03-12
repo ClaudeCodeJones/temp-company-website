@@ -38,14 +38,14 @@ export default function Timeline() {
           background: #fff;
           border-radius: 2px;
           padding: 14px 18px;
-          box-shadow: 0 2px 8px rgba(13,27,42,0.08), 0 8px 24px rgba(13,27,42,0.06);
+          box-shadow: 0 2px 8px rgba(55,55,59,0.08), 0 8px 24px rgba(55,55,59,0.06);
           max-width: 360px;
           width: 100%;
           transition: transform 0.28s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.28s ease;
         }
         .tl-card:hover {
           transform: translateY(-3px);
-          box-shadow: 0 4px 16px rgba(13,27,42,0.12), 0 16px 40px rgba(242,101,34,0.1);
+          box-shadow: 0 4px 16px rgba(55,55,59,0.12), 0 16px 40px rgba(252,212,21,0.1);
         }
         .tl-card-year {
           display: block;

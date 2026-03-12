@@ -75,7 +75,7 @@ export default function LocationsMap() {
       }}
     >
       {/* Map column */}
-      <div style={{ flex: '1 1 340px', minWidth: 0, maxWidth: '500px', background: 'radial-gradient(circle at center, rgba(242,101,34,0.08) 0%, rgba(242,101,34,0.03) 40%, transparent 70%)', borderRadius: '12px' }}>
+      <div style={{ flex: '1 1 340px', minWidth: 0, maxWidth: '500px', background: 'radial-gradient(circle at center, rgba(252,212,21,0.08) 0%, rgba(252,212,21,0.03) 40%, transparent 70%)', borderRadius: '12px' }}>
         <svg
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           className="block w-full h-auto"
@@ -110,7 +110,7 @@ export default function LocationsMap() {
               {/* Glow halo */}
               <circle
                 r={34}
-                fill="#fd4f00"
+                fill="#fcd415"
                 opacity={
                   activeBranch?.name === location.name
                     ? 0.14
@@ -122,7 +122,7 @@ export default function LocationsMap() {
               <circle
                 r={16}
                 fill="none"
-                stroke="#fd4f00"
+                stroke="#fcd415"
                 strokeWidth={
                   activeBranch?.name === location.name
                     ? 4
@@ -131,7 +131,7 @@ export default function LocationsMap() {
               />
 
               {/* Core dot */}
-              <circle r={7} fill="#fd4f00" />
+              <circle r={7} fill="#fcd415" />
             </g>
           ))}
         </svg>

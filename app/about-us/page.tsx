@@ -60,14 +60,14 @@ export default function AboutUsPage() {
       <section
         style={{
           position: 'relative',
-          background: '#070f1b',
+          background: '#252528',
           paddingTop: '180px',
           paddingBottom: '80px',
           overflow: 'hidden',
         }}
         aria-label="About Us hero"
       >
-        <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(242,101,34,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
+        <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
 
 
         <div style={{ position: 'relative', zIndex: 10, maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
@@ -128,12 +128,12 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── TIMELINE ── */}
-      <section style={{ background: 'var(--off-white)', borderTop: '1px solid rgba(13,27,42,0.06)', borderBottom: '1px solid rgba(13,27,42,0.06)' }} aria-label="Company history">
+      <section style={{ background: 'var(--off-white)', borderTop: '1px solid rgba(55,55,59,0.06)', borderBottom: '1px solid rgba(55,55,59,0.06)' }} aria-label="Company history">
         <Timeline />
       </section>
 
       {/* ── LOCATIONS ── */}
-      <section style={{ background: '#0A1623', padding: '80px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Our locations">
+      <section style={{ background: '#252528', padding: '80px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Our locations">
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
           <div style={{ marginBottom: '40px' }}>
@@ -157,7 +157,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── LEADERSHIP ── */}
-      <section style={{ background: 'var(--off-white)', padding: '100px 0', borderTop: '1px solid rgba(13,27,42,0.06)' }} aria-label="Leadership team">
+      <section style={{ background: 'var(--off-white)', padding: '100px 0', borderTop: '1px solid rgba(55,55,59,0.06)' }} aria-label="Leadership team">
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
           <div style={{ marginBottom: '60px' }}>
@@ -175,12 +175,12 @@ export default function AboutUsPage() {
 
           {/* Row 1 — Senior Leadership */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" style={{ marginBottom: '16px' }}>
-            <div style={{ background: 'rgba(242,101,34,0.04)', border: '1px solid rgba(226,226,226,0.9)', borderLeft: '4px solid var(--brand-primary)', borderRadius: '2px', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '24px 20px', boxShadow: 'inset 4px 0 12px rgba(242,101,34,0.06)' }}>
+            <div style={{ background: 'rgba(252,212,21,0.04)', border: '1px solid rgba(226,226,226,0.9)', borderLeft: '4px solid var(--brand-primary)', borderRadius: '2px', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '24px 20px', boxShadow: 'inset 4px 0 12px rgba(252,212,21,0.06)' }}>
               <p className="font-display" style={{ fontWeight: 700, fontSize: '1.125rem', color: 'var(--bg-dark)', lineHeight: 1.3, marginBottom: '8px' }}>Senior Leadership Team</p>
               <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>Executive leadership of the group</p>
             </div>
             {seniorTeam.map(({ name, title, titleShort, region, photo }, i) => (
-              <div key={name} className={`team-card reveal d${i + 1}`} style={{ background: '#fff', border: '1px solid rgba(242,101,34,0.2)', borderRadius: '2px', overflow: 'hidden' }}>
+              <div key={name} className={`team-card reveal d${i + 1}`} style={{ background: '#fff', border: '1px solid rgba(252,212,21,0.2)', borderRadius: '2px', overflow: 'hidden' }}>
                 <div className="leadership-img-wrap" style={{ position: 'relative', width: '100%', aspectRatio: '1', background: 'var(--text-light)', borderBottom: '2px solid var(--brand-primary)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {photo ? (
                     <Image src={photo} alt={name} fill style={{ objectFit: 'cover', objectPosition: 'center top' }} sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 260px" />
@@ -201,12 +201,12 @@ export default function AboutUsPage() {
 
           {/* Row 2 — Leadership Team */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <div style={{ background: 'rgba(242,101,34,0.04)', border: '1px solid rgba(226,226,226,0.9)', borderLeft: '4px solid var(--brand-primary)', borderRadius: '2px', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '24px 20px', boxShadow: 'inset 4px 0 12px rgba(242,101,34,0.06)' }}>
+            <div style={{ background: 'rgba(252,212,21,0.04)', border: '1px solid rgba(226,226,226,0.9)', borderLeft: '4px solid var(--brand-primary)', borderRadius: '2px', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '24px 20px', boxShadow: 'inset 4px 0 12px rgba(252,212,21,0.06)' }}>
               <p className="font-display" style={{ fontWeight: 700, fontSize: '1.125rem', color: 'var(--bg-dark)', lineHeight: 1.3, marginBottom: '8px' }}>Leadership Team</p>
               <p style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>Regional and operational management across branches</p>
             </div>
             {leadershipTeam.map(({ name, title, titleShort, region, photo }, i) => (
-              <div key={name} className={`team-card reveal d${i + 1}`} style={{ background: '#fff', border: '1px solid rgba(242,101,34,0.2)', borderRadius: '2px', overflow: 'hidden' }}>
+              <div key={name} className={`team-card reveal d${i + 1}`} style={{ background: '#fff', border: '1px solid rgba(252,212,21,0.2)', borderRadius: '2px', overflow: 'hidden' }}>
                 <div className="leadership-img-wrap" style={{ position: 'relative', width: '100%', aspectRatio: '1', background: 'var(--text-light)', borderBottom: '2px solid var(--brand-primary)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {photo ? (
                     <Image src={photo} alt={name} fill style={{ objectFit: 'cover', objectPosition: 'center top' }} sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1280px) 33vw, 260px" />
@@ -229,7 +229,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── MORE THAN TRAFFIC ── */}
-      <section style={{ background: '#0A1623', padding: '100px 0' }} aria-label="Group services">
+      <section style={{ background: '#252528', padding: '100px 0' }} aria-label="Group services">
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
           <div style={{ marginBottom: '80px' }}>

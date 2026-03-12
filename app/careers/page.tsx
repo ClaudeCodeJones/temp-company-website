@@ -58,14 +58,14 @@ export default function CareersPage() {
       <section
         style={{
           position: 'relative',
-          background: '#070f1b',
+          background: '#252528',
           paddingTop: '180px',
           paddingBottom: '100px',
           overflow: 'hidden',
         }}
         aria-label="Careers hero"
       >
-        <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(242,101,34,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
+        <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
 
 
         <div style={{ position: 'relative', zIndex: 10, maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
@@ -191,7 +191,7 @@ export default function CareersPage() {
             <div className="benefits-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '28px 40px' }}>
               {benefits.map(({ icon: Icon, title, body }, i) => (
                 <div key={title} className={`reveal d${(i % 3) + 1}`} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(242,101,34,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: 'rgba(252,212,21,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Icon size={20} color="var(--brand-primary)" strokeWidth={2} aria-hidden="true" />
                   </div>
                   <div>
@@ -245,7 +245,7 @@ export default function CareersPage() {
             </p>
           </div>
 
-          <div style={{ marginBottom: '32px', padding: '24px', background: 'rgba(242,101,34,0.06)', border: '1px solid rgba(242,101,34,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
+          <div style={{ marginBottom: '32px', padding: '24px', background: 'rgba(252,212,21,0.06)', border: '1px solid rgba(252,212,21,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
             <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff', marginBottom: '8px' }}>
               Casual Roles
             </p>

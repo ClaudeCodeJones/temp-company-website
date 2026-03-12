@@ -41,7 +41,7 @@ export default function CareerPath() {
         }
         .career-path-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 12px 32px rgba(242,101,34,0.22), 0 32px 64px rgba(0,0,0,0.45);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 12px 32px rgba(252,212,21,0.22), 0 32px 64px rgba(0,0,0,0.45);
         }
         .cp-card-content { padding-bottom: 6px; }
         .cp-connector { display: none; }
