@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node screenshot.mjs http://localhost:3000 hero)",
+      "Bash(node --version)",
+      "Bash(npm --version)",
+      "Bash(npm init -y)",
+      "Bash(npm install puppeteer)",
+      "Bash(node screenshot.mjs http://localhost:3000 v1)",
+      "Bash(node screenshot.mjs http://localhost:3000 v2)",
+      "Bash(node screenshot.mjs http://localhost:3000 v3)",
+      "Bash(node screenshot.mjs http://localhost:3000 mobile mobile)",
+      "Bash(node screenshot.mjs http://localhost:3000 final)",
+      "Bash(node screenshot.mjs http://localhost:3000 fonts-desktop)",
+      "Bash(node screenshot.mjs http://localhost:3000 fonts-mobile mobile)",
+      "Bash(node screenshot.mjs http://localhost:3000 shapes-desktop)",
+      "Bash(node screenshot.mjs http://localhost:3000 shapes-v2)",
+      "Bash(node screenshot.mjs http://localhost:3000 shapes-v3)",
+      "Bash(winget --version)"
+    ]
+  }
+}

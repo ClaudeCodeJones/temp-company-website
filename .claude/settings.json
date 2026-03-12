@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(winget install --id GitHub.cli --silent)",
+      "Bash(winget install --id GitHub.cli --accept-source-agreements --accept-package-agreements)",
+      "Bash(node screenshot.mjs http://localhost:3000 hero-r1)",
+      "Bash(node screenshot.mjs http://localhost:3000 hero-r1-mobile mobile)",
+      "Bash(node screenshot.mjs http://localhost:3000 hero-r2)",
+      "Bash(node screenshot.mjs http://localhost:3000 hero-r2-mobile mobile)",
+      "Bash(node screenshot.mjs http://localhost:3000 hero-r3)",
+      "Bash(node screenshot.mjs http://localhost:3000 hero-r4)",
+      "Bash(node screenshot.mjs http://localhost:3000 hero-r4-mob mobile)",
+      "Bash(node screenshot.mjs http://localhost:3000 night-hero)",
+      "Bash(node screenshot.mjs http://localhost:3000 night-hero mobile)",
+      "Bash(node screenshot.mjs http://localhost:3000 night-hero-v2)",
+      "Bash(node screenshot.mjs http://localhost:3000 night-hero-v2 mobile)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=no --import-alias=\"@/*\" --yes)",
+      "Bash(npm install next@latest react@latest react-dom@latest typescript @types/node @types/react @types/react-dom)",
+      "Bash(npm install -D tailwindcss postcss autoprefixer eslint eslint-config-next)",
+      "Bash(node -e \"const p = require\\(''./node_modules/next/package.json''\\); console.log\\(''next:'', p.version\\)\")",
+      "Bash(node -e \"const p = require\\(''./node_modules/tailwindcss/package.json''\\); console.log\\(''tailwindcss:'', p.version\\)\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(node screenshot.mjs http://localhost:3000 nextjs-home)",
+      "Bash(node screenshot.mjs http://localhost:3000/about-us nextjs-about)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill /PID 20708 /F)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\NathanJones\\OneDrive - Men at Work\\Claude Code\\Websites\\app"
+    ]
+  }
+}

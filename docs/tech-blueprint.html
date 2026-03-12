@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Blueprint — Men at Work Traffic Management Website</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
+
+  :root {
+    --orange: #fd4f00;
+    --navy:   #0D1B2A;
+    --ink:    #1a2332;
+    --muted:  #5a6a7e;
+    --rule:   #e2e8f0;
+    --code-bg: #f1f5f9;
+    --code-border: #cbd5e1;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.75;
+    color: #1e293b;
+    background: #fff;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    border-top: 6px solid var(--orange);
+    padding: 48px 0 40px;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cover-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+  .cover h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .cover-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin-top: 20px;
+  }
+  .cover-meta span {
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cover-meta span::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: #f8fafc;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--orange);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 56px;
+    page-break-after: always;
+  }
+  .toc h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+  .toc ol {
+    columns: 2;
+    column-gap: 40px;
+    list-style: none;
+    counter-reset: toc-counter;
+  }
+  .toc li {
+    counter-increment: toc-counter;
+    margin-bottom: 7px;
+    break-inside: avoid;
+  }
+  .toc a {
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.82rem;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .toc a::before {
+    content: counter(toc-counter, decimal-leading-zero);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--orange);
+    min-width: 22px;
+  }
+  .toc a:hover { color: var(--orange); }
+
+  /* ── SECTIONS ── */
+  section {
+    margin-bottom: 60px;
+    page-break-inside: avoid;
+  }
+
+  .section-number {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  h2.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 4px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--rule);
+  }
+  h2.section-title::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: var(--orange);
+    margin-top: 6px;
+  }
+
+  h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 28px 0 10px;
+  }
+
+  h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin: 20px 0 8px;
+  }
+
+  p { margin-bottom: 12px; color: #374151; font-size: 0.88rem; }
+
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+  li {
+    font-size: 0.88rem;
+    color: #374151;
+    margin-bottom: 4px;
+    line-height: 1.6;
+  }
+
+  /* ── CODE ── */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-left: 3px solid var(--orange);
+    border-radius: 3px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+    font-size: 0.75rem;
+    line-height: 1.65;
+    margin-bottom: 14px;
+    color: #1e293b;
+  }
+  code {
+    font-family: 'Menlo', 'Monaco', 'Consolas', monospace;
+    font-size: 0.8em;
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    padding: 1px 5px;
+    border-radius: 2px;
+    color: #1e293b;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.75rem;
+  }
+
+  /* ── TABLES ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 0.82rem;
+  }
+  th {
+    background: var(--navy);
+    color: #fff;
+    text-align: left;
+    padding: 9px 14px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+  td {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--rule);
+    color: #374151;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  /* Classification pills */
+  td:last-child { font-size: 0.75rem; }
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .pill-ready    { background: #dcfce7; color: #166534; }
+  .pill-specific { background: #fee2e2; color: #991b1b; }
+  .pill-config   { background: #fef3c7; color: #92400e; }
+  .pill-placeholder { background: #dbeafe; color: #1e40af; }
+
+  /* ── INFO BOXES ── */
+  .info-box {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-left: 4px solid var(--orange);
+    border-radius: 3px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 0.82rem;
+    color: #92400e;
+  }
+  .score-box {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .score-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .score-label { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+
+  /* ── TREE ── */
+  .file-tree {
+    background: #0f172a;
+    color: #94a3b8;
+    border-radius: 4px;
+    padding: 18px 20px;
+    font-family: 'Menlo', monospace;
+    font-size: 0.73rem;
+    line-height: 1.8;
+    margin-bottom: 14px;
+    overflow-x: auto;
+  }
+  .file-tree .dir  { color: #7dd3fc; }
+  .file-tree .file { color: #94a3b8; }
+  .file-tree .comment { color: #475569; font-style: italic; }
+  .file-tree .orange { color: #fb923c; }
+
+  /* ── TWO-COL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { padding: 20px 30px; font-size: 11px; max-width: 100%; }
+    .cover { page-break-after: always; }
+    .toc   { page-break-after: always; }
+    section { page-break-inside: avoid; }
+    h2.section-title { page-break-after: avoid; }
+    h3 { page-break-after: avoid; }
+    pre { page-break-inside: avoid; }
+    table { page-break-inside: avoid; }
+    a { text-decoration: none; color: inherit; }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 32px 0;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .tag-client  { background: #dbeafe; color: #1e40af; }
+  .tag-server  { background: #dcfce7; color: #166534; }
+  .tag-hybrid  { background: #f3e8ff; color: #6b21a8; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-label">Technical Blueprint</div>
+  <h1>Men at Work Traffic Management<br>Website Architecture</h1>
+  <p style="color:#5a6a7e;font-size:0.9rem;max-width:560px;margin-top:12px;">
+    A comprehensive architectural reference documenting every system, pattern, and decision used in this website — produced to support conversion into a reusable contractor-business website template.
+  </p>
+  <div class="cover-meta">
+    <span>Audit Date: 2026-03-11</span>
+    <span>Framework: Next.js 16.1.6 App Router</span>
+    <span>React 19 / TypeScript 5.9 / Tailwind CSS v4</span>
+    <span>18 sections</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Project Architecture</a></li>
+    <li><a href="#s2">Page Structure</a></li>
+    <li><a href="#s3">Component Library</a></li>
+    <li><a href="#s4">Design System &amp; Styling</a></li>
+    <li><a href="#s5">Brand Implementation</a></li>
+    <li><a href="#s6">SEO Implementation</a></li>
+    <li><a href="#s7">GEO / AI Discoverability</a></li>
+    <li><a href="#s8">Content Structure</a></li>
+    <li><a href="#s9">Forms &amp; Lead Capture</a></li>
+    <li><a href="#s10">Security Implementation</a></li>
+    <li><a href="#s11">Performance Optimisation</a></li>
+    <li><a href="#s12">Accessibility</a></li>
+    <li><a href="#s13">Public Assets</a></li>
+    <li><a href="#s14">Deployment Workflow</a></li>
+    <li><a href="#s15">Environment Variables</a></li>
+    <li><a href="#s16">Template Readiness Analysis</a></li>
+    <li><a href="#s17">Template Conversion Plan</a></li>
+    <li><a href="#s18">Final Summary</a></li>
+  </ol>
+</div>
+
+<!-- SECTION 1 -->
+<section id="s1">
+  <span class="section-number">Section 01</span>
+  <h2 class="section-title">Project Architecture</h2>
+
+  <h3>Root Folder Structure</h3>
+  <div class="file-tree">
+<span class="dir">maw-website/</span>
+├── <span class="dir">app/</span>              <span class="comment"># Next.js App Router — all pages, components, API routes</span>
+├── <span class="dir">public/</span>           <span class="comment"># Static assets (images, SVGs, favicons, PDFs)</span>
+├── <span class="dir">brand_assets/</span>     <span class="comment"># Brand guidelines and master logo files</span>
+├── <span class="dir">data/</span>             <span class="comment"># Structured data files (hiring status)</span>
+├── <span class="dir">lib/</span>              <span class="comment"># Shared server utilities (email sending, templates)</span>
+├── <span class="file">next.config.ts</span>    <span class="comment"># Minimal Next.js config (defaults only)</span>
+├── <span class="file">postcss.config.js</span> <span class="comment"># Tailwind v4 PostCSS plugin</span>
+├── <span class="file">tsconfig.json</span>     <span class="comment"># TypeScript strict mode, ES2017, @/* path alias</span>
+└── <span class="file">package.json</span>      <span class="comment"># Dependencies: Next.js, React 19, Turnstile, Lucide</span>
+  </div>
+
+  <h3>App Directory</h3>
+  <div class="file-tree">
+<span class="dir">app/</span>
+├── <span class="orange">layout.tsx</span>                       <span class="comment"># Root layout: Navbar + Footer, global metadata, fonts</span>
+├── <span class="orange">page.tsx</span>                         <span class="comment"># Home page (server component)</span>
+├── <span class="orange">globals.css</span>                      <span class="comment"># All brand tokens, utility classes, animations</span>
+├── <span class="file">robots.ts</span>                        <span class="comment"># Dynamic robots.txt (disallows /api/*)</span>
+├── <span class="file">sitemap.ts</span>                       <span class="comment"># Dynamic sitemap (10 real URLs)</span>
+│
+├── <span class="dir">components/</span>                      <span class="comment"># Global reusable components</span>
+│   ├── <span class="file">Navbar.tsx</span>                   <span class="comment"># Fixed nav bar (client)</span>
+│   ├── <span class="file">Footer.tsx</span>                   <span class="comment"># Site footer, 4-col grid (client)</span>
+│   ├── <span class="file">RevealObserver.tsx</span>           <span class="comment"># Scroll-reveal IntersectionObserver (client)</span>
+│   ├── <span class="file">WorksiteBanner.tsx</span>           <span class="comment"># Parallax image divider (client)</span>
+│   ├── <span class="file">SelectWrapper.tsx</span>            <span class="comment"># Accessible custom dropdown (client)</span>
+│   ├── <span class="file">LocationPage.tsx</span>             <span class="comment"># Reusable location page template (server)</span>
+│   ├── <span class="file">BranchCard.tsx</span>               <span class="comment"># Branch popup card (client)</span>
+│   ├── <span class="file">LocationsMap.tsx</span>             <span class="comment"># SVG NZ map with interactive pins (client)</span>
+│   ├── <span class="dir">about/</span>
+│   │   └── <span class="file">Timeline.tsx</span>             <span class="comment"># Company milestone timeline (server)</span>
+│   ├── <span class="dir">careers/</span>
+│   │   ├── <span class="file">ApplicationForm.tsx</span>      <span class="comment"># 2-step job application form (client)</span>
+│   │   ├── <span class="file">ApplicationSection.tsx</span>   <span class="comment"># Application wrapper with copy (client)</span>
+│   │   ├── <span class="file">BranchHiringCard.tsx</span>     <span class="comment"># Branch hiring status card (server)</span>
+│   │   └── <span class="file">CareerPath.tsx</span>           <span class="comment"># Role progression visualisation (server)</span>
+│   └── <span class="dir">home/</span>
+│       └── <span class="file">FaqSection.tsx</span>           <span class="comment"># FAQ with FAQPage JSON-LD (server)</span>
+│
+├── <span class="dir">about-us/</span>            about-us/page.tsx
+├── <span class="dir">careers/</span>             careers/page.tsx
+├── <span class="dir">contact/</span>             page.tsx + ContactPageClient.tsx
+├── <span class="dir">estimate/</span>            page.tsx + RequestQuotePageClient.tsx
+├── <span class="dir">privacy/</span>             page.tsx
+├── <span class="dir">terms/</span>               page.tsx
+├── <span class="dir">traffic-management-{city}/</span>    <span class="comment"># ×5 location pages</span>
+│
+└── <span class="dir">api/</span>
+    ├── <span class="dir">contact/</span>route.ts
+    ├── <span class="dir">request-quote/</span>route.ts
+    └── <span class="dir">careers-application/</span>route.ts
+  </div>
+
+  <h3>Page Composition Pattern</h3>
+  <p>All pages follow a consistent server/client split:</p>
+  <ul>
+    <li><strong>Server component</strong> (<code>page.tsx</code>): Exports static <code>metadata</code>, renders layout shell or delegates to a client component.</li>
+    <li><strong>Client components</strong>: Handle all interactivity — forms, menus, animations, maps.</li>
+    <li><strong>RevealObserver</strong> is placed once per page to power scroll animations across all <code>.reveal</code> elements.</li>
+  </ul>
+
+  <h3>Data Flow</h3>
+  <pre>data/hiringStatus.ts  →  careers/page.tsx  →  BranchHiringCard + ApplicationForm
+lib/email.ts          →  all api/*/route.ts routes
+lib/emailTemplate.ts  →  all api/*/route.ts routes</pre>
+</section>
+
+<!-- SECTION 2 -->
+<section id="s2">
+  <span class="section-number">Section 02</span>
+  <h2 class="section-title">Page Structure</h2>
+
+  <h3>Home (<code>/</code>) <span class="tag tag-server">Server</span></h3>
+  <ol>
+    <li>Hero — Full-viewport background image, large H1, orange accent lines, CTA</li>
+    <li>Services — 4-card grid (Roadworks, Events, TMP Design, Training) with CSS background images</li>
+    <li>Why Choose Us — 2-col grid: credibility copy + 9 stat boxes</li>
+    <li>Worksite Banner — Full-width parallax image divider</li>
+    <li>How It Works — 4-step numbered process flow with connector line</li>
+    <li>CTA Section — Orange stripe-patterned section with phone + estimate CTAs</li>
+    <li>FAQ Section — 6 Q&amp;A pairs with FAQPage JSON-LD schema</li>
+  </ol>
+
+  <h3>About Us (<code>/about-us</code>) <span class="tag tag-server">Server</span></h3>
+  <ol>
+    <li>Hero — Eyebrow + H1 + intro paragraph</li>
+    <li>Our Beginnings — 2-col: origin story + founders SVG</li>
+    <li>Timeline — 9 company milestones (2008–2025), alternating desktop layout</li>
+    <li>Locations — Interactive SVG NZ map with 5 clickable branch pins</li>
+    <li>Leadership Grid — 8 team members in 4-col responsive grid with photos</li>
+    <li>MW Group — 2×2 card grid: 4 group entities with logos and external links</li>
+    <li>CTA — Full-width orange stripe CTA</li>
+  </ol>
+
+  <h3>Careers (<code>/careers</code>) <span class="tag tag-server">Server</span></h3>
+  <ol>
+    <li>Hero — Large H1 + intro + two CTA buttons</li>
+    <li>Before You Apply — 4 requirements (Right to Work, Drug Test, Licence, Criminal Check)</li>
+    <li>Why Work With Us — 6 benefit cards in 2-col grid with Lucide icons</li>
+    <li>Career Path — 6 roles in 2-row visual progression (TTM Worker → Manager)</li>
+    <li>Current Openings — Branch hiring cards sorted: hiring → limited → closed</li>
+    <li>Application Form — Full 2-step form wrapped in ApplicationSection</li>
+  </ol>
+  <p><strong>Data-driven:</strong> Branch hiring cards populated from <code>data/hiringStatus.ts</code>.</p>
+
+  <h3>Contact (<code>/contact</code>) <span class="tag tag-hybrid">Hybrid</span></h3>
+  <ol>
+    <li>Hero — Heading + phone/email contact alternatives</li>
+    <li>Estimate Info Box — Orange-tinted callout linking to <code>/estimate</code></li>
+    <li>Contact Form — Name, Email, Phone, Branch, Message + Turnstile</li>
+  </ol>
+
+  <h3>Estimate (<code>/estimate</code>) <span class="tag tag-hybrid">Hybrid</span></h3>
+  <p>2-Step form:</p>
+  <ul>
+    <li><strong>Step 1 — Client Details:</strong> name, company, title, phone, email, branch, account status</li>
+    <li><strong>Step 2 — Project Details:</strong> project name/timing/location, plant, work times, site type, TMP needs, cost type, meeting preferences, optional file upload (5 MB max, DOCX/JPEG/PDF/PNG)</li>
+  </ul>
+  <p><strong>Special:</strong> Wellington-only "Lump Sum" cost type. Multiple conditional fields.</p>
+
+  <h3>Location Pages ×5 <span class="tag tag-server">Server</span></h3>
+  <p>Wellington, Christchurch, Nelson, Blenheim, Timaru — all use the shared <code>LocationPage</code> component with city-specific props. Each page exports its own <code>metadata</code> and LocalBusiness JSON-LD.</p>
+  <p><strong>Sections:</strong> Hero → Services list → Coverage Area → Why Choose Us → CTA</p>
+
+  <h3>Privacy (<code>/privacy</code>) &amp; Terms (<code>/terms</code>) <span class="tag tag-server">Server</span></h3>
+  <p>Dark hero + orange-rule content blocks in a 760px column. 7 privacy sections / 8 terms sections. Last updated March 2026.</p>
+</section>
+
+<!-- SECTION 3 -->
+<section id="s3">
+  <span class="section-number">Section 03</span>
+  <h2 class="section-title">Component Library</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Type</th>
+        <th>Props</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Navbar.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>None</td>
+        <td>Fixed nav, scroll blur, mobile menu, active link detection</td>
+      </tr>
+      <tr>
+        <td><code>Footer.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>None</td>
+        <td>4-col grid: logo/social, services, branches, contact</td>
+      </tr>
+      <tr>
+        <td><code>RevealObserver.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>None</td>
+        <td>Zero-height IntersectionObserver; adds <code>.visible</code> to <code>.reveal</code> elements</td>
+      </tr>
+      <tr>
+        <td><code>WorksiteBanner.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>None</td>
+        <td>Full-width parallax image divider (disabled on mobile)</td>
+      </tr>
+      <tr>
+        <td><code>SelectWrapper.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>id, value, onChange, error, placeholder, children</td>
+        <td>Custom dropdown with keyboard nav; native select on mobile</td>
+      </tr>
+      <tr>
+        <td><code>LocationPage.tsx</code></td>
+        <td><span class="tag tag-server">Server</span></td>
+        <td>city, region, coverage[]</td>
+        <td>Generates complete 5-section location page + LocalBusiness JSON-LD</td>
+      </tr>
+      <tr>
+        <td><code>BranchCard.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>branch, onClose, hiringStatus?</td>
+        <td>Branch popup: name, address, areas, manager, CTA</td>
+      </tr>
+      <tr>
+        <td><code>LocationsMap.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>None</td>
+        <td>SVG NZ map with 5 hardcoded pin coordinates; toggles BranchCard</td>
+      </tr>
+      <tr>
+        <td><code>Timeline.tsx</code></td>
+        <td><span class="tag tag-server">Server</span></td>
+        <td>None</td>
+        <td>9 company milestones (2008–2025), alternating left-right layout</td>
+      </tr>
+      <tr>
+        <td><code>CareerPath.tsx</code></td>
+        <td><span class="tag tag-server">Server</span></td>
+        <td>None</td>
+        <td>6 career roles with image backgrounds, glassmorphism, connectors</td>
+      </tr>
+      <tr>
+        <td><code>BranchHiringCard.tsx</code></td>
+        <td><span class="tag tag-server">Server</span></td>
+        <td>branch: BranchHiring</td>
+        <td>Branch status badge (hiring/limited/closed), roles list, apply link</td>
+      </tr>
+      <tr>
+        <td><code>ApplicationSection.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>None</td>
+        <td>Wraps ApplicationForm in Suspense; manages success state</td>
+      </tr>
+      <tr>
+        <td><code>ApplicationForm.tsx</code></td>
+        <td><span class="tag tag-client">Client</span></td>
+        <td>None (reads ?branch= URL param)</td>
+        <td>2-step job application: Personal → Experience; posts to API</td>
+      </tr>
+      <tr>
+        <td><code>FaqSection.tsx</code></td>
+        <td><span class="tag tag-server">Server</span></td>
+        <td>None</td>
+        <td>6 hardcoded FAQs with FAQPage JSON-LD schema injection</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SECTION 4 -->
+<section id="s4">
+  <span class="section-number">Section 04</span>
+  <h2 class="section-title">Design System &amp; Styling</h2>
+
+  <h3>CSS Architecture</h3>
+  <p>The project uses a <strong>hybrid styling approach</strong>:</p>
+  <ul>
+    <li><code>globals.css</code> — all brand tokens, component styles, animation classes, responsive rules</li>
+    <li>Tailwind CSS v4 via <code>@tailwindcss/postcss</code> — utility classes for layout and spacing</li>
+    <li>Inline <code>style={}</code> props — used heavily for precise one-off values</li>
+    <li>No <code>tailwind.config.js</code> (Tailwind v4 uses a config-free approach)</li>
+  </ul>
+
+  <h3>Brand Colour Tokens</h3>
+  <pre>--orange:       #fd4f00   /* Primary CTA, accents, icons */
+--orange-dark:  #CC5015   /* Hover state */
+--orange-glow:  rgba(242, 101, 34, 0.25)  /* Shadow glow */
+--navy:         #0D1B2A   /* Page background */
+--navy-mid:     #162435   /* Card/form backgrounds */
+--charcoal:     #1F2D3D   /* Secondary card backgrounds */
+--slate:        #2A3D52   /* Tertiary backgrounds */
+--muted:        #7A8FA3   /* Secondary/body text */
+--light:        #C5D0DC   /* Lighter body text */
+--off-white:    #F2EFE9   /* Light section backgrounds */</pre>
+
+  <h3>Typography</h3>
+  <p><strong>Fonts:</strong> Inter (body, 400/500/600) + Poppins (display, 600/700) loaded via Google Fonts with <code>rel="preconnect"</code>.</p>
+  <table>
+    <thead><tr><th>Element</th><th>Size</th><th>Font</th><th>Weight</th><th>Tracking</th></tr></thead>
+    <tbody>
+      <tr><td>H1 hero</td><td>clamp(3rem, 6vw, 5.5rem)</td><td>Poppins</td><td>700</td><td>-0.03em</td></tr>
+      <tr><td>H1 page</td><td>clamp(2.4rem, 5vw, 4.5rem)</td><td>Poppins</td><td>700</td><td>-0.03em</td></tr>
+      <tr><td>H2 section</td><td>clamp(1.8rem, 3.5vw, 2.8rem)</td><td>Poppins</td><td>700</td><td>-0.02em</td></tr>
+      <tr><td>Body</td><td>1rem</td><td>Inter</td><td>400</td><td>—</td></tr>
+      <tr><td>Eyebrow</td><td>0.7rem</td><td>Inter</td><td>700</td><td>0.18em uppercase</td></tr>
+      <tr><td>Small labels</td><td>0.625rem</td><td>Inter</td><td>700</td><td>0.12em uppercase</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Button System</h3>
+  <table>
+    <thead><tr><th>Class</th><th>Style</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td><code>.btn-orange</code></td><td>Orange bg, white text, hover: lift + shadow</td><td>Primary CTAs</td></tr>
+      <tr><td><code>.btn-ghost</code></td><td>Transparent, orange border, hover: orange fill</td><td>Secondary CTAs</td></tr>
+      <tr><td><code>.btn-white</code></td><td>White bg, orange text, hover: lift</td><td>CTA on dark sections</td></tr>
+      <tr><td><code>.btn-outline-white</code></td><td>Transparent, white border, white text</td><td>Tertiary CTAs</td></tr>
+    </tbody>
+  </table>
+  <p>All buttons: <code>border-radius: 2px</code>, icons via Lucide React.</p>
+
+  <h3>Dark / Light Section Pattern</h3>
+  <table>
+    <thead><tr><th>Section Type</th><th>Background</th><th>Text</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td>Page background</td><td>#0D1B2A (--navy)</td><td>white / --muted</td><td>Most sections</td></tr>
+      <tr><td>Hero</td><td>#070f1b</td><td>white</td><td>All page heroes</td></tr>
+      <tr><td>Cards</td><td>#162435 (--navy-mid)</td><td>white / --muted</td><td>Form containers, FAQ</td></tr>
+      <tr><td>Light section</td><td>#F2EFE9 (--off-white)</td><td>--navy</td><td>Services grid</td></tr>
+      <tr><td>CTA section</td><td>#fd4f00 (--orange)</td><td>white</td><td>CTA bands</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Responsive Breakpoints</h3>
+  <pre>max-width: 560px   /* Mobile bottom sheet for branch popup */
+max-width: 640px   /* Single-column grids */
+max-width: 768px   /* Tablet layout, merge 2-col grids */
+max-width: 900px   /* Collapsed hero panel, wider grid merges */
+min-width: 1024px  /* Desktop: header CTA visible, desktop nav */</pre>
+
+  <h3>Grid Systems</h3>
+  <pre>.two-col-grid     /* 2-col (1fr mobile), gap: 80px */
+.services-grid    /* 1 → 2 → 4 col responsive */
+.footer-top-grid  /* 2fr 1fr 1fr 1fr (stacks on mobile) */
+.career-path-grid /* 1 → 2 → 3 col */
+.benefits-grid    /* 2-col on desktop */
+.group-grid       /* 2×2 grid, 20px gap */</pre>
+</section>
+
+<!-- SECTION 5 -->
+<section id="s5">
+  <span class="section-number">Section 05</span>
+  <h2 class="section-title">Brand Implementation</h2>
+
+  <h3>Logo Usage</h3>
+  <ul>
+    <li><strong>Primary logo:</strong> <code>/brand_assets/MAW_TM_Logo_Horizontal-02-WHITE.png</code></li>
+    <li><strong>Navbar:</strong> <code>next/image</code> with <code>priority</code>, fixed 240×58px</li>
+    <li><strong>Footer:</strong> <code>next/image</code>, 150×36px display</li>
+    <li><strong>Group logos:</strong> <code>/public/logos/*.webp</code> — white version per entity</li>
+  </ul>
+
+  <h3>Accent Elements</h3>
+  <ul>
+    <li><code>3px solid #fd4f00</code> — top border on all cards and hero panels</li>
+    <li><code>52px × 3px</code> orange rule — placed under section headings (<code>.orange-rule</code>)</li>
+    <li>Radial gradient glows — <code>rgba(242,101,34,0.07)</code> behind hero H1s</li>
+    <li>Orange shadow on hover — <code>rgba(242,101,34,0.18)</code> drop shadow on interactive cards</li>
+  </ul>
+
+  <h3>Image Style</h3>
+  <ul>
+    <li><strong>Service photos:</strong> full-bleed CSS background with dark overlay</li>
+    <li><strong>Leadership photos:</strong> square crop, <code>object-fit: cover</code>, <code>border-radius: 2px</code></li>
+    <li><strong>Career roles:</strong> image backgrounds with glassmorphism content overlay</li>
+    <li><strong>Branch illustrations:</strong> custom SVGs per city (Nelson sun, Wellington beehive, etc.)</li>
+  </ul>
+</section>
+
+<!-- SECTION 6 -->
+<section id="s6">
+  <span class="section-number">Section 06</span>
+  <h2 class="section-title">SEO Implementation</h2>
+
+  <h3>Metadata Architecture</h3>
+  <pre>// Root layout (app/layout.tsx)
+metadataBase: new URL('https://www.menatwork.co.nz')
+title: 'Men at Work Traffic Management'
+openGraph: { title, description, url, siteName, type: 'website' }
+twitter: { card: 'summary_large_image', title, description }
+
+// Each page overrides with its own export const metadata
+title: 'Traffic Management Christchurch | Men at Work'
+description: '...'
+alternates: { canonical: '/traffic-management-christchurch' }</pre>
+
+  <h3>Page Title Structure</h3>
+  <pre>{Keyword} | {Brand}
+Traffic Management Christchurch | Men at Work
+Contact Men at Work Traffic Management
+Privacy Policy | Men at Work Traffic Management</pre>
+
+  <h3>Sitemap (<code>app/sitemap.ts</code>)</h3>
+  <p>Dynamic, returns 10 URLs. Homepage priority 1.0, all others 0.8. <code>changeFrequency: 'monthly'</code>, <code>lastModified: new Date()</code>.</p>
+  <p><strong>Included routes:</strong> <code>/</code>, <code>/about-us</code>, <code>/careers</code>, <code>/contact</code>, <code>/estimate</code>, and all 5 location pages.</p>
+
+  <h3>Structured Data (JSON-LD)</h3>
+  <ul>
+    <li><strong>Home page:</strong> Organization / LocalBusiness schema</li>
+    <li><strong>Location pages:</strong> LocalBusiness per city — <code>areaServed</code>, <code>addressLocality</code>, city-specific URL</li>
+    <li><strong>FAQ section:</strong> FAQPage schema with all 6 questions and answers</li>
+  </ul>
+
+  <h3>Heading Hierarchy</h3>
+  <pre>H1 — one per page (page-level topic)
+H2 — one per major section
+H3 — sub-items within sections</pre>
+
+  <h3>Internal Linking Patterns</h3>
+  <ul>
+    <li>Footer Branches column → all 5 location pages</li>
+    <li>Footer Services column → <code>/#service-{name}</code> anchor links on home</li>
+    <li>All CTAs → <code>/estimate</code></li>
+    <li>Contact page → <code>/estimate</code> callout</li>
+    <li>FAQ answers → <code>/estimate</code>, <code>/contact</code></li>
+    <li>Careers branch cards → <code>/careers?branch={name}#apply</code></li>
+  </ul>
+</section>
+
+<!-- SECTION 7 -->
+<section id="s7">
+  <span class="section-number">Section 07</span>
+  <h2 class="section-title">GEO / AI Discoverability Structure</h2>
+
+  <h3>Entity Clarity</h3>
+  <ul>
+    <li>Company name stated consistently: "Men at Work Traffic Management" (formal) and "Men at Work" (conversational)</li>
+    <li>Parent entity "MW Group" used correctly and consistently</li>
+    <li>Location signals repeated across: city names in URLs, H1s, metadata, JSON-LD, body copy</li>
+  </ul>
+
+  <h3>Service Description Pattern</h3>
+  <p>Each service uses: <strong>short label</strong> + <strong>1–2 sentence plain-English description</strong>. No jargon overload — content is structured for AI summarisation.</p>
+
+  <h3>Location Coverage Pattern</h3>
+  <p>Each location page follows: H1: "Traffic Management {City}" → body paragraph naming city and region → coverage section listing specific suburbs and towns → JSON-LD confirming city and region.</p>
+
+  <h3>FAQ Schema</h3>
+  <p>6 questions covering: who provides TM in NZ, what TM companies do, coverage areas, TMP provision, events TM, how to request services. FAQPage schema enables direct FAQ answers in AI responses.</p>
+
+  <h3>Credentials Stated Plainly</h3>
+  <p>Stats as text: "18+ years experience", "150+ staff", "5 branches". Certifications named: Sitewise Gold, Totika, Amotai — enables entity extraction by AI crawlers.</p>
+</section>
+
+<!-- SECTION 8 -->
+<section id="s8">
+  <span class="section-number">Section 08</span>
+  <h2 class="section-title">Content Structure</h2>
+
+  <h3>Hero Messaging Pattern</h3>
+  <pre>Eyebrow label    → "Wellington" / "About Us"
+H1               → Outcome-focused ("Traffic Management You Can Rely On")
+Subheadline      → 1–2 plain sentences
+CTA button(s)    → Primary action</pre>
+
+  <h3>Service Description Pattern</h3>
+  <pre>Icon (SVG)
+Service name (H2)
+2-sentence description (what + benefit)
+Optional: "Learn More" anchor link</pre>
+
+  <h3>CTA Messaging Pattern</h3>
+  <pre>Heading:  "[Challenge]?" → "Ready to Get Started?"
+Subtext:  1 qualifying sentence
+Primary:  "Get an Estimate" → /estimate
+Secondary: Phone number</pre>
+
+  <h3>Credibility Pattern</h3>
+  <p>Stat boxes: large white value + small muted label. E.g., "18+" / "Years Experience". Used for: years experience, staff headcount, branches, certifications.</p>
+
+  <h3>Process Pattern (How It Works)</h3>
+  <pre>Number circle → Step title → 1-sentence description
+4 steps: Contact → Consult → Plan → Deploy</pre>
+
+  <h3>Company Introduction Pattern</h3>
+  <ul>
+    <li>Founding story with specific founder names (Dean &amp; Esther Hyde)</li>
+    <li>Year + origin context (2008)</li>
+    <li>Growth narrative via visual timeline</li>
+    <li>Geographic expansion detail (5 branches)</li>
+  </ul>
+</section>
+
+<!-- SECTION 9 -->
+<section id="s9">
+  <span class="section-number">Section 09</span>
+  <h2 class="section-title">Forms &amp; Lead Capture System</h2>
+
+  <table>
+    <thead>
+      <tr><th>Form</th><th>Route</th><th>Steps</th><th>Fields</th><th>API Route</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Contact</td><td>/contact</td><td>1</td><td>5</td><td>/api/contact</td></tr>
+      <tr><td>Estimate</td><td>/estimate</td><td>2</td><td>20+</td><td>/api/request-quote</td></tr>
+      <tr><td>Careers Application</td><td>/careers#apply</td><td>2</td><td>22+</td><td>/api/careers-application</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Contact Form</h3>
+  <p><strong>Fields:</strong> Name, Email, Phone, Branch (dropdown), Message</p>
+  <p><strong>Validation:</strong> Email regex, phone regex, message min 10 chars.</p>
+
+  <h3>Estimate Form (2-Step)</h3>
+  <p><strong>Step 1:</strong> Full Name, Company Name, Title, Phone, Email, Branch, Has Account (Yes/No/Unsure)</p>
+  <p><strong>Step 2:</strong> Project Name, Timing, Location, File Upload, Plant Needed, Work Times, Unattended Site, Self TM (+conditional detail), Wants TMP (+conditional CAR), Cost Type, Onsite Meeting (+conditional date/time), Other Info</p>
+  <p><strong>Conditional logic:</strong> <code>selfTMDetail</code> if selfTM=yes; <code>wantsCAR</code> if wantsTMP=yes; date+time if onsiteMeeting=yes; "Lump Sum" cost type Wellington-only.</p>
+  <p><strong>File upload:</strong> Client-side type + size validation, converted to Base64 before transmission.</p>
+
+  <h3>Careers Application Form (2-Step)</h3>
+  <p><strong>Step 1:</strong> Full Name, Email, Phone, City, Start Date, Branch, Right to Work, Visa Expiry (conditional)</p>
+  <p><strong>Step 2:</strong> TM qualifications (8 options), Licences (checkboxes), Work History, About Yourself, Health Issues, ACC History, Interview preferences, Contact method, Confirmations (drug/alcohol, criminal history, casual guide conditional)</p>
+  <p><strong>Branch pre-selection:</strong> <code>/careers?branch=wellington#apply</code> pre-selects the dropdown.</p>
+
+  <h3>Email Recipients</h3>
+  <table>
+    <thead><tr><th>Form</th><th>Recipient</th><th>Subject Pattern</th></tr></thead>
+    <tbody>
+      <tr><td>Contact</td><td>office@menatwork.co.nz</td><td>Men at Work Website Enquiry - {Name} ({Branch})</td></tr>
+      <tr><td>Estimate</td><td>nathan.jones@menatwork.co.nz</td><td>Estimate Request - {ProjectName} ({CompanyName})</td></tr>
+      <tr><td>Application</td><td>nathan.jones@menatwork.co.nz</td><td>Job Application - {FullName} ({Branch}, {Experience})</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SECTION 10 -->
+<section id="s10">
+  <span class="section-number">Section 10</span>
+  <h2 class="section-title">Security Implementation</h2>
+
+  <h3>Three-Layer Protection (All Forms)</h3>
+  <pre>Layer 1: Cloudflare Turnstile (invisible CAPTCHA)
+Layer 2: Honeypot field ("companyPhone")
+Layer 3: In-memory rate limiting (5 req / IP / 60s)</pre>
+
+  <h3>Cloudflare Turnstile</h3>
+  <pre>// Client — invisible, no UX disruption
+&lt;Turnstile sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+           size="invisible" onVerify={token => setTurnstileToken(token)} /&gt;
+
+// Server — verifies token before processing
+const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+  method: 'POST',
+  body: JSON.stringify({ secret: process.env.TURNSTILE_SECRET_KEY, response: token }),
+})</pre>
+
+  <h3>Honeypot Field</h3>
+  <p>Hidden input <code>name="companyPhone"</code> positioned off-screen (<code>left: -9999px</code>), <code>tabIndex="-1"</code>. If populated, server silently returns <code>{ success: true }</code> — no signal given to attackers.</p>
+
+  <h3>Rate Limiting</h3>
+  <p>In-memory Map keyed by IP. Window: 60s, limit: 5 requests. IP extracted from <code>x-forwarded-for</code> → <code>x-real-ip</code> → <code>'unknown'</code>. Returns HTTP 429 when exceeded.</p>
+
+  <h3>Server-Side Validation</h3>
+  <p>All inputs re-validated server-side regardless of client state. Email regex, phone regex (<code>/^[0-9+\-\s]{7,20}$/</code>), message length, file MIME type + extension + size (≤5 MB).</p>
+
+  <h3>File Upload Security</h3>
+  <p>Allowed MIME types: <code>docx | jpeg | pdf | png</code>. Extensions double-checked against MIME. Size capped at 5,242,880 bytes. Transmitted as Base64 JSON — never written to filesystem.</p>
+</section>
+
+<!-- SECTION 11 -->
+<section id="s11">
+  <span class="section-number">Section 11</span>
+  <h2 class="section-title">Performance Optimisation</h2>
+
+  <h3>Next.js Image Optimisation</h3>
+  <ul>
+    <li><code>next.config.ts</code> is empty — <code>unoptimized</code> flag removed, full Vercel optimisation active</li>
+    <li><code>next/image</code> used for: logo (navbar/footer), leadership photos, group entity logos</li>
+    <li><code>priority</code> flag on navbar logo (LCP element)</li>
+    <li><code>fill</code> prop + <code>sizes</code> queries on leadership grid images:<br>
+      <code>sizes="(max-width:640px) 100vw, (max-width:768px) 50vw, (max-width:1280px) 33vw, 260px"</code></li>
+  </ul>
+
+  <h3>Hero Image LCP</h3>
+  <p>Hero uses CSS <code>background-image</code> (not <code>&lt;Image&gt;</code>), so LCP is optimised via:</p>
+  <pre>&lt;link rel="preload" as="image" href="/images/hero.webp" /&gt;</pre>
+  <p>Added as first element in <code>&lt;head&gt;</code> in <code>app/layout.tsx</code>.</p>
+
+  <h3>WebP Usage</h3>
+  <p>All photographic assets are WebP: hero, worksite divider, leadership photos, service cards, role cards, group logos. SVG used for illustrations and maps.</p>
+
+  <h3>Scroll Animations</h3>
+  <p><code>RevealObserver.tsx</code> uses IntersectionObserver — zero-cost until elements enter viewport. Above-fold elements revealed immediately on mount via <code>requestAnimationFrame</code>.</p>
+
+  <h3>Animation Rules</h3>
+  <p>Only <code>transform</code> and <code>opacity</code> animated (GPU-accelerated, no layout thrash). Never <code>transition-all</code>. Passive scroll listeners + RAF throttling on parallax.</p>
+
+  <h3>Bundle Size</h3>
+  <ul>
+    <li>No large unused dependencies (puppeteer removed)</li>
+    <li>Lucide React — tree-shakeable icon library</li>
+    <li>Service card backgrounds loaded as CSS — no JS bundle impact</li>
+    <li>Font loading: preconnect + <code>display=swap</code></li>
+  </ul>
+</section>
+
+<!-- SECTION 12 -->
+<section id="s12">
+  <span class="section-number">Section 12</span>
+  <h2 class="section-title">Accessibility Implementation</h2>
+
+  <h3>Semantic HTML</h3>
+  <ul>
+    <li>Every <code>&lt;section&gt;</code> has a descriptive <code>aria-label</code></li>
+    <li>Heading hierarchy enforced: one H1 per page, H2 per section, H3 for sub-items</li>
+    <li><code>&lt;ul&gt;/&lt;li&gt;</code> for all navigation and item lists</li>
+    <li>Decorative SVGs and icons use <code>aria-hidden="true"</code></li>
+  </ul>
+
+  <h3>Forms</h3>
+  <ul>
+    <li>Every input paired with <code>&lt;label htmlFor={id}&gt;</code></li>
+    <li>Error messages use <code>role="alert"</code> and <code>aria-live="assertive"</code></li>
+    <li>SelectWrapper: <code>aria-haspopup="listbox"</code>, <code>aria-expanded</code>, Arrow/Enter/Escape keyboard support</li>
+    <li>Branch map pins: <code>role="button"</code>, <code>tabIndex={0}</code>, <code>onKeyDown</code> handler</li>
+  </ul>
+
+  <h3>Focus States</h3>
+  <p>CSS <code>focus-visible</code> on inputs: <code>border-color: var(--orange)</code> + orange glow shadow. All buttons have visible focus rings.</p>
+
+  <h3>Colour Contrast</h3>
+  <p>Primary text: <code>#ffffff</code> on dark backgrounds. Secondary text: <code>#7A8FA3</code>. Orange <code>#fd4f00</code> used only for accents and icons — not as body text on dark backgrounds.</p>
+</section>
+
+<!-- SECTION 13 -->
+<section id="s13">
+  <span class="section-number">Section 13</span>
+  <h2 class="section-title">Public Assets</h2>
+
+  <table>
+    <thead><tr><th>Directory</th><th>Files</th><th>Format</th><th>Total Size</th></tr></thead>
+    <tbody>
+      <tr><td><code>/public/images/</code></td><td>hero, worksite divider, nz-map, dean-esther, 4× city SVGs</td><td>WebP + SVG</td><td>~3.5 MB</td></tr>
+      <tr><td><code>/public/leadership/</code></td><td>8 team portraits</td><td>WebP</td><td>~94 KB</td></tr>
+      <tr><td><code>/public/services/</code></td><td>works, events, tmps, training</td><td>WebP</td><td>~218 KB</td></tr>
+      <tr><td><code>/public/roles/</code></td><td>6 career role images</td><td>WebP</td><td>~421 KB</td></tr>
+      <tr><td><code>/public/logos/</code></td><td>5 MW Group entity logos (white)</td><td>WebP</td><td>~90 KB</td></tr>
+      <tr><td><code>/public/</code></td><td>Favicons, site.webmanifest</td><td>PNG + JSON</td><td>~112 KB</td></tr>
+      <tr><td><code>/brand_assets/</code></td><td>Master logo, brand guidelines PNG</td><td>PNG</td><td>~1.3 MB</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Asset Reference Patterns</h3>
+  <ul>
+    <li><strong>CSS <code>background-image</code>:</strong> service cards, hero, worksite banner, CTA section</li>
+    <li><strong><code>next/image</code> fixed dimensions:</strong> logo in Navbar and Footer</li>
+    <li><strong><code>next/image</code> with <code>fill</code>:</strong> leadership photos, group entity logos</li>
+    <li><strong>SVG as <code>Image</code> src:</strong> location illustrations in BranchCard, founders image in About</li>
+  </ul>
+
+  <div class="info-box">
+    <strong>Note:</strong> <code>dean-esther.svg</code> (3.2 MB) is the only asset that may benefit from further optimisation — consider converting to WebP if load performance on the About page becomes an issue.
+  </div>
+</section>
+
+<!-- SECTION 14 -->
+<section id="s14">
+  <span class="section-number">Section 14</span>
+  <h2 class="section-title">Deployment Workflow</h2>
+
+  <h3>Local Development</h3>
+  <pre>npm install           # Install all dependencies
+npm run dev           # Dev server at http://localhost:3000
+npm run build         # Production build (check for TypeScript errors)
+npm run lint          # ESLint via next lint</pre>
+  <p><strong>Rules:</strong> Never run multiple dev servers. Never use serve.mjs or custom static servers.</p>
+
+  <h3>Version Control</h3>
+  <pre>git add &lt;specific files&gt;    # Stage named files only (never git add -A)
+git commit -m "..."         # Include Co-Authored-By Claude line
+git push                    # Push to origin/main (triggers Vercel deploy)</pre>
+  <p><strong>Rules:</strong> Do not push until explicitly instructed. Do not auto-commit.</p>
+
+  <h3>Deployment</h3>
+  <ul>
+    <li><strong>Platform:</strong> Vercel (auto-deploys on push to <code>main</code>)</li>
+    <li><strong>Image optimisation:</strong> Handled by Vercel at no additional cost</li>
+    <li><strong>Environment variables:</strong> Set in Vercel project dashboard</li>
+  </ul>
+</section>
+
+<!-- SECTION 15 -->
+<section id="s15">
+  <span class="section-number">Section 15</span>
+  <h2 class="section-title">Environment Variables</h2>
+
+  <table>
+    <thead>
+      <tr><th>Variable</th><th>Client/Server</th><th>Required By</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>NEXT_PUBLIC_TURNSTILE_SITE_KEY</code></td>
+        <td>Client (public)</td>
+        <td>All 3 form components</td>
+        <td>Renders Cloudflare Turnstile widget</td>
+      </tr>
+      <tr>
+        <td><code>TURNSTILE_SECRET_KEY</code></td>
+        <td>Server only</td>
+        <td>All 3 API routes</td>
+        <td>Verifies Turnstile token server-side</td>
+      </tr>
+      <tr>
+        <td><code>AUTOSEND_API_KEY</code></td>
+        <td>Server only</td>
+        <td><code>lib/email.ts</code></td>
+        <td>Authenticates to Autosend API for email sending</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Local Development Template (<code>.env.local</code>)</h3>
+  <pre>NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_site_key_here
+TURNSTILE_SECRET_KEY=your_secret_key_here
+AUTOSEND_API_KEY=your_autosend_key_here</pre>
+  <p><code>.env.local</code> is not committed to git. Production values are set in Vercel dashboard.</p>
+</section>
+
+<!-- SECTION 16 -->
+<section id="s16">
+  <span class="section-number">Section 16</span>
+  <h2 class="section-title">Template Readiness Analysis</h2>
+
+  <table>
+    <thead>
+      <tr><th>Element</th><th>Location</th><th>Classification</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>CSS design token system</td><td><code>globals.css</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>Button component classes</td><td><code>globals.css</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>Scroll reveal animation system</td><td><code>RevealObserver.tsx</code> + <code>globals.css</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>Form security architecture</td><td><code>app/api/*/route.ts</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>Email utility</td><td><code>lib/email.ts</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>Email template builder</td><td><code>lib/emailTemplate.ts</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>SelectWrapper component</td><td><code>components/SelectWrapper.tsx</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>robots.ts</td><td><code>app/robots.ts</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>LocationPage template structure</td><td><code>components/LocationPage.tsx</code></td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>Page hero pattern</td><td>all pages</td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>SEO metadata structure</td><td>all <code>page.tsx</code> files</td><td><span class="pill pill-ready">TEMPLATE READY</span></td></tr>
+      <tr><td>Brand colour variables</td><td><code>globals.css</code></td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>Company name</td><td>everywhere</td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>Phone number</td><td>Footer, forms, content</td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>Email addresses</td><td>API routes, content</td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>Social media links</td><td><code>Footer.tsx</code></td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>metadataBase URL</td><td><code>app/layout.tsx</code></td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>sitemap.ts base URL + routes</td><td><code>app/sitemap.ts</code></td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>JSON-LD name + url</td><td><code>LocationPage.tsx</code>, <code>page.tsx</code></td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>Navbar structure</td><td><code>components/Navbar.tsx</code></td><td><span class="pill pill-placeholder">NEEDS PLACEHOLDER</span></td></tr>
+      <tr><td>Footer content</td><td><code>components/Footer.tsx</code></td><td><span class="pill pill-placeholder">NEEDS PLACEHOLDER</span></td></tr>
+      <tr><td>Service descriptions</td><td><code>page.tsx</code>, <code>LocationPage.tsx</code></td><td><span class="pill pill-placeholder">NEEDS PLACEHOLDER</span></td></tr>
+      <tr><td>FAQ content</td><td><code>FaqSection.tsx</code></td><td><span class="pill pill-placeholder">NEEDS PLACEHOLDER</span></td></tr>
+      <tr><td>Hero image</td><td><code>/public/images/hero.webp</code></td><td><span class="pill pill-placeholder">NEEDS PLACEHOLDER</span></td></tr>
+      <tr><td>WorksiteBanner image</td><td><code>WorksiteBanner.tsx</code></td><td><span class="pill pill-placeholder">NEEDS PLACEHOLDER</span></td></tr>
+      <tr><td>Service card images</td><td><code>/public/services/</code></td><td><span class="pill pill-placeholder">NEEDS PLACEHOLDER</span></td></tr>
+      <tr><td>Logo files</td><td><code>/brand_assets/</code>, <code>/public/logos/</code></td><td><span class="pill pill-placeholder">NEEDS PLACEHOLDER</span></td></tr>
+      <tr><td>Copyright text</td><td><code>Footer.tsx</code></td><td><span class="pill pill-config">NEEDS CONFIG VARIABLE</span></td></tr>
+      <tr><td>Branch names + data</td><td><code>data/hiringStatus.ts</code>, <code>LocationsMap.tsx</code></td><td><span class="pill pill-specific">COMPANY SPECIFIC</span></td></tr>
+      <tr><td>Leadership names + photos</td><td><code>about-us/page.tsx</code></td><td><span class="pill pill-specific">COMPANY SPECIFIC</span></td></tr>
+      <tr><td>Timeline milestones</td><td><code>Timeline.tsx</code></td><td><span class="pill pill-specific">COMPANY SPECIFIC</span></td></tr>
+      <tr><td>Hiring status data</td><td><code>data/hiringStatus.ts</code></td><td><span class="pill pill-specific">COMPANY SPECIFIC</span></td></tr>
+      <tr><td>Founders illustration</td><td><code>/public/images/dean-esther.svg</code></td><td><span class="pill pill-specific">COMPANY SPECIFIC</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SECTION 17 -->
+<section id="s17">
+  <span class="section-number">Section 17</span>
+  <h2 class="section-title">Template Conversion Plan</h2>
+
+  <h3>Step 1 — Extract Brand Config File</h3>
+  <p>Create <code>config/brand.ts</code>:</p>
+  <pre>export const brand = {
+  name:        'COMPANY NAME',
+  shortName:   'SHORT NAME',
+  tagline:     'Your tagline here.',
+  domain:      'https://www.example.com',
+  phone:       '0800 000 000',
+  email:       'office@example.com',
+  emailFrom:   'website@example.com',
+  emailTo:     'contact@example.com',
+  social: {
+    facebook: 'https://facebook.com/yourpage',
+    linkedin: 'https://linkedin.com/company/yourcompany',
+  },
+  copyright: '2026 YOUR COMPANY. All rights reserved.',
+}</pre>
+
+  <h3>Step 2 — Neutralise Brand Colours</h3>
+  <p>Rename CSS variables to semantic names in <code>globals.css</code>:</p>
+  <pre>--color-primary:    #fd4f00;   /* → client brand primary */
+--color-bg-dark:    #0D1B2A;   /* → client brand dark background */
+--color-text-muted: #7A8FA3;   /* → client brand muted text */</pre>
+
+  <h3>Step 3 — Create Placeholder Assets</h3>
+  <pre>/public/
+  placeholder-logo.svg          # White horizontal logo placeholder
+  placeholder-hero.webp         # Generic industry hero
+  placeholder-divider.webp      # Neutral divider image
+  placeholder-team-1.webp       # Generic profile silhouettes (×8)
+  placeholder-service-1.webp    # Generic service backgrounds (×4)
+  placeholder-role-1.webp       # Generic career progression images (×6)</pre>
+
+  <h3>Step 4 — Parameterise Location Data</h3>
+  <p>Convert <code>LocationsMap.tsx</code> hardcoded data into <code>data/branches.ts</code>:</p>
+  <pre>export const branches = [
+  { name: 'Branch 1', city: '...', manager: '...', phone: '...', coords: [x, y] },
+]</pre>
+
+  <h3>Step 5 — Parameterise Services</h3>
+  <p>Create <code>data/services.ts</code> and import into <code>page.tsx</code> service grid.</p>
+
+  <h3>Step 6 — Parameterise FAQs</h3>
+  <p>Create <code>data/faqs.ts</code> and import into <code>FaqSection.tsx</code>.</p>
+
+  <h3>Steps 7–10</h3>
+  <ul>
+    <li><strong>Step 7:</strong> <code>LocationPage.tsx</code> already template-ready (city/region/coverage props)</li>
+    <li><strong>Step 8:</strong> Replace <code>metadataBase</code> + company names in layout with <code>brand.domain</code> / <code>brand.name</code></li>
+    <li><strong>Step 9:</strong> Rename <code>data/hiringStatus.ts</code> → <code>data/locations.ts</code> for non-hiring businesses</li>
+    <li><strong>Step 10:</strong> Document <code>.env.local.example</code> with all 3 required variables</li>
+  </ul>
+</section>
+
+<!-- SECTION 18 -->
+<section id="s18">
+  <span class="section-number">Section 18</span>
+  <h2 class="section-title">Final Summary</h2>
+
+  <div class="score-box">
+    <div>
+      <div class="score-number">9/10</div>
+      <div class="score-label">Template Reusability Score</div>
+    </div>
+    <div style="border-left:1px solid rgba(255,255,255,0.15);padding-left:20px;">
+      <p style="color:rgba(255,255,255,0.8);font-size:0.85rem;line-height:1.6;">The primary conversion work is content extraction — replacing hardcoded company data with config variables — rather than architectural change. The form system, email pipeline, SEO structure, design system, and animation infrastructure are all immediately reusable without modification.</p>
+    </div>
+  </div>
+
+  <h3>What Makes This Project Technically Strong</h3>
+  <ol>
+    <li><strong>Consistent security architecture</strong> — All 3 forms implement identical 3-layer protection (Turnstile + honeypot + rate limiting).</li>
+    <li><strong>Clean server/client split</strong> — Pages are server components by default; client components introduced only where interactivity requires it.</li>
+    <li><strong>Centralised design system</strong> — All brand tokens, utility classes, animations, and layout grids in <code>globals.css</code>. Changes propagate site-wide.</li>
+    <li><strong>Reusable location template</strong> — <code>LocationPage.tsx</code> accepts 3 props and generates a fully-formed SEO-optimised location page.</li>
+    <li><strong>Zero-config scroll animation</strong> — Any element with class <code>reveal</code> and optional <code>d1–d6</code> delay animates in. No per-component wiring.</li>
+    <li><strong>Type-safe data layer</strong> — <code>data/hiringStatus.ts</code> TypeScript types ensure hiring status changes propagate predictably.</li>
+    <li><strong>SEO completeness</strong> — Every page has title, description, canonical, OpenGraph, Twitter metadata. JSON-LD on home, all location pages, and FAQ.</li>
+    <li><strong>Centralised email pipeline</strong> — All API routes share <code>sendEmail()</code> and <code>buildEmailTemplate()</code>. Consistent branded output.</li>
+  </ol>
+
+  <h3>Best Practices Implemented</h3>
+  <div class="two-col">
+    <ul>
+      <li>Mobile-first responsive design</li>
+      <li><code>clamp()</code> for fluid typography</li>
+      <li>Transform + opacity only for animations</li>
+      <li>Passive scroll listeners on all components</li>
+      <li>WebP for all photographic assets</li>
+      <li><code>next/image</code> with responsive <code>sizes</code></li>
+    </ul>
+    <ul>
+      <li>Hero LCP via <code>&lt;link rel="preload"&gt;</code></li>
+      <li>No em dashes in codebase</li>
+      <li>No <code>console.log</code> statements</li>
+      <li>No <code>transition-all</code></li>
+      <li>TypeScript strict mode enabled</li>
+      <li>No placeholder or lorem ipsum text</li>
+    </ul>
+  </div>
+
+  <h3>Ideal Target Businesses for This Template</h3>
+  <ul>
+    <li>Trades and infrastructure contractors</li>
+    <li>Civil engineering and construction firms</li>
+    <li>Security and facilities management companies</li>
+    <li>Any multi-branch service business operating across a geographic region</li>
+  </ul>
+
+  <hr>
+  <p style="font-size:0.75rem;color:#94a3b8;text-align:center;margin-top:32px;">
+    Generated 2026-03-11 &nbsp;|&nbsp; Men at Work Traffic Management Website &nbsp;|&nbsp; Technical Blueprint v1.0
+  </p>
+</section>
+
+</body>
+</html>
