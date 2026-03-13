@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import RequestQuotePageClient from '../../estimate/RequestQuotePageClient'
+import RequestQuotePageClient from '../../request-staff/RequestQuotePageClient'
 import { brand } from '../../../config/brand'
 
 export const metadata: Metadata = {

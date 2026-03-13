@@ -31,7 +31,7 @@ export default function LocationPage({ city, region, coverage }: LocationPagePro
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: brand.name,
-    url: `${brand.domain}/traffic-management/${city.toLowerCase()}`,
+    url: `${brand.domain}/labour-hire/${city.toLowerCase()}`,
     areaServed: region,
     address: {
       '@type': 'PostalAddress',
@@ -114,7 +114,7 @@ export default function LocationPage({ city, region, coverage }: LocationPagePro
             {brand.name} provides professional {site.primaryService.toLowerCase()} services across {city} and the wider {region} region. From roadworks and infrastructure projects to events and temporary traffic control, our experienced team keeps worksites safe and compliant.
           </p>
           <div className="reveal d3" style={{ marginTop: '36px' }}>
-            <Link href="/estimate" className="btn-orange" style={{ padding: '14px 28px', fontSize: '0.9rem' }}>
+            <Link href="/request-staff" className="btn-orange" style={{ padding: '14px 28px', fontSize: '0.9rem' }}>
               Request an Estimate
               <ArrowRight size={17} strokeWidth={1.5} aria-hidden="true" />
             </Link>
@@ -332,7 +332,7 @@ export default function LocationPage({ city, region, coverage }: LocationPagePro
                 marginTop: '36px',
               }}
             >
-              <Link href="/estimate" className="btn-white">
+              <Link href="/request-staff" className="btn-white">
                 Request an Estimate
                 <ArrowRight size={16} strokeWidth={1.5} aria-hidden="true" />
               </Link>

@@ -9,27 +9,27 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/traffic-management-wellington',
-        destination: '/traffic-management/wellington',
+        destination: '/labour-hire/wellington',
         permanent: true,
       },
       {
         source: '/traffic-management-christchurch',
-        destination: '/traffic-management/christchurch',
+        destination: '/labour-hire/christchurch',
         permanent: true,
       },
       {
         source: '/traffic-management-nelson',
-        destination: '/traffic-management/nelson',
+        destination: '/labour-hire/nelson',
         permanent: true,
       },
       {
         source: '/traffic-management-blenheim',
-        destination: '/traffic-management/blenheim',
+        destination: '/labour-hire/blenheim',
         permanent: true,
       },
       {
         source: '/traffic-management-timaru',
-        destination: '/traffic-management/timaru',
+        destination: '/labour-hire/timaru',
         permanent: true,
       },
     ]
