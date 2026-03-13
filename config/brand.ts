@@ -1,24 +1,23 @@
 export const brand = {
-  name:         'The Temp Company',
-  legalName:    'Men at Work Canterbury Ltd trading as The Temp Company',
-  shortName:    'Temp Company',
-  tagline:      'Temporary staff and labour hire for traffic management and civil projects',
-  domain:       'https://www.thetempcompany.co.nz',
-  logoPath:     '/logos/thetempcompany_colour.png',
-  logoWidth:    1272,
-  logoHeight:   323,
+  name: 'The Temp Company',
+  shortName: 'Temp Company',
+  tagline: 'People. Performance. Delivered.',
+  domain: 'https://www.thetempcompany.co.nz',
 
-  phone:        '',
-  phoneTel:     '',
+  logoPath: '/logos/thetempcompany_colour.png',
+  logoWidth: 220,
+  logoHeight: 60,
+
+  phone: '',
+
+  emailFrom: 'website@thetempcompany.co.nz',
   emailContact: 'info@thetempcompany.co.nz',
-  emailQuotes:  'info@thetempcompany.co.nz',
+  emailQuotes: 'info@thetempcompany.co.nz',
   emailCareers: 'info@thetempcompany.co.nz',
-  emailFrom:    'website@thetempcompany.co.nz',
-  emailFromName:'The Temp Company Website',
 
   social: {
-    facebook: '',
-    linkedin: '',
+    facebook: 'https://www.facebook.com/p/The-Temp-Company-61577664963940/',
+    linkedin: 'https://www.linkedin.com/company/the-temp-company',
   },
 
   copyright: `${new Date().getFullYear()} The Temp Company. All rights reserved.`,
