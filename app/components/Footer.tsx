@@ -26,7 +26,7 @@ export default function Footer() {
               style={{ height: '36px', width: 'auto', marginBottom: '16px' }}
             />
             <p style={{ fontSize: '0.9375rem', color: 'var(--text-muted)', lineHeight: 1.72, maxWidth: '280px' }}>
-              Professional traffic management solutions built on experience, safety, and excellence.
+              Reliable temporary staffing solutions built on trust, responsiveness, and performance.
             </p>
             <div style={{ display: 'flex', gap: '10px', marginTop: '24px' }}>
               {[

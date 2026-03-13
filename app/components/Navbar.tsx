@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { ArrowRight } from 'lucide-react'
 import { brand } from '../../config/brand'
 
 export default function Navbar() {
@@ -46,6 +45,8 @@ export default function Navbar() {
     }
   }
 
+  const isHome = pathname === '/'
+
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/')
 
@@ -61,40 +62,42 @@ export default function Navbar() {
     <nav id="navbar" className={scrolled ? 'scrolled' : ''} role="navigation" aria-label="Main navigation">
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '96px' }}>
 
+        {/* Left spacer on homepage keeps logo visually centred */}
+        {isHome ? (
+          <div style={{ width: '32px' }} aria-hidden="true" />
+        ) : null}
+
         {/* Logo */}
-        <Link href="/" style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>
+        <Link href="/" style={{ flexShrink: 0, display: 'flex', alignItems: 'center', ...(isHome && { position: 'absolute', left: '50%', transform: 'translateX(-50%)' }) }}>
           <Image
             src={brand.logoPath}
             alt={brand.name}
             width={brand.logoWidth}
             height={brand.logoHeight}
-            style={{ height: '74px', width: 'auto' }}
+            quality={100}
+            style={{ height: '56px', width: 'auto' }}
             priority
           />
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-6">
-          {navLinks.map(({ href, label }) => (
-            <Link key={href} href={href} className={`nav-link${isActive(href) ? ' active' : ''}`}>
-              {label}
-            </Link>
-          ))}
-        </div>
-
-        {/* CTA + hamburger */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div id="hdrcta-wrap">
-            <Link id="hdrcta" href="/hire-staff/request-staff" className="btn-orange" style={{ fontSize: '0.8rem', padding: '10px 20px' }}>
-              Request Staff
-              <ArrowRight size={14} strokeWidth={1.5} aria-hidden="true" />
-            </Link>
+        {/* Desktop links — hidden on homepage */}
+        {!isHome && (
+          <div className="hidden lg:flex items-center gap-6">
+            {navLinks.map(({ href, label }) => (
+              <Link key={href} href={href} className={`nav-link${isActive(href) ? ' active' : ''}`}>
+                {label}
+              </Link>
+            ))}
           </div>
+        )}
+
+        {/* Hamburger — always visible on homepage, mobile-only on other pages */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <button
             id="ham-btn"
             onClick={toggleMenu}
             aria-label="Toggle menu"
-            className="lg:hidden flex flex-col items-center justify-center gap-1.5"
+            className={`${isHome ? 'flex' : 'lg:hidden flex'} flex-col items-center justify-center gap-1.5`}
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}
           >
             <span ref={h1Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease, opacity 0.2s ease' }} />
@@ -105,22 +108,19 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div id="mobile-menu" className={`fixed left-0 right-0 top-[96px] w-full max-w-full overflow-x-hidden z-40 ${menuOpen ? 'open' : ''}`} style={{ background: 'var(--bg-mid)', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div id="mobile-menu" className={`fixed right-4 top-[104px] z-40 ${menuOpen ? 'open' : ''}`} style={{ width: '220px', background: 'var(--color-bg-section)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: '10px', boxShadow: '0 8px 32px rgba(0,0,0,0.45)', overflow: 'hidden' }}>
+        <div style={{ padding: '12px 0', display: 'flex', flexDirection: 'column' }}>
           {navLinks.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
               className="nav-link"
-              style={{ fontSize: '1rem', padding: '8px 0', borderBottom: i < navLinks.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}
+              style={{ fontSize: '0.9rem', padding: '10px 20px', borderBottom: i < navLinks.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none', display: 'block' }}
               onClick={closeMenu}
             >
               {label}
             </Link>
           ))}
-          <Link id="mobcta" href="/hire-staff/request-staff" className="lg:hidden btn-orange w-full" style={{ textAlign: 'center', marginTop: '8px' }} onClick={closeMenu}>
-            Request Staff
-          </Link>
         </div>
       </div>
     </nav>

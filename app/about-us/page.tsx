@@ -21,27 +21,21 @@ export const metadata: Metadata = {
 
 const groupEntities = [
   {
-    name: 'Partner Company One',
-    headline: 'Specialist planning, design, and industry training services.',
-    body: 'We design compliant plans and deliver practical training to support safe, professional worksites.',
+    name: 'Men at Work Traffic Management',
+    headline: 'Traffic management services across the South Island and Wellington.',
+    body: 'Delivering safe, compliant traffic management for roading, infrastructure, and civil projects. The Temp Company was built to support their workforce needs.',
     href: '#',
   },
   {
-    name: 'Partner Company Two',
-    headline: 'Flexible workforce solutions supporting civil, infrastructure, and construction sectors.',
-    body: 'We connect skilled, vetted workers with the right opportunities, quickly and reliably.',
+    name: 'MW Training & Planning',
+    headline: 'Specialist traffic management planning, design, and industry training.',
+    body: 'Providing compliant traffic management plans and hands-on training that prepares workers for real on-site conditions.',
     href: '#',
   },
   {
-    name: 'Partner Company Three',
-    headline: 'Professional site services for construction, industrial, and public spaces.',
-    body: 'From post-construction clean-ups to ongoing site maintenance, keeping surfaces safe and operational.',
-    href: '#',
-  },
-  {
-    name: 'Partner Company Four',
-    headline: 'A digital qualification management platform built for the industry.',
-    body: 'Streamlines compliance tracking, certification management, and workforce verification, all in one place.',
+    name: 'QualCard',
+    headline: 'A digital qualification and compliance management platform built for the industry.',
+    body: 'Streamlines certification tracking, workforce verification, and compliance management, all in one place.',
     href: '#',
   },
 ]
@@ -60,7 +54,7 @@ export default function AboutUsPage() {
       <section
         style={{
           position: 'relative',
-          background: '#252528',
+          background: 'var(--color-bg-deep)',
           paddingTop: '180px',
           paddingBottom: '80px',
           overflow: 'hidden',
@@ -100,10 +94,10 @@ export default function AboutUsPage() {
                 <div className="orange-rule" style={{ marginTop: '16px' }} />
               </div>
               <p className="reveal d1" style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginTop: '24px', maxWidth: '540px' }}>
-                {brand.name} was founded by hands-on owner-operators who built the business through strong leadership, experienced teams, and long-term client relationships.
+                {brand.name} was built to solve a real problem for traffic management companies in Canterbury and beyond: finding reliable, certified workers at short notice.
               </p>
               <p className="reveal d2" style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginTop: '16px', maxWidth: '540px' }}>
-                Today, {brand.name} operates across multiple regions with a reputation for practical, dependable {site.primaryService.toLowerCase()} across civil, infrastructure, and event projects.
+                Today we operate across Canterbury, Marlborough and Wellington, with a reputation for placing job-ready TTM Workers and experienced labourers when companies need them most.
               </p>
             </div>
 
@@ -133,7 +127,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── LOCATIONS ── */}
-      <section style={{ background: '#252528', padding: '80px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Our locations">
+      <section style={{ background: 'var(--color-bg-deep)', padding: '80px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Our locations">
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
           <div style={{ marginBottom: '40px' }}>
@@ -141,11 +135,11 @@ export default function AboutUsPage() {
               <span className="eyebrow">Where We Operate</span>
             </div>
             <h2 className="section-title reveal d1" style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', color: '#fff' }}>
-              Five Branches. One Standard.
+              Three Regions. One Standard.
             </h2>
             <div className="orange-rule reveal d2" style={{ marginTop: '16px' }} />
             <p className="reveal d3" style={{ marginTop: '20px', fontSize: '1.05rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.65)', maxWidth: '480px' }}>
-              Five branches across New Zealand, delivering the same professional standard on every site.
+              Canterbury, Marlborough and Wellington, delivering the same professional standard on every site.
             </p>
           </div>
 
@@ -229,7 +223,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── MORE THAN TRAFFIC ── */}
-      <section style={{ background: '#252528', padding: '100px 0' }} aria-label="Group services">
+      <section style={{ background: 'var(--color-bg-deep)', padding: '100px 0' }} aria-label="Group services">
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
 
           <div style={{ marginBottom: '80px' }}>

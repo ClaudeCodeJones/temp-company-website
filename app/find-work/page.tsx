@@ -6,7 +6,7 @@ import { brand } from '../../config/brand'
 
 export const metadata: Metadata = {
   title: `Find Work | ${brand.name}`,
-  description: `Looking for temporary or contract work? ${brand.name} connects job seekers with roles in traffic management, civil construction, events, and general labour across New Zealand.`,
+  description: `Looking for work in traffic management or civil construction? ${brand.name} connects job seekers with roles across Canterbury, Marlborough and Wellington.`,
   alternates: {
     canonical: '/find-work',
   },
@@ -15,15 +15,11 @@ export const metadata: Metadata = {
 const roles = [
   {
     title: 'Traffic Management',
-    body: 'TTM operator roles through to qualified STMS positions. Entry-level candidates welcome.',
+    body: 'TTM Worker through to qualified STMS positions. New to traffic management? Entry-level candidates are welcome.',
   },
   {
     title: 'Civil Construction',
     body: 'Labourer and operator roles on civil, roading, and infrastructure projects.',
-  },
-  {
-    title: 'Events',
-    body: 'Casual and short-term event support roles across the regions we operate in.',
   },
   {
     title: 'General Labour',
@@ -44,7 +40,7 @@ export default function FindWorkPage() {
 
       {/* ── HERO ── */}
       <section
-        style={{ position: 'relative', background: '#252528', paddingTop: '180px', paddingBottom: '80px', overflow: 'hidden' }}
+        style={{ position: 'relative', background: 'var(--color-bg-deep)', paddingTop: '180px', paddingBottom: '80px', overflow: 'hidden' }}
         aria-label="Find work hero"
       >
         <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
@@ -59,7 +55,7 @@ export default function FindWorkPage() {
               <span style={{ color: 'var(--brand-primary)' }}>With Us</span>
             </h1>
             <p className="reveal d2" style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', maxWidth: '500px', marginTop: '24px' }}>
-              We work with job seekers across traffic management, civil construction, events, and general labour. Whether you are experienced or just starting out, we want to hear from you.
+              We place workers across traffic management and civil construction in Canterbury, Marlborough and Wellington. Experienced or just starting out, we want to hear from you.
             </p>
             <div className="reveal d3" style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginTop: '36px' }}>
               <Link href="/find-work/apply" className="btn-orange" style={{ padding: '14px 28px', fontSize: '0.9rem' }}>
@@ -119,7 +115,7 @@ export default function FindWorkPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '40px' }}>
               {[
                 { d: 'd1', title: 'Work That Fits Your Life', body: 'Casual, contract, and ongoing roles available. We work around your availability and find placements that suit you.' },
-                { d: 'd2', title: 'We Support Your Development', body: 'We promote from within our worker pool and help people build their skills and qualifications over time.' },
+                { d: 'd2', title: 'We Support Your Development', body: 'New to traffic management? We can help you get your TTM Worker certification and connect you with real on-site experience through our industry partners.' },
                 { d: 'd3', title: 'We Stay in Your Corner', body: 'Once you are registered with us, we keep you in mind when new opportunities come in. We work to keep you placed.' },
               ].map(({ d, title, body }) => (
                 <div key={title} className={`reveal ${d}`} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
@@ -138,7 +134,7 @@ export default function FindWorkPage() {
       </section>
 
       {/* ── HOW TO APPLY ── */}
-      <section id="process" style={{ background: '#252528', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="process" style={{ background: 'var(--color-bg-deep)', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div className="reveal" style={{ marginBottom: '64px' }}>
             <span className="eyebrow">How It Works</span>

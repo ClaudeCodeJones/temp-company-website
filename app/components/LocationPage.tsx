@@ -62,7 +62,7 @@ export default function LocationPage({ city, region, coverage }: LocationPagePro
       <section
         style={{
           position: 'relative',
-          background: '#252528',
+          background: 'var(--color-bg-deep)',
           paddingTop: '180px',
           paddingBottom: '80px',
           overflow: 'hidden',

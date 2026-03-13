@@ -64,7 +64,7 @@ export default function SelectWrapper({
   const borderColor = error ? '#f87171' : 'rgba(255,255,255,0.12)'
   const sharedInputStyle: React.CSSProperties = {
     width: '100%',
-    background: '#252528',
+    background: 'var(--color-bg-deep)',
     border: `1px solid ${borderColor}`,
     borderRadius: '2px',
     padding: '12px 16px',
@@ -137,7 +137,7 @@ export default function SelectWrapper({
               top: 'calc(100% + 4px)',
               left: 0,
               right: 0,
-              background: '#252528',
+              background: 'var(--color-bg-deep)',
               border: '1px solid rgba(255,255,255,0.14)',
               borderRadius: '2px',
               margin: 0,

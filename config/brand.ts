@@ -4,9 +4,9 @@ export const brand = {
   shortName:    'Temp Company',
   tagline:      'Temporary staff and labour hire for traffic management and civil projects',
   domain:       'https://www.thetempcompany.co.nz',
-  logoPath:     '/brand_assets/logo-placeholder.svg',
-  logoWidth:    200,
-  logoHeight:   74,
+  logoPath:     '/logos/thetempcompany_colour.png',
+  logoWidth:    1272,
+  logoHeight:   323,
 
   phone:        '',
   phoneTel:     '',

@@ -18,7 +18,7 @@ export default function ApplyPage() {
 
       {/* ── HERO ── */}
       <section
-        style={{ position: 'relative', background: '#252528', paddingTop: '180px', paddingBottom: '80px', overflow: 'hidden' }}
+        style={{ position: 'relative', background: 'var(--color-bg-deep)', paddingTop: '180px', paddingBottom: '80px', overflow: 'hidden' }}
         aria-label="Apply hero"
       >
         <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />

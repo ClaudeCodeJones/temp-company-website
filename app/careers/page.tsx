@@ -58,7 +58,7 @@ export default function CareersPage() {
       <section
         style={{
           position: 'relative',
-          background: '#252528',
+          background: 'var(--color-bg-deep)',
           paddingTop: '180px',
           paddingBottom: '100px',
           overflow: 'hidden',

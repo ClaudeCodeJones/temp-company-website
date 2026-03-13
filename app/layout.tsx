@@ -1,8 +1,22 @@
 import type { Metadata } from 'next'
+import { Archivo, Archivo_Black } from 'next/font/google'
 import './globals.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { brand } from '../config/brand'
+
+const archivo = Archivo({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+})
+
+const archivoBlack = Archivo_Black({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-display',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(brand.domain),
@@ -27,14 +41,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <link rel="preload" as="image" href="/images/hero.webp" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap"
-          rel="stylesheet"
-        />
       </head>
-      <body>
+      <body className={`${archivo.variable} ${archivoBlack.variable}`}>
         <Navbar />
         {children}
         <Footer />

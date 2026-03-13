@@ -6,7 +6,7 @@ import { brand } from '../../config/brand'
 
 export const metadata: Metadata = {
   title: `Hire Staff | ${brand.name}`,
-  description: `Find reliable temporary and contract staff for traffic management, civil construction, events, and general labour. ${brand.name} connects you with the right workers fast.`,
+  description: `Find certified traffic management workers and reliable labour for civil construction. ${brand.name} connects you with job-ready workers across Canterbury, Marlborough and Wellington.`,
   alternates: {
     canonical: '/hire-staff',
   },
@@ -15,15 +15,11 @@ export const metadata: Metadata = {
 const industries = [
   {
     title: 'Traffic Management',
-    body: 'Qualified TTM operators, STMS, and lead STMS for roadworks and infrastructure projects.',
+    body: 'Certified TTM Workers, STMS, and Lead STMS for roadworks and infrastructure projects across our regions.',
   },
   {
     title: 'Civil Construction',
     body: 'Reliable labour for civil, roading, and infrastructure projects of any scale.',
-  },
-  {
-    title: 'Events',
-    body: 'Trained staff to keep events running safely, from traffic control to crowd management.',
   },
   {
     title: 'General Labour',
@@ -44,7 +40,7 @@ export default function HireStaffPage() {
 
       {/* ── HERO ── */}
       <section
-        style={{ position: 'relative', background: '#252528', paddingTop: '180px', paddingBottom: '80px', overflow: 'hidden' }}
+        style={{ position: 'relative', background: 'var(--color-bg-deep)', paddingTop: '180px', paddingBottom: '80px', overflow: 'hidden' }}
         aria-label="Hire staff hero"
       >
         <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
@@ -59,7 +55,7 @@ export default function HireStaffPage() {
               <span style={{ color: 'var(--brand-primary)' }}>When You Need Them</span>
             </h1>
             <p className="reveal d2" style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', maxWidth: '500px', marginTop: '24px' }}>
-              We supply temporary and contract workers across traffic management, civil construction, events, and general labour. Tell us what you need and we will handle the rest.
+              We supply certified traffic management workers and reliable labour for civil construction projects. Tell us what you need and we will handle the rest.
             </p>
             <div className="reveal d3" style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginTop: '36px' }}>
               <Link href="/hire-staff/request-staff" className="btn-orange" style={{ padding: '14px 28px', fontSize: '0.9rem' }}>
@@ -118,7 +114,7 @@ export default function HireStaffPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '40px' }}>
               {[
-                { d: 'd1', title: 'Workers Ready to Go', body: 'Our pool of workers is active and available. We can have the right people on your site quickly without compromising on quality.' },
+                { d: 'd1', title: 'Workers Ready to Go', body: 'Our pool of certified TTM Workers and experienced labourers is active and available. We can have the right people on your site quickly.' },
                 { d: 'd2', title: 'Screened and Experienced', body: 'Every worker we place is screened, reference checked, and matched to the role. You get people who show up prepared.' },
                 { d: 'd3', title: 'Flexible to Your Needs', body: 'One worker or a full crew, one day or ongoing, we scale to fit your project without locking you in.' },
               ].map(({ d, title, body }) => (
@@ -138,7 +134,7 @@ export default function HireStaffPage() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section id="process" style={{ background: '#252528', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="process" style={{ background: 'var(--color-bg-deep)', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div className="reveal" style={{ marginBottom: '64px' }}>
             <span className="eyebrow">How It Works</span>

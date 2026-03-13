@@ -17,7 +17,7 @@ export default function ApplicationSection() {
 
   if (submitted) {
     return (
-      <section ref={sectionRef} id="apply" style={{ background: '#252528', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Apply now">
+      <section ref={sectionRef} id="apply" style={{ background: 'var(--color-bg-deep)', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Apply now">
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ maxWidth: '640px', margin: '0 auto', textAlign: 'center' }}>
             <div style={{
@@ -57,7 +57,7 @@ export default function ApplicationSection() {
 
   return (
     <>
-      <section id="apply" style={{ background: '#252528', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Apply now">
+      <section id="apply" style={{ background: 'var(--color-bg-deep)', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }} aria-label="Apply now">
         <div ref={sectionRef} style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div className="two-col-grid" style={{ alignItems: 'start' }}>
 

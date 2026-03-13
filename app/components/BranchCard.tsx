@@ -31,7 +31,7 @@ export default function BranchCard({
     <div
       className="relative flex flex-col transition duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_14px_40px_rgba(252,212,21,0.18)] hover:border-[#fcd415]/40"
       style={{
-        background: '#37373b',
+        background: 'var(--color-bg-main)',
         borderRadius: '12px',
         boxShadow: '0 0 0 1px rgba(252,212,21,0.15), 0 4px 6px rgba(0,0,0,0.2), 0 24px 48px rgba(0,0,0,0.5)',
         border: '1px solid rgba(255,255,255,0.14)',
@@ -67,7 +67,7 @@ export default function BranchCard({
 
       {/* Growing content area */}
       <div className="flex flex-col flex-grow" style={{ padding: '28px 28px 0' }}>
-        <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.625rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#fcd415', marginBottom: '8px' }}>
+        <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.625rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: '8px' }}>
           Branch
         </p>
 
@@ -91,7 +91,7 @@ export default function BranchCard({
             <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
               {branch.serviceAreas.map(area => (
                 <li key={area} style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, paddingLeft: '12px', position: 'relative' }}>
-                  <span style={{ position: 'absolute', left: 0, color: '#fcd415' }}>·</span>
+                  <span style={{ position: 'absolute', left: 0, color: 'var(--color-accent)' }}>·</span>
                   {area}
                 </li>
               ))}

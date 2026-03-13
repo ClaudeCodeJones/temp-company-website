@@ -66,7 +66,7 @@ function RadioGroup({ name, value, onChange, options, error }: {
               <span style={{
                 width: '16px', height: '16px', borderRadius: '50%', flexShrink: 0,
                 border: selected ? '2px solid #fcd415' : '2px solid #9ca3af',
-                background: selected ? '#fcd415' : 'transparent',
+                background: selected ? 'var(--color-accent)' : 'transparent',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 {selected && <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#fff' }} />}
@@ -252,7 +252,7 @@ export default function RequestQuotePageClient() {
 
   const heroContent = (
     <section
-      style={{ position: 'relative', background: '#252528', paddingTop: '180px', paddingBottom: '56px', overflow: 'hidden' }}
+      style={{ position: 'relative', background: 'var(--color-bg-deep)', paddingTop: '180px', paddingBottom: '56px', overflow: 'hidden' }}
       aria-label="Request an estimate"
     >
       <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
@@ -424,7 +424,7 @@ export default function RequestQuotePageClient() {
                 <div style={fieldStyle}>
                   <label htmlFor="branch" style={labelStyle}>Branch *</label>
                   <SelectWrapper id="branch" value={s1.branch} onChange={v => setF1('branch', v)} error={s1Errors.branch} placeholder="Select a branch">
-                    {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: '#252528', color: '#fff' }}>{b.name}</option>)}
+                    {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>{b.name}</option>)}
                   </SelectWrapper>
                   <FieldError msg={s1Errors.branch} />
                 </div>
@@ -608,7 +608,7 @@ export default function RequestQuotePageClient() {
                 <div style={fieldStyle}>
                   <label htmlFor="costType" style={labelStyle}>Which type of cost would you like? *</label>
                   <SelectWrapper id="costType" value={s2.costType} onChange={v => setF2('costType', v)} error={s2Errors.costType} placeholder="Select a cost type">
-                    {costTypes.map(t => <option key={t} value={t} style={{ background: '#252528', color: '#fff' }}>{t}</option>)}
+                    {costTypes.map(t => <option key={t} value={t} style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>{t}</option>)}
                   </SelectWrapper>
                   <FieldError msg={s2Errors.costType} />
                   {s1.branch && s1.branch !== 'Wellington' && (
@@ -668,7 +668,7 @@ export default function RequestQuotePageClient() {
                     <div>
                       <label htmlFor="meetingTime" style={labelStyle}>Time *</label>
                       <SelectWrapper id="meetingTime" value={s2.meetingTime} onChange={v => setF2('meetingTime', v)} error={s2Errors.meetingTime} placeholder="Select time">
-                        {timeOptions.map(t => <option key={t.value} value={t.value} style={{ background: '#252528', color: '#fff' }}>{t.label}</option>)}
+                        {timeOptions.map(t => <option key={t.value} value={t.value} style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>{t.label}</option>)}
                       </SelectWrapper>
                       <FieldError msg={s2Errors.meetingTime} />
                     </div>

@@ -97,7 +97,7 @@ export default function ContactPageClient() {
     <section
       style={{
         position: 'relative',
-        background: '#252528',
+        background: 'var(--color-bg-deep)',
         paddingTop: '180px',
         paddingBottom: '56px',
         overflow: 'hidden',
@@ -252,7 +252,7 @@ export default function ContactPageClient() {
               <div style={fieldStyle}>
                 <label htmlFor="branch" style={labelStyle}>Branch</label>
                 <SelectWrapper id="branch" value={form.branch} onChange={v => set('branch', v)} error={errors.branch} placeholder="Select a branch">
-                  {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: '#252528', color: '#fff' }}>{b.name}</option>)}
+                  {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>{b.name}</option>)}
                 </SelectWrapper>
                 <FieldError msg={errors.branch} />
               </div>

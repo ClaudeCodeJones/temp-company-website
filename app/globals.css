@@ -1,17 +1,37 @@
 @import "tailwindcss";
 
-/* ── Brand tokens ── */
+
+/* ── Canonical colour tokens ── */
 :root {
-  --brand-primary:      #fcd415;
-  --brand-primary-dark: #bc9c22;
-  --brand-primary-glow: rgba(252, 212, 21, 0.25);
-  --bg-dark:        #37373b;
-  --bg-mid:    #2e3949;
-  --bg-elevated:    #404044;
-  --bg-surface:       #4a4a50;
-  --text-muted:       #9a9895;
-  --text-light:       #c8c5c2;
-  --off-white:   #f5f2ef;
+  --color-accent:          #fcd415;
+  --color-accent-hover:    #bc9c22;
+  --color-accent-glow:     rgba(252, 212, 21, 0.25);
+  --color-accent-glow-07:  rgba(252, 212, 21, 0.07);
+  --color-accent-glow-09:  rgba(252, 212, 21, 0.09);
+  --color-accent-glow-12:  rgba(252, 212, 21, 0.12);
+  --color-bg-main:         #37373b;
+  --color-bg-section:      #2e3949;
+  --color-bg-deep:         #252528;
+  --color-bg-elevated:     #404044;
+  --color-bg-surface:      #4a4a50;
+  --color-bg-light:        #f5f2ef;
+  --color-bg-footer:       #1e1e20;
+  --color-text-dark:       #000000;
+  --color-text-light:      #f5f2ef;
+  --color-text-muted:      #9a9895;
+  --color-text-subtle:     #c8c5c2;
+
+  /* Aliases — existing tokens preserved for backwards compat */
+  --brand-primary:         var(--color-accent);
+  --brand-primary-dark:    var(--color-accent-hover);
+  --brand-primary-glow:    var(--color-accent-glow);
+  --bg-dark:               var(--color-bg-main);
+  --bg-mid:                var(--color-bg-section);
+  --bg-elevated:           var(--color-bg-elevated);
+  --bg-surface:            var(--color-bg-surface);
+  --text-muted:            var(--color-text-muted);
+  --text-light:            var(--color-text-subtle);
+  --off-white:             var(--color-bg-light);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,17 +44,17 @@ input { text-overflow: ellipsis; }
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   background: var(--bg-dark);
   color: #f5f2ef;
   overflow-x: hidden;
 }
 
 /* ── Typography ── */
-.font-display { font-family: 'Poppins', sans-serif; }
+.font-display { font-family: var(--font-display), var(--font-body), sans-serif; }
 
 .eyebrow {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -43,7 +63,7 @@ body {
 }
 
 .section-title {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-display), var(--font-body), sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -68,6 +88,20 @@ body {
   border-bottom: 2px solid var(--brand-primary);
   transition: background 0.35s ease, box-shadow 0.35s ease;
 }
+#navbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 24px,
+    rgba(252,212,21,0.07) 24px,
+    rgba(252,212,21,0.07) 26px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
 #navbar.scrolled {
   background: rgba(55, 55, 59, 0.96);
   backdrop-filter: blur(14px);
@@ -75,7 +109,7 @@ body {
 }
 
 .nav-link {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   color: rgba(255,255,255,0.75);
@@ -105,7 +139,7 @@ body {
   gap: 8px;
   background: var(--brand-primary);
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 600;
   font-size: 0.875rem;
   letter-spacing: 0.01em;
@@ -128,7 +162,7 @@ body {
   gap: 8px;
   border: 1.5px solid rgba(255,255,255,0.35);
   color: #fff;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
   letter-spacing: 0.01em;
@@ -152,7 +186,7 @@ body {
   gap: 8px;
   background: #fff;
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
   letter-spacing: 0.01em;
@@ -174,7 +208,7 @@ body {
   gap: 8px;
   border: 2px solid rgba(0,0,0,0.4);
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 500;
   font-size: 0.9rem;
   letter-spacing: 0.01em;
@@ -196,7 +230,7 @@ body {
   min-height: 80vh;
   display: flex;
   align-items: flex-start;
-  background-color: #252528;
+  background-color: var(--color-bg-deep);
   overflow: hidden;
 }
 @media (min-width: 1024px) {
@@ -219,8 +253,8 @@ body {
   z-index: 1;
   background: linear-gradient(
     90deg,
-    #252528 0%,
-    #252528 40%,
+    var(--color-bg-deep) 0%,
+    var(--color-bg-deep) 40%,
     rgba(37,37,40,0.85) 55%,
     rgba(37,37,40,0.55) 70%,
     rgba(37,37,40,0.25) 85%,
@@ -299,8 +333,8 @@ body {
   #hero::before {
     background: linear-gradient(
       90deg,
-      #252528 0%,
-      #252528 50%,
+      var(--color-bg-deep) 0%,
+      var(--color-bg-deep) 50%,
       rgba(37,37,40,0.92) 70%,
       rgba(37,37,40,0.75) 100%
     );
@@ -481,10 +515,68 @@ body {
   }
 }
 .stat-num {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-display), var(--font-body), sans-serif;
   font-weight: 700;
   line-height: 1;
   color: var(--brand-primary);
+}
+
+/* ── Gateway hero tiles ── */
+.gateway-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 380px));
+  gap: 24px;
+  justify-content: center;
+  align-items: start;
+  margin-top: 32px;
+}
+.gateway-hero-card {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gateway-hero-card--staff { background: #fcd415; border: 2px solid #2e3949; }
+.gateway-hero-card--staff:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 56px rgba(0, 0, 0, 0.55), 0 24px 56px rgba(0, 0, 0, 0.4);
+}
+.gateway-hero-card--staff .gateway-hero-card-title {
+  color: #2e3949;
+}
+.gateway-hero-card--work { background: #2e3949; border: 2px solid #fcd415; }
+.gateway-hero-card--work:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 56px rgba(252, 212, 21, 0.38), 0 24px 56px rgba(0, 0, 0, 0.45);
+}
+.gateway-hero-card--work .gateway-hero-card-title {
+  color: #f5f2ef;
+}
+.gateway-hero-card-title {
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  padding: 0 28px;
+}
+@media (max-width: 600px) {
+  .gateway-hero-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .gateway-hero-card {
+    aspect-ratio: 3 / 4;
+  }
+  .gateway-hero-card-title {
+    font-size: clamp(0.95rem, 4vw, 1.1rem);
+    padding: 0 16px;
+  }
 }
 
 /* ── Why Us feature rows ── */
@@ -499,7 +591,7 @@ body {
 
 /* ── Process steps ── */
 .step-num {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-display), var(--font-body), sans-serif;
   font-weight: 700;
   font-size: 1.1rem;
   color: #000;
@@ -545,11 +637,11 @@ body {
 
 /* ── Footer ── */
 #footer {
-  background: #1e1e20;
+  background: var(--color-bg-footer);
   border-top: 1px solid rgba(255,255,255,0.04);
 }
 .footer-heading {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 600;
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -573,7 +665,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: #252528;
+  background: var(--color-bg-deep);
   overflow: hidden;
 }
 
@@ -670,7 +762,7 @@ body {
   padding: 5px 14px;
   font-size: 0.72rem;
   color: rgba(255,255,255,0.35);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -710,7 +802,7 @@ body {
   background: rgba(252,212,21,0.95);
   backdrop-filter: blur(10px);
   color: #000;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   padding: 10px 20px;
@@ -793,7 +885,7 @@ body {
 }
 .group-card-logo span {
   font-size: 0.68rem;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 500;
   color: rgba(255,255,255,0.22);
   letter-spacing: 0.08em;
@@ -806,7 +898,7 @@ body {
   margin-top: auto;
   padding-top: 14px;
   font-size: 0.8rem;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 500;
   color: var(--brand-primary);
   transition: gap 0.2s ease;
@@ -947,7 +1039,7 @@ input:focus, select:focus, textarea:focus {
 /* ── Date inputs: prevent white flash on click ── */
 input[type="date"] {
   color-scheme: dark !important;
-  background-color: #252528 !important;
+  background-color: var(--color-bg-deep) !important;
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
