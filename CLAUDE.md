@@ -8,11 +8,9 @@ My name is Jonesy, you can call me that rather than User
 
 ## Commands
 
-```bash
 npm run dev      # Start dev server at http://localhost:3000
 npm run build    # Production build
 npm run lint     # ESLint check
-```
 
 ---
 
@@ -36,43 +34,39 @@ npm run lint     # ESLint check
 
 ### Project Structure
 
-```
 app/
   components/          # Global reusable components
-    about/             # About page components (Timeline.tsx)
-    careers/           # Careers page components (ApplicationForm, BranchHiringCard, ApplicationSection, CareerPath)
-  about-us/            # About Us page
-  careers/             # Careers page
+  about-us/            # About page
   contact/             # Contact page
-  request-quote/       # Quote request page
-  api/                 # API routes: contact, careers-application, request-quote
+  estimate/            # Employer request staff page
+  find-work/           # Worker information and application path
+  hire-staff/          # Client information page
+  privacy/             # Privacy policy page
+  terms/               # Terms page
+  traffic-management/  # Traffic management information page
+  api/                 # API routes
   globals.css          # Brand CSS variables and utility classes
   layout.tsx           # Root layout (Navbar + Footer)
-  page.tsx             # Home page
-data/
-  hiringStatus.ts      # Branch hiring data (BranchHiring type, branchHiring array, statusLabel)
-lib/
-  email.ts             # sendEmail() via Autosend API
-  emailTemplate.ts     # buildEmailTemplate() helper
-brand_assets/          # Logos and brand guidelines — always check here first
+  page.tsx             # Home gateway page
+  robots.ts            # Robots file
+  sitemap.ts           # Sitemap generation
+
 public/
   logos/               # Brand logos
-  services/            # Service imagery
-  leadership/          # Leadership team photos
-```
+  images/              # Site imagery
+
+brand_assets/          # Logos and brand guidelines — always check here first
+
+---
 
 ### Brand CSS Variables (globals.css)
 
-```css
---orange:      #F26522   /* Primary brand — use var(--orange) */
---orange-dark: #CC5015
---navy:        #0D1B2A   /* Page background */
---navy-mid:    #162435
---charcoal:    #1F2D3D   /* Card backgrounds */
---slate:       #2A3D52
---muted:       #7A8FA3   /* Secondary text */
---light:       #C5D0DC
-```
+--charcoal: #37373b
+--light:    #f5f2ef
+--yellow:   #fcd415
+--black:    #000000
+--navy:     #2e3949
+--gold:     #bc9c22
 
 Utility classes: `.eyebrow`, `.section-title`, `.font-display`, `.orange-rule`, `.btn-orange`, `.btn-ghost`, `.btn-white`, `.reveal`, `.cta-section`
 
@@ -84,53 +78,73 @@ Utility classes: `.eyebrow`, `.section-title`, `.font-display`, `.orange-rule`, 
 
 ### Forms & API
 
-All three forms (contact, careers, request-quote) share the same security pattern:
-- Cloudflare Turnstile captcha (`react-turnstile`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`)
-- Honeypot field
-- Server-side rate limiting
-- Email sent via Autosend API (`AUTOSEND_API_KEY`)
+Forms used on the site include:
 
-### Data Layer
+- Contact form
+- Employer Request Staff form
+- Apply for Work form
 
-Hiring status for branch cards is driven entirely by `data/hiringStatus.ts`. Update `branchHiring[]` there to change which branches are hiring and what roles appear on the Careers page.
+Security patterns may include:
+
+- Cloudflare Turnstile captcha
+- Honeypot fields
+- Server-side validation
+- Email sending via API routes
+
+Form locations may change during development.  
+The primary worker application path is currently within `/find-work`.
 
 ---
+
+## Data Layer
+
+Branch locations used across the site must always appear in this order:
+
+• Wellington  
+• Blenheim  
+• Christchurch  
+
+This ordering must be respected anywhere branches appear including:
+
+- dropdowns
+- branch lists
+- form selections
+- informational sections
+
+---
+
 ## Brand Naming Rules (Strict)
 
 ### MW Group
 
 Use only when referring to the parent umbrella brand that includes:
 
-- Men at Work Traffic Management  
-- MW Training & Planning  
-- The Temp Company  
-- QualCard  
+- Men at Work Traffic Management
+- MW Training & Planning
+- The Temp Company
+- QualCard
 
 Never use:
-- MAW Group  
-- Men at Work Group  
+
+- MAW Group
+- Men at Work Group
 
 The correct name is always: **MW Group**
 
 ---
 
-### Men at Work Traffic Management
+### The Temp Company
 
-Use when referring formally to the core traffic management business.
+Use when referring to the labour hire and temporary staffing business.
 
----
+The company provides reliable temporary workers primarily to:
 
-### Men at Work
-
-Use in conversational or marketing tone when referencing the traffic business.
-
-Example (correct):  
-"Men at Work has delivered traffic solutions across the South Island since 2008."
-
-Avoid in marketing copy:  
-"MW Traffic Management has delivered..."
+- traffic management companies
+- civil contractors
+- infrastructure projects
 
 ---
+
 Writing Standards – Punctuation Rules
 
 Include the following directive:
@@ -142,6 +156,7 @@ Include the following directive:
 - Never substitute with double hyphens.
 
 This rule applies to:
+
 - Marketing copy
 - UI text
 - Documentation
@@ -158,12 +173,14 @@ This rule applies to:
 - If no reference image: design from scratch with high craft (see guardrails below).
 
 When visual comparison is required:
+
 - View output at localhost:3000 (or relevant route).
 - Compare visually.
 - Fix mismatches.
 - Repeat until layout and spacing align with reference or user approves.
 
 Do not create separate static demo HTML files unless explicitly requested.
+
 All demos must be built as proper Next routes (e.g. `/demo`).
 
 ---
@@ -171,8 +188,8 @@ All demos must be built as proper Next routes (e.g. `/demo`).
 ## Demo & Experimental Pages
 
 - If creating a demo concept, build it inside:
-  
-  app/demo/page.tsx
+
+app/demo/page.tsx
 
 - Never use standalone hero-demo.html.
 - Never spin up a separate static server for demos.
@@ -202,7 +219,7 @@ Typical structure:
   Section.tsx
   ServiceCard.tsx
   Button.tsx
-  BranchCard.tsx
+  Card.tsx
 
 Page-specific components may remain inside their page folder.
 
@@ -229,8 +246,7 @@ Page-specific components may remain inside their page folder.
   - Use layered, color-tinted shadows with low opacity.
 
 - Typography:
-  - Prefer a clear hierarchy between headings and body text.This can be achieved through font pairing or through weight/scale.
-  - Pair display/serif with clean sans.
+  - Prefer a clear hierarchy between headings and body text.
   - Apply tight tracking (-0.03em) on large headings.
   - Use generous body line-height (~1.7).
 
@@ -251,9 +267,10 @@ Page-specific components may remain inside their page folder.
 - Images:
   - Use overlays intentionally.
   - Ensure contrast and readability.
- - Use next/image for all images unless explicitly instructed otherwise.
+  - Use next/image for all images unless explicitly instructed otherwise.
 
 Images must include:
+
 - width
 - height
 - alt text
@@ -261,19 +278,19 @@ Images must include:
 - Spacing:
   - Use consistent spacing tokens.
   - Avoid arbitrary Tailwind steps.
-  
-  ### Layout Containers
+
+### Layout Containers
 
 All sections should use a consistent container pattern:
 
-max-w-7xl
-mx-auto
-px-6 (mobile)
+max-w-7xl  
+mx-auto  
+px-6 (mobile)  
 px-8 (desktop)
 
 Vertical section spacing:
 
-py-20 (mobile)
+py-20 (mobile)  
 py-28 (desktop)
 
 - Depth:
