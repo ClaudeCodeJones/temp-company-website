@@ -56,10 +56,12 @@ export default function Navbar() {
     { href: '/find-work', label: 'Find Work' },
     { href: '/about-us', label: 'About' },
     { href: '/contact', label: 'Contact' },
+    { href: '/hire-staff-new', label: 'HS New' },
+    { href: '/find-work-new', label: 'FW New' },
   ]
 
   return (
-    <nav id="navbar" className={scrolled ? 'scrolled' : ''} role="navigation" aria-label="Main navigation">
+    <nav id="navbar" className={[scrolled ? 'scrolled' : '', isHome ? 'home' : ''].filter(Boolean).join(' ')} role="navigation" aria-label="Main navigation">
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '96px' }}>
 
         {/* Left spacer on homepage keeps logo visually centred */}

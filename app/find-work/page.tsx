@@ -75,12 +75,12 @@ export default function FindWorkPage() {
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ marginBottom: '60px' }}>
             <div className="reveal" style={{ marginBottom: '10px' }}>
-              <span className="eyebrow">Types of Work</span>
+              <span className="eyebrow" style={{ color: 'var(--color-accent-hover)' }}>Types of Work</span>
             </div>
             <h2 className="section-title reveal d1" style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', color: 'var(--bg-dark)' }}>
               Roles Across<br />Multiple Industries
             </h2>
-            <div className="orange-rule reveal d2" style={{ marginTop: '16px' }} />
+            <div className="orange-rule reveal d2" style={{ marginTop: '16px', background: 'var(--color-accent-hover)' }} />
           </div>
 
           <div className="services-grid">

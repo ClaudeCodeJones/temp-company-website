@@ -156,12 +156,12 @@ export default function AboutUsPage() {
 
           <div style={{ marginBottom: '60px' }}>
             <div className="reveal" style={{ marginBottom: '10px' }}>
-              <span className="eyebrow">Our People</span>
+              <span className="eyebrow" style={{ color: 'var(--color-accent-hover)' }}>Our People</span>
             </div>
             <h2 className="section-title reveal d1" style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', color: 'var(--bg-dark)' }}>
               Leadership
             </h2>
-            <div className="orange-rule reveal d2" style={{ marginTop: '16px' }} />
+            <div className="orange-rule reveal d2" style={{ marginTop: '16px', background: 'var(--color-accent-hover)' }} />
             <p className="reveal d3" style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', maxWidth: '480px', marginTop: '20px' }}>
               Experienced leadership across operations, regions, compliance, and growth.
             </p>

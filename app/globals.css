@@ -88,17 +88,16 @@ body {
   border-bottom: 2px solid var(--brand-primary);
   transition: background 0.35s ease, box-shadow 0.35s ease;
 }
-#navbar::before {
+#navbar {
+  background: #2f2f2f;
+}
+#navbar.home::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 24px,
-    rgba(252,212,21,0.07) 24px,
-    rgba(252,212,21,0.07) 26px
-  );
+  background-image:
+    repeating-linear-gradient(0deg, rgba(169,135,31,0.12) 0px, rgba(169,135,31,0.12) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(90deg, rgba(169,135,31,0.12) 0px, rgba(169,135,31,0.12) 1px, transparent 1px, transparent 60px);
   pointer-events: none;
   z-index: 0;
 }
