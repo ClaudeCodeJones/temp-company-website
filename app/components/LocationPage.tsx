@@ -336,9 +336,9 @@ export default function LocationPage({ city, region, coverage }: LocationPagePro
                 Request an Estimate
                 <ArrowRight size={16} strokeWidth={1.5} aria-hidden="true" />
               </Link>
-              <a href={`tel:${brand.phoneTel}`} className="btn-outline-white">
+              <a href="/contact#coordinators" className="btn-outline-white">
                 <Phone size={16} strokeWidth={1.5} aria-hidden="true" />
-                {brand.phone}
+                Call your co-ordinator
               </a>
             </div>
           </div>
