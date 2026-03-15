@@ -116,7 +116,7 @@ export default function ContactPageClient() {
         {status !== 'success' && (
           <>
             <p className="reveal d2" style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', maxWidth: '480px', marginTop: '20px' }}>
-              Send us your enquiry and our team will respond as soon as possible.
+              Whether you need staff or you&rsquo;re looking for work, get in touch and our team will respond as soon as possible.
             </p>
             <div style={{ width: '40px', height: '1px', background: 'rgba(255,255,255,0.15)', margin: '20px 0' }} />
             <div className="reveal d3" style={{ marginTop: '0', fontSize: '0.95rem', lineHeight: 1.78, color: 'var(--text-muted)' }}>
@@ -190,6 +190,10 @@ export default function ContactPageClient() {
               If you need temporary or contract workers, please use our{' '}
               <a href="/hire-staff/request-staff" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Request Staff</a>{' '}
               form so we can match you with the right people.
+            </p>
+            <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)', marginBottom: '14px' }}>
+              If you are looking for work, please use our{' '}
+              <a href="/request-staff" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>job application form</a>.
             </p>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)' }}>For general enquiries, feel free to use the form below.</p>
           </div>

@@ -1,191 +1,475 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowRight, Check } from 'lucide-react'
-import RevealObserver from '../components/RevealObserver'
-import { brand } from '../../config/brand'
+'use client'
 
-export const metadata: Metadata = {
-  title: `Find Work | ${brand.name}`,
-  description: `Looking for work in traffic management or civil construction? ${brand.name} connects job seekers with roles across Canterbury, Marlborough and Wellington.`,
-  alternates: {
-    canonical: '/find-work',
-  },
-}
+import { useState } from 'react'
+import type { ReactNode } from 'react'
+import { HardHat } from 'lucide-react'
+import Image from 'next/image'
 
-const roles = [
+const faqs: { q: string; a: ReactNode }[] = [
   {
-    title: 'Traffic Management',
-    body: 'TTM Worker through to qualified STMS positions. New to traffic management? Entry-level candidates are welcome.',
+    q: 'Do I need experience or tickets to apply?',
+    a: "Nope. If you're new to traffic management, we'll provide full training and help you get site-ready with the right certifications.",
   },
   {
-    title: 'Civil Construction',
-    body: 'Labourer and operator roles on civil, roading, and infrastructure projects.',
+    q: 'What gear do I need to start?',
+    a: "We'll supply basic PPE like hi-vis vest, steel-caps, and a hard hat.",
   },
   {
-    title: 'General Labour',
-    body: 'Day-labour and project-based work available for people who want flexible hours.',
+    q: 'How quickly can I start working?',
+    a: "Once you're trained and cleared, you could be on site within a few days. It depends on client needs and your availability.",
   },
-]
-
-const steps = [
-  { n: '01', title: 'Submit Your Application', body: 'Tell us about your experience, qualifications, and the type of work you are looking for.' },
-  { n: '02', title: 'We Review Your Details', body: 'Our team reviews your application and reaches out to discuss your availability and preferences.' },
-  { n: '03', title: 'We Place You in Work', body: 'When the right role comes up, we get in touch. We work to keep you placed consistently.' },
+  {
+    q: 'Do you only offer traffic roles?',
+    a: 'No, although we focus on temporary traffic management, but you may be utilised as a labourer too if you wish.',
+  },
+  {
+    q: 'What regions do you cover?',
+    a: 'We operate in the Greater Wellington, Marlborough and Canterbury (Christchurch) regions.',
+  },
+  {
+    q: 'Will I need to pass a drug test?',
+    a: 'Yes.',
+  },
 ]
 
 export default function FindWorkPage() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
+  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i)
   return (
-    <>
-      <RevealObserver />
+    <main>
+      <style>{`
+        @media (min-width: 1280px) {
+          .employer-overlap { margin-top: -90px; }
+        }
+        .hero-section { min-height: 80vh; }
+        .hero-content { padding-bottom: clamp(50px, 7vw, 80px); }
+        @media (max-width: 1279px) {
+          .hero-section { min-height: auto; }
+          .hero-content { padding-top: 140px; padding-bottom: 32px; }
+        }
+        .hero-btn-primary {
+          background: #bc9c22;
+          color: #fff;
+          border: none;
+          border-radius: 999px;
+          padding: 14px 32px;
+          font-weight: 600;
+          font-size: 0.9375rem;
+          text-decoration: none;
+          display: inline-block;
+          transition: background 0.2s ease, transform 0.2s ease;
+          cursor: pointer;
+        }
+        .hero-btn-primary:hover {
+          background: #d4b128;
+          transform: translateY(-1px);
+        }
+        .hero-btn-secondary {
+          background: transparent;
+          color: #fff;
+          border: 1px solid rgba(255,255,255,0.45);
+          border-radius: 999px;
+          padding: 14px 32px;
+          font-weight: 600;
+          font-size: 0.9375rem;
+          text-decoration: none;
+          display: inline-block;
+          transition: background 0.2s ease, border-color 0.2s ease;
+          cursor: pointer;
+        }
+        .hero-btn-secondary:hover {
+          background: rgba(255,255,255,0.06);
+          border-color: rgba(255,255,255,0.8);
+        }
+        .request-btn {
+          display: block;
+          width: 100%;
+          background: #bc9c22;
+          color: #fff;
+          border: none;
+          border-radius: 999px;
+          padding: 14px 26px;
+          font-weight: 600;
+          font-size: 0.9375rem;
+          cursor: pointer;
+          text-align: center;
+          text-decoration: none;
+          margin-top: 28px;
+          transition: opacity 0.2s ease;
+        }
+        .request-btn:hover {
+          opacity: 0.88;
+        }
+        .faq-row {
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          padding: 22px 0;
+          border-radius: 6px;
+          transition: background 0.2s ease;
+        }
+        .faq-row:hover {
+          background: rgba(255,255,255,0.03);
+        }
+        .faq-btn {
+          width: 100%;
+          background: none;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 16px;
+          padding: 0;
+          text-align: left;
+        }
+        .faq-btn .faq-question {
+          color: #fff;
+          transition: color 0.2s ease;
+        }
+        .faq-btn:hover .faq-question {
+          color: rgba(255,255,255,0.95);
+        }
+        .faq-btn .faq-icon {
+          color: rgba(255,255,255,0.5);
+          transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .faq-btn:hover .faq-icon {
+          color: var(--brand-primary-dark);
+        }
+        .faq-icon.open {
+          transform: rotate(45deg);
+          color: var(--brand-primary-dark);
+        }
+      `}</style>
 
       {/* ── HERO ── */}
-      <section
-        style={{ position: 'relative', background: 'var(--color-bg-deep)', paddingTop: '180px', paddingBottom: '80px', overflow: 'hidden' }}
-        aria-label="Find work hero"
-      >
-        <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
+      <section className="hero-section" style={{
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        background: 'linear-gradient(to bottom, #2e3949 0%, #37373b 55%, #000000 100%)',
+      }}>
 
-        <div style={{ position: 'relative', zIndex: 10, maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ maxWidth: '680px' }}>
-            <div className="reveal" style={{ marginBottom: '20px' }}>
-              <span className="eyebrow">For Job Seekers</span>
-            </div>
-            <h1 className="reveal d1 font-display" style={{ fontWeight: 700, fontSize: 'clamp(2.4rem,5vw,4.5rem)', lineHeight: 1.05, letterSpacing: '-0.03em', color: '#fff' }}>
-              Find Your Next Role<br />
-              <span style={{ color: 'var(--brand-primary)' }}>With Us</span>
-            </h1>
-            <p className="reveal d2" style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', maxWidth: '500px', marginTop: '24px' }}>
-              We place workers across traffic management and civil construction in Canterbury, Marlborough and Wellington. Experienced or just starting out, we want to hear from you.
-            </p>
-            <div className="reveal d3" style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginTop: '36px' }}>
-              <Link href="/find-work/apply" className="btn-orange" style={{ padding: '14px 28px', fontSize: '0.9rem' }}>
-                Apply Now
-                <ArrowRight size={17} strokeWidth={1.5} aria-hidden="true" />
-              </Link>
-              <Link href="/contact" className="btn-ghost" style={{ padding: '14px 28px', fontSize: '0.9rem' }}>
-                Talk to Us
-              </Link>
-            </div>
+        {/* Grid overlay */}
+        <div aria-hidden="true" style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          backgroundImage: `
+            repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px),
+            repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px)
+          `,
+        }} />
+
+        {/* Content */}
+        <div className="hero-content max-w-4xl mx-auto" style={{
+          position: 'relative', zIndex: 10,
+          paddingLeft: '24px', paddingRight: '24px',
+          paddingTop: 'clamp(110px, 10vw, 140px)',
+          textAlign: 'center',
+        }}>
+
+          <h1 className="font-display" style={{
+            fontWeight: 700,
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            lineHeight: 1.05,
+            textAlign: 'center',
+            letterSpacing: '-0.03em',
+            color: '#fff',
+          }}>
+            Work in Traffic Management<br />
+            Across Christchurch, Wellington and Blenheim
+          </h1>
+
+          <p style={{
+            fontSize: '1.0625rem',
+            lineHeight: 1.75,
+            color: 'rgba(255,255,255,0.8)',
+            maxWidth: '650px',
+            margin: '24px auto 0',
+          }}>
+            The Temp Company connects reliable workers with traffic management and civil crews who need extra hands on site.
+          </p>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', marginTop: '40px' }}>
+            <a href="#apply" className="hero-btn-primary">Apply Now</a>
+            <a href="tel:0800000000" className="hero-btn-secondary">Call Us Now</a>
           </div>
+
         </div>
       </section>
 
-      {/* ── ROLES ── */}
-      <section style={{ background: 'var(--off-white)', padding: '100px 0' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ marginBottom: '60px' }}>
-            <div className="reveal" style={{ marginBottom: '10px' }}>
-              <span className="eyebrow" style={{ color: 'var(--color-accent-hover)' }}>Types of Work</span>
+      {/* ── INTRO SECTION ── */}
+      <section style={{
+        background: '#1a1a1a',
+        paddingTop: '20px',
+        paddingBottom: '100px',
+      }}>
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-start" style={{
+          maxWidth: '1152px',
+          margin: '0 auto',
+          padding: '0 24px',
+        }}>
+
+          {/* LEFT — worker text */}
+          <div className="max-w-2xl employer-overlap" style={{ position: 'relative', zIndex: 10 }}>
+            <div className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: 'clamp(32px, 4vw, 40px)' }}>
+            <p className="font-display" style={{
+              fontSize: '0.7rem',
+              fontWeight: 700,
+              letterSpacing: '0.16em',
+              textTransform: 'uppercase',
+              color: 'var(--brand-primary-dark)',
+              marginBottom: '20px',
+            }}>
+              For Job Seekers
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                The Temp Company connects traffic management workers with steady, well-run crews across the Wellington, Canterbury &amp; Marlborough regions.
+              </p>
+              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                We don&rsquo;t just send anyone anywhere. We partner with reputable companies that respect the work and the people doing it.
+              </p>
+              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                Whether you&rsquo;re after consistent shifts or short-term gigs, we&rsquo;ll match you with jobs that fit your experience, qualifications, and availability.
+              </p>
+              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                If you&rsquo;re already TM qualified, great. If not, our certified trainers can get you trained and ready to hit the ground running. To join you&rsquo;ll need to:
+              </p>
+              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'var(--brand-primary-dark)', fontWeight: 500 }}>
+                Pass a Drug Test &nbsp;|&nbsp; Have strong communication skills in English
+              </p>
             </div>
-            <h2 className="section-title reveal d1" style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', color: 'var(--bg-dark)' }}>
-              Roles Across<br />Multiple Industries
-            </h2>
-            <div className="orange-rule reveal d2" style={{ marginTop: '16px', background: 'var(--color-accent-hover)' }} />
+            </div>
           </div>
 
-          <div className="services-grid">
-            {roles.map(({ title, body }, i) => (
-              <div key={title} className={`service-card reveal d${i + 1}`}>
-                <div className="service-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-                  </svg>
-                </div>
-                <h3 className="font-display" style={{ fontWeight: 600, fontSize: '1.1rem', color: '#fff' }}>{title}</h3>
-                <p style={{ fontSize: '1rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.62)', marginTop: '10px' }}>{body}</p>
+          {/* RIGHT — glass panel, overlaps hero */}
+          <div className="employer-overlap" style={{ position: 'relative', zIndex: 10 }}>
+            <div style={{
+              background: 'rgba(255,255,255,0.06)',
+              backdropFilter: 'blur(14px)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              borderRadius: '14px',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.35)',
+              padding: '32px 36px',
+              width: '100%',
+              maxWidth: '420px',
+              marginLeft: 'auto',
+            }}>
+
+              {/* Icon */}
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                <HardHat size={36} stroke="var(--brand-primary-dark)" strokeWidth={1.5} aria-hidden="true" />
+              </div>
+
+              {/* Panel heading */}
+              <h3 className="font-display" style={{
+                fontWeight: 700,
+                fontSize: '0.7rem',
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'var(--brand-primary-dark)',
+                textAlign: 'center',
+                marginBottom: '28px',
+              }}>
+                How to Apply
+              </h3>
+
+              {/* Steps */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {[
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                      </svg>
+                    ),
+                    title: 'Submit Your Details',
+                    body: 'Use our contact form to express your interest and provide your experience.',
+                  },
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                      </svg>
+                    ),
+                    title: 'We Connect',
+                    body: "We'll review your info and get in touch to discuss opportunities and answer any questions you may have.",
+                  },
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                      </svg>
+                    ),
+                    title: 'Get Placed',
+                    body: 'Secure flexible work that matches your skills and availability in the Canterbury & Marlborough Regions.',
+                  },
+                ].map(({ icon, title, body }, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                    <div style={{
+                      flexShrink: 0,
+                      width: '36px', height: '36px',
+                      borderRadius: '8px',
+                      background: 'rgba(188,156,34,0.12)',
+                      border: '1px solid rgba(188,156,34,0.2)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--brand-primary-dark)',
+                    }}>
+                      {icon}
+                    </div>
+                    <div>
+                      <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9375rem', color: '#fff', marginBottom: '4px' }}>
+                        {title}
+                      </p>
+                      <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'rgba(255,255,255,0.55)' }}>
+                        {body}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <a href="#apply" className="request-btn">
+                Apply Now
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section style={{ background: '#1a1a1a', paddingTop: '56px', paddingBottom: '120px' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-14" style={{ maxWidth: '1152px', margin: '0 auto', padding: '0 24px', alignItems: 'start' }}>
+
+          {/* LEFT — image */}
+          <div className="lg:col-span-2" style={{ position: 'relative', height: '600px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', boxShadow: '0 20px 50px rgba(0,0,0,0.45)' }}>
+            <Image
+              src="/images/temp_company_workers.webp"
+              alt="Temp Company traffic management workers on site"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+            />
+            {/* Dark overlay */}
+            <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.25)' }} />
+            {/* Gold gradient top edge */}
+            <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(196,150,20,0.15), rgba(0,0,0,0))' }} />
+            {/* Grid overlay */}
+            <div aria-hidden="true" style={{
+              position: 'absolute', inset: 0, opacity: 0.15,
+              backgroundImage: `
+                repeating-linear-gradient(0deg, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 1px, transparent 1px, transparent 60px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 1px, transparent 1px, transparent 60px)
+              `,
+            }} />
+          </div>
+
+          {/* RIGHT — FAQ content */}
+          <div className="lg:col-span-3">
+
+          <h2 className="font-display" style={{
+            fontWeight: 700,
+            fontSize: 'clamp(1.8rem, 2.5vw, 2.4rem)',
+            color: '#fff',
+            marginBottom: '60px',
+          }}>
+            FAQs <span style={{ color: 'var(--brand-primary-dark)' }}>for Job Seekers</span>
+          </h2>
+
+          <div>
+            {faqs.map(({ q, a }, i) => (
+              <div key={i} className="faq-row">
+                <button
+                  onClick={() => toggle(i)}
+                  className="faq-btn"
+                  aria-expanded={openIndex === i}
+                >
+                  <span className="faq-question" style={{
+                    fontWeight: 400,
+                    fontSize: '1.05rem',
+                    lineHeight: 1.4,
+                  }}>
+                    {q}
+                  </span>
+                  <span className={`faq-icon${openIndex === i ? ' open' : ''}`} style={{
+                    flexShrink: 0,
+                    width: '24px', height: '24px',
+                    borderRadius: '50%',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '1.1rem',
+                    lineHeight: 1,
+                  }}>
+                    +
+                  </span>
+                </button>
+
+                {openIndex === i && (
+                  <p style={{
+                    fontSize: '0.95rem',
+                    lineHeight: 1.6,
+                    color: 'rgba(188,156,34,0.9)',
+                    marginTop: '10px',
+                  }}>
+                    {a}
+                  </p>
+                )}
               </div>
             ))}
           </div>
+
+          </div>{/* end right column */}
+
         </div>
       </section>
 
-      {/* ── WHY WORK WITH US ── */}
-      <section style={{ background: 'var(--bg-dark)', padding: '100px 0' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-            <div className="reveal" style={{ marginBottom: '10px' }}>
-              <span className="eyebrow">Why Work With Us</span>
-            </div>
-            <h2 className="section-title reveal d1" style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', color: '#fff', marginTop: '8px' }}>
-              We Look After<br />
-              <span style={{ color: 'var(--brand-primary)' }}>Our People.</span>
-            </h2>
-            <div className="orange-rule reveal d2" style={{ marginTop: '16px' }} />
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '40px' }}>
-              {[
-                { d: 'd1', title: 'Work That Fits Your Life', body: 'Casual, contract, and ongoing roles available. We work around your availability and find placements that suit you.' },
-                { d: 'd2', title: 'We Support Your Development', body: 'New to traffic management? We can help you get your TTM Worker certification and connect you with real on-site experience through our industry partners.' },
-                { d: 'd3', title: 'We Stay in Your Corner', body: 'Once you are registered with us, we keep you in mind when new opportunities come in. We work to keep you placed.' },
-              ].map(({ d, title, body }) => (
-                <div key={title} className={`reveal ${d}`} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
-                  <div className="feature-icon">
-                    <Check size={16} strokeWidth={2} aria-hidden="true" />
-                  </div>
-                  <div>
-                    <h4 className="font-display" style={{ fontWeight: 600, fontSize: '1rem', color: '#fff' }}>{title}</h4>
-                    <p style={{ fontSize: '0.9375rem', color: 'var(--text-muted)', lineHeight: 1.65, marginTop: '5px' }}>{body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+      {/* ── FINAL CTA ── */}
+      <section style={{
+        position: 'relative',
+        background: 'linear-gradient(to bottom, rgba(196,150,20,0.12) 0%, rgba(0,0,0,0.85) 40%, #000 100%)',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+        overflow: 'hidden',
+      }}>
+        {/* Grid overlay */}
+        <div aria-hidden="true" style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          backgroundImage: `
+            repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px),
+            repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px)
+          `,
+        }} />
+        <div style={{ position: 'relative', zIndex: 10, maxWidth: '1280px', margin: '0 auto', padding: '72px 24px', textAlign: 'center' }}>
+          <h2 className="font-display" style={{
+            fontWeight: 700,
+            fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
+            lineHeight: 1.1,
+            letterSpacing: '-0.02em',
+            color: '#fff',
+            marginBottom: '16px',
+          }}>
+            Ready to Find Work?
+          </h2>
+          <p style={{
+            fontSize: '1rem',
+            lineHeight: 1.75,
+            color: 'rgba(255,255,255,0.75)',
+            maxWidth: '480px',
+            margin: '0 auto 36px',
+          }}>
+            Get qualified workers on site quickly with The Temp Company.
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px' }}>
+            <a href="#apply" className="hero-btn-primary">Apply Now</a>
+            <a href="tel:0800000000" className="hero-btn-secondary">Call Us Now</a>
           </div>
         </div>
       </section>
 
-      {/* ── HOW TO APPLY ── */}
-      <section id="process" style={{ background: 'var(--color-bg-deep)', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
-          <div className="reveal" style={{ marginBottom: '64px' }}>
-            <span className="eyebrow">How It Works</span>
-            <h2 className="section-title" style={{ fontSize: 'clamp(1.8rem,3.5vw,3rem)', color: '#fff', marginTop: '8px' }}>
-              Getting Started<br />
-              <span style={{ color: 'var(--brand-primary)' }}>Is Simple.</span>
-            </h2>
-            <div className="orange-rule" style={{ marginTop: '16px' }} />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
-            <div className="hidden md:block absolute" style={{ top: '27px', left: '16.5%', right: '16.5%', height: '2px', background: 'var(--brand-primary)', pointerEvents: 'none', zIndex: 0 }} />
-            {steps.map(({ n, title, body }, i) => (
-              <div key={n} className={`reveal d${i + 1}`} style={{ position: 'relative', zIndex: 1 }}>
-                <div className="process-step-inner">
-                  <div className="step-circle-outline shrink-0" style={{ margin: '0 auto' }}>
-                    <span className="step-num">{n}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-display process-step-title" style={{ fontWeight: 600, fontSize: '1rem', color: '#fff', lineHeight: 1.3 }}>{title}</h3>
-                    <p style={{ fontSize: '0.9375rem', color: 'var(--text-muted)', lineHeight: 1.7, marginTop: '8px' }}>{body}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="cta-section" aria-label="Call to action">
-        <div style={{ position: 'relative', zIndex: 10, maxWidth: '1280px', margin: '0 auto', padding: '80px 24px', textAlign: 'center' }}>
-          <div className="reveal">
-            <h2 className="font-display" style={{ fontWeight: 700, fontSize: 'clamp(2rem,4.5vw,4rem)', color: '#fff', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-              Ready to Apply?
-            </h2>
-            <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.88)', maxWidth: '480px', margin: '20px auto 0', lineHeight: 1.72 }}>
-              Submit your details and our team will be in touch within a few business days.
-            </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', marginTop: '36px' }}>
-              <Link href="/find-work/apply" className="btn-white">
-                Apply Now
-                <ArrowRight size={16} strokeWidth={1.5} aria-hidden="true" />
-              </Link>
-              <Link href="/contact" className="btn-outline-white">
-                Contact Us
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+    </main>
   )
 }
