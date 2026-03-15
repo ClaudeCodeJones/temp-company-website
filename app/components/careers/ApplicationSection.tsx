@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, Suspense } from 'react'
+import Link from 'next/link'
 import ApplicationForm from './ApplicationForm'
 
 export default function ApplicationSection() {

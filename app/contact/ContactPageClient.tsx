@@ -50,7 +50,7 @@ export default function ContactPageClient() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', branch: '', message: '' })
   const [errors, setErrors] = useState<Partial<typeof form>>({})
   const [status, setStatus] = useState<FormState>('idle')
-  const [errorMessage, setErrorMessage] = useState(`Something went wrong. Please try again or call us on ${brand.phone}.`)
+  const [errorMessage, setErrorMessage] = useState('Something went wrong. Please try again. If you need assistance, please contact your co-ordinator.')
   const [turnstileToken, setTurnstileToken] = useState('')
   const honeypotRef = useRef<HTMLInputElement>(null)
 
@@ -83,7 +83,7 @@ export default function ContactPageClient() {
       })
       const data = await res.json()
       if (!res.ok) {
-        setErrorMessage(data.error || `Something went wrong. Please try again or call us on ${brand.phone}.`)
+        setErrorMessage(data.error || 'Something went wrong. Please try again. If you need assistance, please contact your co-ordinator.')
         setStatus('error')
         return
       }

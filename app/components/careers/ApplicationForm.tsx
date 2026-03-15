@@ -477,7 +477,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
 
           {state === 'error' && (
             <p style={{ fontSize: '0.85rem', color: '#f87171', marginBottom: '16px' }}>
-              {`Something went wrong. Please try again or call us on ${brand.phone}.`}
+              {'If something went wrong, please contact your co-ordinator for assistance.'}
             </p>
           )}
 
