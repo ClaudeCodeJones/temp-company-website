@@ -193,7 +193,7 @@ export default function HireStaffPage() {
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', marginTop: '40px' }}>
             <a href="#request-staff" className="hero-btn-primary">Request Staff</a>
-            <a href="tel:0800000000" className="hero-btn-secondary">Call Us Now</a>
+            <a href="/about-us#operations-team" className="hero-btn-secondary">Call Us Now</a>
           </div>
 
         </div>
@@ -463,7 +463,7 @@ export default function HireStaffPage() {
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px' }}>
             <a href="#request-staff" className="hero-btn-primary">Request Staff</a>
-            <a href="tel:0800000000" className="hero-btn-secondary">Call Us Now</a>
+            <a href="/about-us#operations-team" className="hero-btn-secondary">Call Us Now</a>
           </div>
         </div>
       </section>

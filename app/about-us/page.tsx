@@ -7,7 +7,7 @@ const strengths = [
   {
     icon: <HardHat size={28} strokeWidth={1.5} aria-hidden="true" />,
     title: 'Traffic Management Specialists',
-    body: 'Traffic management is our core focus, supplying workers who understand the demands of active worksites and integrate quickly into established crews.',
+    body: 'Traffic management is our core focus, supplying workers who understand active worksites and integrate quickly into established crews.',
   },
   {
     icon: <Users size={28} strokeWidth={1.5} aria-hidden="true" />,
@@ -22,9 +22,9 @@ const strengths = [
 ]
 
 const team = [
-  { name: 'Amy Carswell', role: 'Operations Co-ordinator', location: 'Wellington', phone: '027 836 7266', phoneTel: '0278367266', email: 'amy@thetempcompany.co.nz', image: null },
+  { name: 'Amy Carswell', role: 'Operations Co-ordinator', location: 'Wellington', phone: '027 836 7266', phoneTel: '0278367266', email: 'amy@thetempcompany.co.nz', image: '/people/janelle_lang.webp' },
   { name: 'Eli Hyde', role: 'Operations Co-ordinator', location: 'Christchurch', phone: '021 836 930', phoneTel: '021836930', email: 'eli@thetempcompany.co.nz', image: '/people/eli_hyde.webp' },
-  { name: 'Luke Roberts', role: 'Operations Co-ordinator', location: 'Blenheim', phone: '027 836 7262', phoneTel: '0278367262', email: 'luke@thetempcompany.co.nz', image: '/people/luke_roberts.webp' },
+  { name: 'Luke Roberts', role: 'Operations Co-ordinator', location: 'Blenheim', phone: '027 836 7262', phoneTel: '0278367262', email: 'luke@thetempcompany.co.nz', image: '/people/luke_roberts_ttc1.webp' },
 ]
 
 export default function AboutPage() {
@@ -35,7 +35,7 @@ export default function AboutPage() {
         .hero-content { padding-bottom: clamp(50px, 7vw, 80px); }
         @media (max-width: 1279px) {
           .hero-section { min-height: auto; }
-          .hero-content { padding-top: 140px; padding-bottom: 32px; }
+          .hero-content { padding-top: 180px; padding-bottom: 32px; }
         }
         .strength-card {
           border-radius: 12px;
@@ -137,7 +137,7 @@ export default function AboutPage() {
         <div className="hero-content max-w-4xl mx-auto" style={{
           position: 'relative', zIndex: 10,
           paddingLeft: '24px', paddingRight: '24px',
-          paddingTop: 'clamp(110px, 10vw, 140px)',
+          paddingTop: 'clamp(150px, 13vw, 190px)',
           textAlign: 'center',
         }}>
 
@@ -160,7 +160,7 @@ export default function AboutPage() {
             maxWidth: '650px',
             margin: '24px auto 0',
           }}>
-            Specialising in traffic management staffing while also supplying dependable labourers when crews need extra hands to keep projects moving safely and efficiently.
+            Specialising in traffic management staffing while also supplying dependable labourers when crews need extra hands on site.
           </p>
 
         </div>
@@ -284,25 +284,25 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" style={{ alignContent: 'stretch', height: '100%' }}>
 
             {/* Men at Work Traffic Management */}
-            <a href="https://www.menatwork.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center p-8 h-full brand-card card-maw" style={{ background: '#1c1f24', borderTop: '4px solid #fd4f00', textDecoration: 'none' }}>
-              <Image src="/logos/mwtrafficmanagement_white.webp" alt="Men at Work Traffic Management" width={200} height={52} style={{ maxHeight: '52px', width: 'auto', objectFit: 'contain' }} />
+            <a href="https://www.menatwork.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center px-8 brand-card card-maw" style={{ background: '#1c1f24', borderTop: '4px solid #fd4f00', textDecoration: 'none', minHeight: '140px' }}>
+              <Image src="/logos/mwtrafficmanagement_white.webp" alt="Men at Work Traffic Management" width={200} height={52} style={{ maxHeight: '44px', width: 'auto', objectFit: 'contain' }} />
             </a>
 
             {/* MW Training & Planning */}
-            <a href="https://www.mwtrainplan.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center p-8 h-full brand-card card-mwtp" style={{ background: '#1c1f24', borderTop: '4px solid #2983c2', textDecoration: 'none' }}>
-              <Image src="/logos/mwtrainingandplanning_white.webp" alt="MW Training &amp; Planning" width={200} height={52} style={{ maxHeight: '52px', width: 'auto', objectFit: 'contain' }} />
+            <a href="https://www.mwtrainplan.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center px-8 brand-card card-mwtp" style={{ background: '#1c1f24', borderTop: '4px solid #2983c2', textDecoration: 'none', minHeight: '140px' }}>
+              <Image src="/logos/mwtrainingandplanning_white.webp" alt="MW Training &amp; Planning" width={200} height={52} style={{ maxHeight: '44px', width: 'auto', objectFit: 'contain' }} />
             </a>
 
             {/* QualCard */}
-            <a href="https://www.qualcard.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center p-8 h-full brand-card card-qualcard" style={{ background: '#1c1f24', borderTop: '4px solid #a280ff', textDecoration: 'none' }}>
+            <a href="https://www.qualcard.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center px-8 brand-card card-qualcard" style={{ background: '#1c1f24', borderTop: '4px solid #a280ff', textDecoration: 'none', minHeight: '140px' }}>
               <div className="flex items-center justify-center">
                 <Image src="/logos/qualcard_white.webp" alt="QualCard" width={160} height={40} className="max-h-10 md:max-h-12 object-contain w-auto" />
               </div>
             </a>
 
             {/* SweepCo */}
-            <a href="https://www.sweepco.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center p-8 h-full brand-card card-sweepco" style={{ background: '#1c1f24', borderTop: '4px solid #cc2324', textDecoration: 'none' }}>
-              <Image src="/logos/sweepco_white.webp" alt="SweepCo" width={175} height={46} style={{ maxHeight: '46px', width: 'auto', objectFit: 'contain' }} />
+            <a href="https://www.sweepco.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center px-8 brand-card card-sweepco" style={{ background: '#1c1f24', borderTop: '4px solid #cc2324', textDecoration: 'none', minHeight: '140px' }}>
+              <Image src="/logos/sweepco_white.webp" alt="SweepCo" width={175} height={46} style={{ maxHeight: '40px', width: 'auto', objectFit: 'contain' }} />
             </a>
 
           </div>
@@ -311,7 +311,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── SECTION 5 — TEAM ── */}
-      <section style={{ background: '#111', padding: 'clamp(60px, 8vw, 100px) 24px' }}>
+      <section id="operations-team" style={{ background: '#111', padding: 'clamp(60px, 8vw, 100px) 24px' }}>
         <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
           <h2 className="font-display" style={{
             fontWeight: 700,
@@ -393,7 +393,7 @@ export default function AboutPage() {
             maxWidth: '480px',
             margin: '0 auto 36px',
           }}>
-            The Temp Company connects reliable workers with traffic management and civil crews who need extra hands on site.
+            The Temp Company connects reliable workers with traffic management and civil crews when extra hands are needed.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px' }}>
             <a href="/hire-staff" className="hero-btn-primary">Request Staff</a>

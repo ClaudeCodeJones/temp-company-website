@@ -134,7 +134,7 @@ export default function BranchHiringCard({ item }: { item: Branch }) {
           <>
             {/* Mobile: text link */}
             <Link
-              href="/find-work"
+              href="/find-work/apply"
               className="md:hidden inline-flex items-center gap-2 text-xs font-medium transition duration-200 hover:text-[#fcd415]"
               style={{ color: colors.text }}
             >
@@ -143,7 +143,7 @@ export default function BranchHiringCard({ item }: { item: Branch }) {
             </Link>
             {/* Desktop: full-width pill */}
             <Link
-              href="/find-work"
+              href="/find-work/apply"
               className="hidden md:inline-flex items-center justify-center gap-2 w-full rounded-full border bg-transparent px-8 text-xs font-medium transition duration-200 hover:text-[#fcd415] hover:border-[#fcd415]/60 active:scale-[0.98]"
               style={{ paddingTop: '14px', paddingBottom: '14px', color: colors.text, borderColor: `${colors.text}40` }}
             >

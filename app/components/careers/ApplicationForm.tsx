@@ -10,23 +10,11 @@ import { branches as branchList } from '../../../data/branches'
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
-const tmExperienceOptions = [
-  'None',
-  'TTM Worker',
-  'TMO (NP)',
-  'TMO (P)',
-  'STMS (NP)',
-  'STMS Cat A/B',
-  'STMS Cat C',
-  'Other (please describe below)',
-]
-
-const licenceOptions = ['Restricted (Car)', 'Full (Car)', 'Class 2 (Truck)']
-
-const contactOptions = [
-  { value: 'email', label: "Yep, I'm happy with an Email" },
-  { value: 'text', label: 'A text would be great' },
-  { value: 'call', label: 'Please give me a call' },
+const driversLicenceOptions = [
+  { value: 'None', label: 'None (application will not be accepted)' },
+  { value: 'Car – Restricted', label: 'Car – Restricted' },
+  { value: 'Car – Full', label: 'Car – Full' },
+  { value: 'Class 2', label: 'Class 2' },
 ]
 
 const inputStyle: React.CSSProperties = {
@@ -90,19 +78,18 @@ function RadioOption({
 }
 
 function CheckboxOption({
-  value, checked, onChange, label,
-}: { value: string; checked: boolean; onChange: () => void; label: string }) {
+  checked, onChange, label,
+}: { checked: boolean; onChange: () => void; label: string }) {
   return (
-    <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', padding: '6px 0' }}>
+    <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer', padding: '6px 0' }}>
       <input
         type="checkbox"
-        value={value}
         checked={checked}
         onChange={onChange}
         style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }}
       />
       <span style={{
-        width: '16px', height: '16px', borderRadius: '2px', flexShrink: 0,
+        width: '16px', height: '16px', borderRadius: '2px', flexShrink: 0, marginTop: '1px',
         border: checked ? '2px solid var(--brand-primary)' : '2px solid rgba(255,255,255,0.2)',
         background: checked ? 'var(--brand-primary)' : 'transparent',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -113,7 +100,7 @@ function CheckboxOption({
           </svg>
         )}
       </span>
-      <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.4 }}>{label}</span>
+      <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', color: 'rgba(255,255,255,0.8)', lineHeight: 1.5 }}>{label}</span>
     </label>
   )
 }
@@ -138,27 +125,18 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
     email: '',
     phone: '',
     city: '',
-    startDate: '',
     branch: preselectedBranch,
-    experience: '',
-    licences: [] as string[],
-    contactMethod: '',
+    driversLicence: '',
+    startDate: '',
     workHistory: '',
-    aboutYourself: '',
-    healthIssues: '',
-    accHistory: '',
-    howDidYouHear: '',
+    tmExperience: '',
+    englishConfirm: false,
+    drugTestConfirm: false,
     casualConfirm: false,
-    drugAlcoholConfirm: false,
-    criminalHistoryConfirm: false,
-    experienceOther: '',
-    rightToWork: '',
-    visaExpiry: '',
-    interviewDay: '',
-    interviewTime: '',
+    mojCheckConfirm: false,
   })
 
-  function set(field: string, value: string | boolean | string[]) {
+  function set(field: string, value: string | boolean) {
     setForm(prev => ({ ...prev, [field]: value }))
     setErrors(prev => ({ ...prev, [field]: '' }))
   }
@@ -170,14 +148,13 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
     setForm(prev => ({ ...prev, branch: matched }))
   }, [branchParam])
 
-  function toggleLicence(licence: string) {
-    setForm(prev => ({
-      ...prev,
-      licences: prev.licences.includes(licence)
-        ? prev.licences.filter(l => l !== licence)
-        : [...prev.licences, licence],
-    }))
-    setErrors(prev => ({ ...prev, licences: '' }))
+  function scrollToCard() {
+    requestAnimationFrame(() => {
+      if (cardRef.current) {
+        const y = cardRef.current.getBoundingClientRect().top + window.scrollY - 100
+        window.scrollTo({ top: y, behavior: 'smooth' })
+      }
+    })
   }
 
   function validateStep1() {
@@ -187,23 +164,19 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email'
     if (!form.phone.trim()) e.phone = 'Required'
     if (!form.city.trim()) e.city = 'Required'
-    if (!form.startDate) e.startDate = 'Required'
     if (!form.branch) e.branch = 'Select a branch'
-    if (!form.rightToWork) e.rightToWork = 'Required'
+    if (!form.driversLicence) e.driversLicence = 'Please select your licence type'
+    if (!form.startDate) e.startDate = 'Required'
     return e
   }
 
   function validateStep2() {
     const e: Record<string, string> = {}
-    if (!form.experience) e.experience = 'Please select your experience level'
-    if (form.licences.length === 0) e.licences = 'Please select at least one licence'
-    if (!form.contactMethod) e.contactMethod = 'Please select a contact preference'
     if (!form.workHistory.trim()) e.workHistory = 'Required'
-    if (!form.aboutYourself.trim()) e.aboutYourself = 'Required'
-    if (!form.healthIssues.trim()) e.healthIssues = 'Required'
-    if (!form.accHistory.trim()) e.accHistory = 'Required'
-    if (!form.drugAlcoholConfirm) e.drugAlcoholConfirm = 'You must confirm this before submitting'
-    if (!form.criminalHistoryConfirm) e.criminalHistoryConfirm = 'You must confirm this before submitting'
+    if (!form.englishConfirm) e.englishConfirm = 'You must confirm this before submitting'
+    if (!form.drugTestConfirm) e.drugTestConfirm = 'You must confirm this before submitting'
+    if (!form.casualConfirm) e.casualConfirm = 'You must confirm this before submitting'
+    if (!form.mojCheckConfirm) e.mojCheckConfirm = 'You must confirm this before submitting'
     return e
   }
 
@@ -212,7 +185,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
     if (Object.keys(e).length > 0) { setErrors(e); return }
     setErrors({})
     setStep(2)
-    requestAnimationFrame(() => { if (cardRef.current) { const headerOffset = 100; const y = cardRef.current.getBoundingClientRect().top + window.scrollY - headerOffset; window.scrollTo({ top: y, behavior: 'smooth' }) } })
+    scrollToCard()
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -223,7 +196,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
     setState('submitting')
 
     try {
-      const res = await fetch('/api/careers-application', {
+      const res = await fetch('/api/apply-for-work', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, turnstileToken, companyPhone: honeypotRef.current?.value ?? '' }),
@@ -282,7 +255,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
             Step {step} of 2
           </span>
           <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-            {step === 1 ? 'Personal Details' : 'Experience & Background'}
+            {step === 1 ? 'Your Details' : 'Experience & Confirmations'}
           </span>
         </div>
         <div style={{ height: '2px', background: 'rgba(255,255,255,0.08)', borderRadius: '1px' }}>
@@ -296,8 +269,10 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           {/* Honeypot field – hidden from users */}
           <input ref={honeypotRef} type="text" name="companyPhone" tabIndex={-1} autoComplete="off" className="absolute left-[-9999px] opacity-0 pointer-events-none" />
 
-          <div style={{ marginBottom: '20px' }}>
-            <label style={labelStyle}>Full Name</label>
+          {/* Full Name */}
+          <div style={fieldGroupStyle}>
+            <label style={labelStyle}>Name</label>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Enter your first and last name</p>
             <input
               type="text" autoComplete="name" value={form.fullName}
               onChange={e => set('fullName', e.target.value)}
@@ -306,8 +281,10 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
             <FieldError msg={errors.fullName} />
           </div>
 
-          <div style={{ marginBottom: '20px' }}>
-            <label style={labelStyle}>Email</label>
+          {/* Email */}
+          <div style={fieldGroupStyle}>
+            <label style={labelStyle}>Email Address</label>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Enter your email address</p>
             <input
               type="email" autoComplete="email" value={form.email}
               onChange={e => set('email', e.target.value)}
@@ -316,8 +293,22 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
             <FieldError msg={errors.email} />
           </div>
 
-          <div style={{ marginBottom: '20px' }}>
-            <label style={labelStyle}>City / Town</label>
+          {/* Phone */}
+          <div style={fieldGroupStyle}>
+            <label style={labelStyle}>Phone</label>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Enter your phone number</p>
+            <input
+              type="tel" inputMode="numeric" pattern="[0-9+\s-]*" autoComplete="tel" value={form.phone}
+              onChange={e => set('phone', e.target.value)}
+              style={{ ...inputStyle, borderColor: errors.phone ? '#f87171' : 'rgba(255,255,255,0.12)' }}
+            />
+            <FieldError msg={errors.phone} />
+          </div>
+
+          {/* City */}
+          <div style={fieldGroupStyle}>
+            <label style={labelStyle}>Which city or town do you currently live in?</label>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Where are you living now?</p>
             <input
               type="text" value={form.city}
               onChange={e => set('city', e.target.value)}
@@ -326,74 +317,64 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
             <FieldError msg={errors.city} />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ marginBottom: '20px' }}>
-            <div>
-              <label style={labelStyle}>Phone</label>
-              <input
-                type="tel" inputMode="numeric" pattern="[0-9+\s-]*" autoComplete="tel" value={form.phone}
-                onChange={e => set('phone', e.target.value)}
-                style={{ ...inputStyle, borderColor: errors.phone ? '#f87171' : 'rgba(255,255,255,0.12)' }}
-              />
-              <FieldError msg={errors.phone} />
-            </div>
-            <div>
-              <label style={labelStyle}>Earliest Start Date</label>
-              <div style={{ position: 'relative' }}>
-                <input
-                  ref={dateRef}
-                  type="date" value={form.startDate}
-                  onChange={e => set('startDate', e.target.value)}
-                  style={{ ...inputStyle, borderColor: errors.startDate ? '#f87171' : 'rgba(255,255,255,0.12)', paddingRight: '44px' }}
-                />
-                <button
-                  type="button"
-                  onClick={() => dateRef.current?.showPicker()}
-                  style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', padding: '4px', cursor: 'pointer', color: 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center' }}
-                  tabIndex={-1}
-                  aria-label="Open date picker"
-                >
-                  <Calendar size={16} strokeWidth={1.5} aria-hidden="true" />
-                </button>
-              </div>
-              <FieldError msg={errors.startDate} />
-            </div>
-          </div>
-
+          {/* Branch */}
           <div style={fieldGroupStyle}>
-            <label style={labelStyle}>Right to Work (NZ)</label>
-            <SelectWrapper value={form.rightToWork} onChange={v => set('rightToWork', v)} error={errors.rightToWork} placeholder="Select one">
-              <option value="NZ Citizen / Resident (no work restrictions)" style={{ background: 'var(--color-bg-elevated)', color: '#fff' }}>NZ Citizen / Resident (no work restrictions)</option>
-              <option value="Valid Work Visa" style={{ background: 'var(--color-bg-elevated)', color: '#fff' }}>Valid Work Visa</option>
-              <option value="No current right to work in NZ" style={{ background: 'var(--color-bg-elevated)', color: '#fff' }}>No current right to work in NZ</option>
-            </SelectWrapper>
-            <FieldError msg={errors.rightToWork} />
-          </div>
-
-          {form.rightToWork === 'Valid Work Visa' && (
-            <div style={fieldGroupStyle}>
-              <label style={labelStyle}>Visa Expiry Date</label>
-              <div style={{ position: 'relative' }}>
-                {!form.visaExpiry && (
-                  <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', fontFamily: 'Inter, sans-serif', fontSize: '0.9rem', color: 'rgba(255,255,255,0.45)', pointerEvents: 'none', zIndex: 1 }}>Select expiry date</span>
-                )}
-                <input
-                  type="date"
-                  value={form.visaExpiry}
-                  onChange={e => set('visaExpiry', e.target.value)}
-                  style={{ ...inputStyle, borderColor: 'rgba(255,255,255,0.12)', color: form.visaExpiry ? '#fff' : 'transparent' }}
-                />
-              </div>
-            </div>
-          )}
-
-          <div style={fieldGroupStyle}>
-            <label style={labelStyle}>Applying For</label>
+            <label style={labelStyle}>Which branch are you applying to?</label>
             <SelectWrapper value={form.branch} onChange={v => set('branch', v)} error={errors.branch} placeholder="Select branch">
               {branchList.map(b => (
                 <option key={b.slug} value={b.name} style={{ background: 'var(--color-bg-elevated)', color: '#fff' }}>{b.name}</option>
               ))}
             </SelectWrapper>
             <FieldError msg={errors.branch} />
+          </div>
+
+          {/* Driver Licence */}
+          <div style={fieldGroupStyle}>
+            <label style={labelStyle}>What driver licence do you currently hold?</label>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginBottom: '10px' }}>
+              You must hold at least a Restricted licence to be considered.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {driversLicenceOptions.map(opt => (
+                <RadioOption
+                  key={opt.value}
+                  name="driversLicence"
+                  value={opt.value}
+                  checked={form.driversLicence === opt.value}
+                  onChange={() => set('driversLicence', opt.value)}
+                  label={opt.label}
+                />
+              ))}
+            </div>
+            <FieldError msg={errors.driversLicence} />
+            {form.driversLicence === 'None' && (
+              <p style={{ fontSize: '0.75rem', color: '#f87171', marginTop: '6px' }}>
+                Applicants must hold at least a Restricted driver licence to be considered.
+              </p>
+            )}
+          </div>
+
+          {/* Start Date */}
+          <div style={fieldGroupStyle}>
+            <label style={labelStyle}>When is your earliest start date?</label>
+            <div style={{ position: 'relative' }}>
+              <input
+                ref={dateRef}
+                type="date" value={form.startDate}
+                onChange={e => set('startDate', e.target.value)}
+                style={{ ...inputStyle, borderColor: errors.startDate ? '#f87171' : 'rgba(255,255,255,0.12)', paddingRight: '44px' }}
+              />
+              <button
+                type="button"
+                onClick={() => dateRef.current?.showPicker()}
+                style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', padding: '4px', cursor: 'pointer', color: 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center' }}
+                tabIndex={-1}
+                aria-label="Open date picker"
+              >
+                <Calendar size={16} strokeWidth={1.5} aria-hidden="true" />
+              </button>
+            </div>
+            <FieldError msg={errors.startDate} />
           </div>
 
           <button type="button" onClick={handleNext} className="btn-orange" style={{ width: '100%', justifyContent: 'center' }}>
@@ -406,191 +387,91 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
       {/* ── STEP 2 ── */}
       {step === 2 && (
         <form autoComplete="off" onSubmit={handleSubmit} noValidate>
-          {/* TM Experience */}
-          <div style={{ marginBottom: '28px' }}>
-            <label style={labelStyle}>Traffic Management Qualifications</label>
-            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '0 24px' }}>
-              {tmExperienceOptions.map(opt => (
-                <RadioOption
-                  key={opt} name="experience" value={opt}
-                  checked={form.experience === opt}
-                  onChange={() => set('experience', opt)}
-                  label={opt}
-                />
-              ))}
-            </div>
-            {form.experience === 'Other (please describe below)' && (
-              <div style={{ marginTop: '12px' }}>
-                <textarea
-                  rows={3}
-                  placeholder="Please describe your experience..."
-                  value={form.experienceOther ?? ''}
-                  onChange={e => set('experienceOther', e.target.value)}
-                  style={{ ...inputStyle, resize: 'vertical', minHeight: '80px', borderColor: 'rgba(255,255,255,0.12)' }}
-                />
-              </div>
-            )}
-            <FieldError msg={errors.experience} />
-          </div>
 
-          {/* Divider */}
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', marginBottom: '28px' }} />
-
-          {/* Licences */}
-          <div style={{ marginBottom: '28px' }}>
-            <label style={labelStyle}>Licence(s) Held</label>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginBottom: '10px' }}>
-              Note: You must hold at least a Restricted (Car), Full (Car), or Class 2 licence. Learner licences or no licence are not accepted.
+          {/* Work Background */}
+          <div style={fieldGroupStyle}>
+            <label style={labelStyle}>Work Background</label>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>
+              Tell us about your work experience over the last few years.
             </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0 32px' }}>
-              {licenceOptions.map(opt => (
-                <CheckboxOption
-                  key={opt} value={opt}
-                  checked={form.licences.includes(opt)}
-                  onChange={() => toggleLicence(opt)}
-                  label={opt}
-                />
-              ))}
-            </div>
-            <FieldError msg={errors.licences} />
+            <textarea
+              rows={4}
+              value={form.workHistory}
+              onChange={e => set('workHistory', e.target.value)}
+              style={{ ...inputStyle, resize: 'vertical', minHeight: '100px', borderColor: errors.workHistory ? '#f87171' : 'rgba(255,255,255,0.12)' }}
+            />
+            <FieldError msg={errors.workHistory} />
           </div>
 
-          {/* Divider */}
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', marginBottom: '28px' }} />
-
-          {/* Text areas */}
-          {[
-            { field: 'workHistory', label: 'Brief Work History (Last 2 Years)', placeholder: 'Employer names, roles held, dates...' },
-            { field: 'aboutYourself', label: 'Tell Us a Bit More About Yourself', placeholder: 'Your motivations, strengths, what you are looking for...' },
-            { field: 'healthIssues', label: 'Any Health Issues We Should Be Aware Of?', placeholder: 'This is a high stress, physically demanding job. Please be honest...' },
-            { field: 'accHistory', label: 'Any ACC History We Should Be Aware Of?', placeholder: 'Please describe any relevant ACC claims or injuries...' },
-          ].map(({ field, label, placeholder }) => (
-            <div key={field} style={{ marginBottom: '20px' }}>
-              <label style={labelStyle}>{label}</label>
-              <textarea
-                rows={3}
-                placeholder={placeholder}
-                value={(form as Record<string, unknown>)[field] as string}
-                onChange={e => set(field, e.target.value)}
-                style={{
-                  ...inputStyle,
-                  resize: 'vertical',
-                  minHeight: '88px',
-                  borderColor: errors[field] ? '#f87171' : 'rgba(255,255,255,0.12)',
-                }}
-              />
-              <FieldError msg={errors[field]} />
-            </div>
-          ))}
-
-          <div style={{ marginBottom: '28px' }}>
+          {/* TM Experience */}
+          <div style={fieldGroupStyle}>
             <label style={labelStyle}>
-              How Did You Hear About This Role?{' '}
+              Traffic Management Experience{' '}
               <span style={{ color: 'var(--text-muted)', fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>(optional)</span>
             </label>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>
+              Tell us about any traffic management experience or qualifications you have. Leave blank if none.
+            </p>
             <textarea
-              rows={2}
-              value={form.howDidYouHear}
-              onChange={e => set('howDidYouHear', e.target.value)}
-              style={{ ...inputStyle, resize: 'vertical', minHeight: '64px' }}
+              rows={3}
+              value={form.tmExperience}
+              onChange={e => set('tmExperience', e.target.value)}
+              style={{ ...inputStyle, resize: 'vertical', minHeight: '88px', borderColor: 'rgba(255,255,255,0.12)' }}
             />
           </div>
 
           {/* Divider */}
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', marginBottom: '28px' }} />
-
-          {/* Interview scheduling */}
-          <div style={{ marginBottom: '28px' }}>
-            <label style={labelStyle}>Preferred Interview Day &amp; Time</label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ marginBottom: '10px' }}>
-              <div>
-                <SelectWrapper value={form.interviewDay} onChange={v => set('interviewDay', v)} placeholder="Any day">
-                  <option value="Any day">Any day</option>
-                  <option value="Monday">Monday</option>
-                  <option value="Tuesday">Tuesday</option>
-                  <option value="Wednesday">Wednesday</option>
-                  <option value="Thursday">Thursday</option>
-                  <option value="Friday">Friday</option>
-                </SelectWrapper>
-              </div>
-              <div>
-                <SelectWrapper value={form.interviewTime} onChange={v => set('interviewTime', v)} placeholder="Any time">
-                  <option value="Any time">Any time</option>
-                  <option value="7:00 – 9:00">7:00 – 9:00</option>
-                  <option value="9:00 – 12:00">9:00 – 12:00</option>
-                  <option value="12:00 – 3:00">12:00 – 3:00</option>
-                  <option value="3:00 – 5:00">3:00 – 5:00</option>
-                </SelectWrapper>
-              </div>
-            </div>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)' }}>
-              We will do our best to schedule your interview within your preferred time.
-            </p>
-          </div>
-
-          {/* Contact preference */}
-          <div style={{ marginBottom: '28px' }}>
-            <label style={labelStyle}>Preferred Contact Method</label>
-            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '10px', lineHeight: 1.5 }}>
-              We prefer to email you so we have a record of our conversation, but how would you like us to contact you?
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {contactOptions.map(opt => (
-                <RadioOption
-                  key={opt.value} name="contactMethod" value={opt.value}
-                  checked={form.contactMethod === opt.value}
-                  onChange={() => set('contactMethod', opt.value)}
-                  label={opt.label}
-                />
-              ))}
-            </div>
-            <FieldError msg={errors.contactMethod} />
-          </div>
-
-          {/* Divider */}
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', marginBottom: '28px' }} />
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', margin: '8px 0 28px' }} />
 
           {/* Confirmations */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '28px' }}>
-            {!['STMS Cat A/B', 'STMS Cat C'].includes(form.experience) && (
-              <div style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '2px' }}>
-                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px' }}>Casual Worker Guide</p>
-                <CheckboxOption
-                  value="casualConfirm"
-                  checked={form.casualConfirm}
-                  onChange={() => set('casualConfirm', !form.casualConfirm)}
-                  label="I confirm I have read 'What to Expect as a Casual Worker'."
-                />
-                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginTop: '8px' }}>
-                  See the link above for the full guide before confirming.
-                </p>
-              </div>
-            )}
+            <div style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '2px' }}>
+              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px' }}>English Communication</p>
+              <CheckboxOption
+                checked={form.englishConfirm}
+                onChange={() => set('englishConfirm', !form.englishConfirm)}
+                label="I confirm I have strong communication skills in English"
+              />
+              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginTop: '8px' }}>
+                Clear communication is essential for safety when working around live traffic and crews on site.
+              </p>
+              <FieldError msg={errors.englishConfirm} />
+            </div>
             <div style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '2px' }}>
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px' }}>Drug &amp; Alcohol Test</p>
               <CheckboxOption
-                value="drugAlcoholConfirm"
-                checked={form.drugAlcoholConfirm}
-                onChange={() => set('drugAlcoholConfirm', !form.drugAlcoholConfirm)}
-                label="I confirm that I am able to pass a drug and alcohol test."
+                checked={form.drugTestConfirm}
+                onChange={() => set('drugTestConfirm', !form.drugTestConfirm)}
+                label="I understand that passing a drug and alcohol test may be required"
               />
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginTop: '8px' }}>
                 Drug and alcohol testing costs exceed $150. Please only proceed if you are confident you will pass the test.
               </p>
-              <FieldError msg={errors.drugAlcoholConfirm} />
+              <FieldError msg={errors.drugTestConfirm} />
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '2px' }}>
+              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px' }}>Casual Worker Guide</p>
+              <CheckboxOption
+                checked={form.casualConfirm}
+                onChange={() => set('casualConfirm', !form.casualConfirm)}
+                label="I have read the document 'What to Expect as a Casual Worker'"
+              />
+              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginTop: '8px' }}>
+                See the link above for the full guide before confirming.
+              </p>
+              <FieldError msg={errors.casualConfirm} />
             </div>
             <div style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '2px' }}>
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px' }}>Criminal History Check</p>
               <CheckboxOption
-                value="criminalHistoryConfirm"
-                checked={form.criminalHistoryConfirm}
-                onChange={() => set('criminalHistoryConfirm', !form.criminalHistoryConfirm)}
-                label="I consent to a Ministry of Justice criminal history check if required."
+                checked={form.mojCheckConfirm}
+                onChange={() => set('mojCheckConfirm', !form.mojCheckConfirm)}
+                label="I understand that a Ministry of Justice criminal history check may be required"
               />
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginTop: '8px' }}>
                 This check only applies if you are successful in your application.
               </p>
-              <FieldError msg={errors.criminalHistoryConfirm} />
+              <FieldError msg={errors.mojCheckConfirm} />
             </div>
           </div>
 
@@ -610,7 +491,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           <div style={{ display: 'flex', gap: '12px' }}>
             <button
               type="button"
-              onClick={() => { setStep(1); setErrors({}); requestAnimationFrame(() => { if (cardRef.current) { const headerOffset = 100; const y = cardRef.current.getBoundingClientRect().top + window.scrollY - headerOffset; window.scrollTo({ top: y, behavior: 'smooth' }) } }) }}
+              onClick={() => { setStep(1); setErrors({}); scrollToCard() }}
               className="btn-ghost"
               style={{ flexShrink: 0 }}
             >
@@ -618,9 +499,9 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
             </button>
             <button
               type="submit"
-              disabled={state === 'submitting'}
+              disabled={state === 'submitting' || form.driversLicence === 'None'}
               className="btn-orange"
-              style={{ flex: 1, justifyContent: 'center', opacity: state === 'submitting' ? 0.7 : 1 }}
+              style={{ flex: 1, justifyContent: 'center', opacity: (state === 'submitting' || form.driversLicence === 'None') ? 0.4 : 1, cursor: form.driversLicence === 'None' ? 'not-allowed' : undefined }}
             >
               {state === 'submitting' ? 'Sending...' : 'Submit Application'}
               {state !== 'submitting' && (

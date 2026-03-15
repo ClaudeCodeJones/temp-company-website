@@ -192,8 +192,8 @@ export default function FindWorkPage() {
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', marginTop: '40px' }}>
-            <a href="#apply" className="hero-btn-primary">Apply Now</a>
-            <a href="tel:0800000000" className="hero-btn-secondary">Call Us Now</a>
+            <a href="/find-work/apply" className="hero-btn-primary">Apply Now</a>
+            <a href="/about-us#operations-team" className="hero-btn-secondary">Call Us Now</a>
           </div>
 
         </div>
@@ -332,7 +332,7 @@ export default function FindWorkPage() {
               </div>
 
               {/* CTA */}
-              <a href="#apply" className="request-btn">
+              <a href="/find-work/apply" className="request-btn">
                 Apply Now
               </a>
 
@@ -464,8 +464,8 @@ export default function FindWorkPage() {
             Get qualified workers on site quickly with The Temp Company.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px' }}>
-            <a href="#apply" className="hero-btn-primary">Apply Now</a>
-            <a href="tel:0800000000" className="hero-btn-secondary">Call Us Now</a>
+            <a href="/find-work/apply" className="hero-btn-primary">Apply Now</a>
+            <a href="/about-us#operations-team" className="hero-btn-secondary">Call Us Now</a>
           </div>
         </div>
       </section>

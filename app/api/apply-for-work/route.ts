@@ -22,6 +22,8 @@ function checkRateLimit(req: NextRequest): boolean {
   return true
 }
 
+const allowedLicences = ['None', 'Car – Restricted', 'Car – Full', 'Class 2']
+
 export async function POST(req: NextRequest) {
   if (!checkRateLimit(req)) {
     return new Response('Too many requests', { status: 429 })
@@ -30,10 +32,12 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const {
-      fullName, email, phone, city, startDate, branch,
-      experience, licences, contactMethod,
-      workHistory, aboutYourself, healthIssues, accHistory,
-      howDidYouHear, casualConfirm, turnstileToken, companyPhone,
+      fullName, email, phone, city, branch,
+      driversLicence, startDate,
+      workHistory, tmExperience,
+      workingRightsConfirm, englishConfirm, drugTestConfirm,
+      casualConfirm, mojCheckConfirm,
+      turnstileToken, companyPhone,
     } = body
 
     // Honeypot check
@@ -55,28 +59,34 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
     }
 
+    // Required field validation
+    if (!fullName || !email || !phone || !city || !branch ||
+        !driversLicence || !startDate || !workHistory ||
+        !englishConfirm || !drugTestConfirm ||
+        !casualConfirm || !mojCheckConfirm) {
+      return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
+    }
+
     // Phone validation
     const phoneRegex = /^[0-9+\-\s]{7,20}$/
     if (!phoneRegex.test(phone)) {
       return NextResponse.json({ error: 'Invalid phone number format' }, { status: 400 })
     }
 
-    // Basic validation
-    if (!fullName || !email || !phone || !city || !branch ||
-        !experience || !licences?.length || !contactMethod ||
-        !workHistory || !aboutYourself || !healthIssues || !accHistory) {
-      return NextResponse.json(
-        { error: 'Missing required fields.' },
-        { status: 400 }
-      )
+    // Start date validation
+    if (isNaN(Date.parse(startDate))) {
+      return NextResponse.json({ error: 'Invalid start date.' }, { status: 400 })
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email address.' },
-        { status: 400 }
-      )
+    // Driver licence validation
+    if (!allowedLicences.includes(driversLicence)) {
+      return NextResponse.json({ error: 'Invalid driver licence value.' }, { status: 400 })
     }
 
     const content = `
@@ -86,16 +96,15 @@ export async function POST(req: NextRequest) {
 <tr><td style="font-weight:bold;padding:6px 0">Phone</td><td>${phone}</td></tr>
 <tr><td style="font-weight:bold;padding:6px 0">City</td><td>${city}</td></tr>
 <tr><td style="font-weight:bold;padding:6px 0">Branch</td><td>${branch}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Available From</td><td>${startDate || 'Not specified'}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Experience</td><td>${experience}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Licences</td><td>${Array.isArray(licences) ? licences.join(', ') : licences}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Preferred Contact</td><td>${contactMethod}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Work History</td><td>${workHistory}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">About Yourself</td><td>${aboutYourself}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Health Issues</td><td>${healthIssues}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">ACC History</td><td>${accHistory}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">How Did You Hear</td><td>${howDidYouHear || 'Not specified'}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Casual Confirmed</td><td>${casualConfirm ? 'Yes' : 'No'}</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">Driver Licence</td><td>${driversLicence}</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">Earliest Start Date</td><td>${startDate}</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">Work Background</td><td style="white-space:pre-wrap">${workHistory}</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">Traffic Management Experience</td><td style="white-space:pre-wrap">${tmExperience || 'Not provided'}</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">Working Rights Confirmation</td><td>Yes</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">English Confirmation</td><td>Yes</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">Drug Test Acknowledgement</td><td>Yes</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">Casual Worker Document Confirmation</td><td>Yes</td></tr>
+<tr><td style="font-weight:bold;padding:6px 0">MOJ Check Confirmation</td><td>Yes</td></tr>
 </table>
 `
 
@@ -103,7 +112,7 @@ export async function POST(req: NextRequest) {
 
     await sendEmail({
       to: { email: brand.emailCareers, name: brand.name },
-      subject: `Job Application - ${fullName} (${branch}, ${experience})`,
+      subject: `Job Application - ${fullName} (${branch})`,
       replyTo: { email },
       html,
     })

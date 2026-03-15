@@ -122,9 +122,9 @@ export default function ContactPageClient() {
             <div className="reveal d3" style={{ marginTop: '0', fontSize: '0.95rem', lineHeight: 1.78, color: 'var(--text-muted)' }}>
               <p>Prefer to call or email?</p>
               <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                <a href={`tel:${brand.phoneTel}`} className="flex items-center gap-2 hover:opacity-80" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none', fontSize: '0.85rem' }}>
+                <a href="/about-us#operations-team" className="flex items-center gap-2 hover:opacity-80" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none', fontSize: '0.85rem' }}>
                   <Phone size={14} />
-                  {brand.phone}
+                  Call our Co-ordinator
                 </a>
                 <span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>
                 <a href={`mailto:${brand.emailContact}`} className="flex items-center gap-2 hover:opacity-80" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none', fontSize: '0.85rem' }}>
@@ -193,7 +193,7 @@ export default function ContactPageClient() {
             </p>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)', marginBottom: '14px' }}>
               If you are looking for work, please use our{' '}
-              <a href="/request-staff" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>job application form</a>.
+              <a href="/find-work/apply" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Job Application</a> form.
             </p>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)' }}>For general enquiries, feel free to use the form below.</p>
           </div>

@@ -26,21 +26,6 @@ export type Branch = {
 
 export const branches: Branch[] = [
   {
-    name:         'Christchurch',
-    slug:         'christchurch',
-    region:       'Canterbury',
-    address:      'Christchurch, Canterbury',
-    phone:        '021 836 930',
-    manager:      '',
-    managerRole:  'Operations Co-Ordinator',
-    serviceAreas: ['Canterbury', 'Selwyn', 'Waimakariri', 'Hurunui'],
-    mapCoords:    [264, 560],
-    isHeadOffice: true,
-    hiringStatus: 'hiring',
-    hiringRoles:  ['Traffic Management Workers', 'Civil Construction Labourers', 'Event Staff'],
-    hiringTagline:'Growing fast. Looking for reliable workers across all industries.',
-  },
-  {
     name:         'Wellington',
     slug:         'wellington',
     region:       'Greater Wellington',
@@ -67,6 +52,21 @@ export const branches: Branch[] = [
     hiringStatus: 'limited',
     hiringRoles:  ['Traffic Management Workers'],
     hiringTagline:'Selective intake. Experienced candidates welcome.',
+  },
+  {
+    name:         'Christchurch',
+    slug:         'christchurch',
+    region:       'Canterbury',
+    address:      'Christchurch, Canterbury',
+    phone:        '021 836 930',
+    manager:      '',
+    managerRole:  'Operations Co-Ordinator',
+    serviceAreas: ['Canterbury', 'Selwyn', 'Waimakariri', 'Hurunui'],
+    mapCoords:    [264, 560],
+    isHeadOffice: true,
+    hiringStatus: 'hiring',
+    hiringRoles:  ['Traffic Management Workers', 'Civil Construction Labourers', 'Event Staff'],
+    hiringTagline:'Growing fast. Looking for reliable workers across all industries.',
   },
 ]
 
