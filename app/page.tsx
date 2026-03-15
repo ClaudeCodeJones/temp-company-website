@@ -75,7 +75,7 @@ export default function HomePage() {
             maxWidth: '680px',
             margin: '28px auto 0',
           }}>
-            The Temp Company supplies reliable temporary workers to traffic management companies, civil contractors, and infrastructure projects across Christchurch, Wellington, and Blenheim.<br /><br />
+            The Temp Company supplies temporary workers to traffic management companies, civil contractors, and infrastructure projects across Christchurch, Wellington, and Blenheim.<br /><br />
             If you need qualified workers at short notice, we can help.
           </p>
 
