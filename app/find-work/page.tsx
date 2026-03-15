@@ -286,7 +286,7 @@ export default function FindWorkPage() {
                       </svg>
                     ),
                     title: 'Submit Your Details',
-                    body: 'Use our contact form to express your interest and provide your experience.',
+                    body: 'Use our application form to express your interest and provide your experience.',
                   },
                   {
                     icon: (
@@ -304,7 +304,7 @@ export default function FindWorkPage() {
                       </svg>
                     ),
                     title: 'Get Placed',
-                    body: 'Secure flexible work that matches your skills and availability in the Canterbury & Marlborough Regions.',
+                    body: 'Secure flexible work that matches your skills and availability in the Wellington, Canterbury &amp; Marlborough Regions.',
                   },
                 ].map(({ icon, title, body }, i) => (
                   <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>

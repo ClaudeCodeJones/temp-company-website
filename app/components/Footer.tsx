@@ -6,7 +6,6 @@ import { Phone, Mail } from 'lucide-react'
 import { brand } from '../../config/brand'
 import { site } from '../../config/site'
 import { branches } from '../../data/branches'
-import { services } from '../../data/services'
 
 export default function Footer() {
   return (
@@ -67,13 +66,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Services */}
+          {/* Need Staff / Work */}
           <div>
-            <div className="footer-heading">Services</div>
+            <div className="footer-heading">Need Staff / Work</div>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '11px', listStyle: 'none' }}>
-              {services.map(({ id, title }) => (
-                <li key={id}><a href={`/#${id}`} className="footer-link">{title}</a></li>
-              ))}
+              <li><a href="/request-staff" className="footer-link">Request Staff</a></li>
+              <li><a href="/find-work/apply" className="footer-link">Apply for Work</a></li>
             </ul>
           </div>
 

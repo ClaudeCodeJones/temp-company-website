@@ -188,7 +188,7 @@ export default function ContactPageClient() {
             <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff', marginBottom: '8px' }}>Looking for Staff?</p>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)', marginBottom: '14px' }}>
               If you need temporary or contract workers, please use our{' '}
-              <a href="/hire-staff/request-staff" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Request Staff</a>{' '}
+              <a href="/request-staff" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Request Staff</a>{' '}
               form so we can match you with the right people.
             </p>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)', marginBottom: '14px' }}>
