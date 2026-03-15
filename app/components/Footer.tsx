@@ -94,9 +94,9 @@ export default function Footer() {
             <div className="footer-heading">Contact</div>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px', listStyle: 'none' }}>
               <li>
-                <a href={`tel:${brand.phoneTel}`} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'var(--brand-primary)' }}>
+                <a href="/contact#coordinators" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'var(--brand-primary)' }}>
                   <Phone size={15} strokeWidth={1.5} aria-hidden="true" />
-                  <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>{brand.phone}</span>
+                  <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>Call your co-ordinator</span>
                 </a>
               </li>
               <li>
