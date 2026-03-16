@@ -22,7 +22,7 @@ const strengths = [
 ]
 
 const team = [
-  { name: 'Amy Carswell', role: 'Operations Co-ordinator', location: 'Wellington', phone: '027 836 7266', phoneTel: '0278367266', email: 'amy@thetempcompany.co.nz', image: '/people/janelle_lang.webp' },
+  { name: 'Amy Carswell', role: 'Operations Co-ordinator', location: 'Wellington', phone: '027 836 7266', phoneTel: '0278367266', email: 'amy@thetempcompany.co.nz', image: '/people/amy_carswell.webp' },
   { name: 'Eli Hyde', role: 'Operations Co-ordinator', location: 'Christchurch', phone: '021 836 930', phoneTel: '021836930', email: 'eli@thetempcompany.co.nz', image: '/people/eli_hyde.webp' },
   { name: 'Luke Roberts', role: 'Operations Co-ordinator', location: 'Blenheim', phone: '027 836 7262', phoneTel: '0278367262', email: 'luke@thetempcompany.co.nz', image: '/people/luke_roberts_ttc1.webp' },
 ]
