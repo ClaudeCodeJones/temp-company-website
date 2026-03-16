@@ -8,6 +8,8 @@ import SelectWrapper from '../SelectWrapper'
 import { brand } from '../../../config/brand'
 import { branches as branchList } from '../../../data/branches'
 
+const activeBranches = branchList.filter(b => b.hiringStatus === 'hiring')
+
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
 const driversLicenceOptions = [
@@ -117,7 +119,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
 
   const branchParam = searchParams.get('branch')
   const preselectedBranch = branchParam
-    ? branchList.find(b => b.name.toLowerCase() === branchParam.toLowerCase())?.name ?? ''
+    ? activeBranches.find(b => b.name.toLowerCase() === branchParam.toLowerCase())?.name ?? ''
     : ''
 
   const [form, setForm] = useState({
@@ -143,7 +145,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
 
   useEffect(() => {
     const matched = branchParam
-      ? branchList.find(b => b.name.toLowerCase() === branchParam.toLowerCase())?.name ?? ''
+      ? activeBranches.find(b => b.name.toLowerCase() === branchParam.toLowerCase())?.name ?? ''
       : ''
     setForm(prev => ({ ...prev, branch: matched }))
   }, [branchParam])
@@ -321,7 +323,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           <div style={fieldGroupStyle}>
             <label style={labelStyle}>Which branch are you applying to?</label>
             <SelectWrapper value={form.branch} onChange={v => set('branch', v)} error={errors.branch} placeholder="Select branch">
-              {branchList.map(b => (
+              {activeBranches.map(b => (
                 <option key={b.slug} value={b.name} style={{ background: 'var(--color-bg-elevated)', color: '#fff' }}>{b.name}</option>
               ))}
             </SelectWrapper>

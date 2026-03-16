@@ -1,4 +1,4 @@
-export type HiringStatus = 'hiring' | 'limited' | 'closed'
+export type HiringStatus = 'hiring' | 'closed'
 
 export type Branch = {
   /** Display name, e.g. "Wellington" */
@@ -49,7 +49,7 @@ export const branches: Branch[] = [
     managerRole:  'Operations Co-Ordinator',
     serviceAreas: ['Marlborough', 'Nelson', 'Tasman'],
     mapCoords:    [332, 458],
-    hiringStatus: 'limited',
+    hiringStatus: 'closed',
     hiringRoles:  ['Traffic Management Workers'],
     hiringTagline:'Selective intake. Experienced candidates welcome.',
   },
@@ -71,7 +71,6 @@ export const branches: Branch[] = [
 ]
 
 export const statusLabel: Record<HiringStatus, string> = {
-  hiring:  'Actively Hiring',
-  limited: 'Limited Openings',
-  closed:  'Not Hiring',
+  hiring: 'Actively Hiring',
+  closed: 'Not Hiring',
 }

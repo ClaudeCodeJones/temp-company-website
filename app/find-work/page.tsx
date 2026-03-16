@@ -4,6 +4,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { HardHat } from 'lucide-react'
 import Image from 'next/image'
+import { branches, statusLabel } from '@/data/branches'
 
 const faqs: { q: string; a: ReactNode }[] = [
   {
@@ -46,7 +47,7 @@ export default function FindWorkPage() {
         .hero-content { padding-bottom: clamp(50px, 7vw, 80px); }
         @media (max-width: 1279px) {
           .hero-section { min-height: auto; }
-          .hero-content { padding-top: 140px; padding-bottom: 32px; }
+          .hero-content { padding-top: 180px; padding-bottom: 32px; }
         }
         .hero-btn-primary {
           background: #bc9c22;
@@ -165,7 +166,7 @@ export default function FindWorkPage() {
         <div className="hero-content max-w-4xl mx-auto" style={{
           position: 'relative', zIndex: 10,
           paddingLeft: '24px', paddingRight: '24px',
-          paddingTop: 'clamp(110px, 10vw, 140px)',
+          paddingTop: 'clamp(170px, 15vw, 210px)',
           textAlign: 'center',
         }}>
 
@@ -177,8 +178,7 @@ export default function FindWorkPage() {
             letterSpacing: '-0.03em',
             color: '#fff',
           }}>
-            Work in Traffic Management<br />
-            Across Christchurch, Wellington and Blenheim
+            Traffic Management Jobs Available Now
           </h1>
 
           <p style={{
@@ -188,7 +188,7 @@ export default function FindWorkPage() {
             maxWidth: '650px',
             margin: '24px auto 0',
           }}>
-            The Temp Company connects reliable workers with traffic management and civil crews who need extra hands on site.
+            The Temp Company connects reliable workers with traffic management and civil crews across Christchurch, Wellington and Blenheim.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', marginTop: '40px' }}>
@@ -342,12 +342,66 @@ export default function FindWorkPage() {
         </div>
       </section>
 
+      {/* ── HIRING STATUS ── */}
+      <section style={{ background: '#1a1a1a', paddingTop: '0', paddingBottom: '80px' }}>
+        <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '0 24px' }}>
+
+          <p className="font-display" style={{
+            fontSize: '0.7rem',
+            fontWeight: 700,
+            letterSpacing: '0.16em',
+            textTransform: 'uppercase',
+            color: 'var(--brand-primary-dark)',
+            marginBottom: '20px',
+          }}>
+            Hiring Status
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {branches.map((branch) => {
+              const isHiring = branch.hiringStatus === 'hiring'
+              const dotColor = isHiring ? '#4ade80' : '#f87171'
+              const textColor = isHiring ? '#4ade80' : '#f87171'
+              const label = isHiring ? 'Actively Hiring' : 'Not Currently Hiring'
+              return (
+                <div key={branch.slug} className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: '28px 32px' }}>
+                  <p className="font-display" style={{
+                    fontWeight: 700,
+                    fontSize: '1.1rem',
+                    color: '#fff',
+                    marginBottom: '12px',
+                  }}>
+                    {branch.name}
+                  </p>
+                  <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', marginBottom: '16px' }}>
+                    {branch.region}
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{
+                      width: '8px', height: '8px',
+                      borderRadius: '50%',
+                      background: dotColor,
+                      flexShrink: 0,
+                      boxShadow: `0 0 6px ${dotColor}`,
+                    }} />
+                    <span style={{ fontSize: '0.875rem', fontWeight: 600, color: textColor }}>
+                      {label}
+                    </span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+        </div>
+      </section>
+
       {/* ── FAQ ── */}
       <section style={{ background: '#1a1a1a', paddingTop: '56px', paddingBottom: '120px' }}>
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-14" style={{ maxWidth: '1152px', margin: '0 auto', padding: '0 24px', alignItems: 'start' }}>
 
           {/* LEFT — image */}
-          <div className="lg:col-span-2" style={{ position: 'relative', height: '600px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', boxShadow: '0 20px 50px rgba(0,0,0,0.45)' }}>
+          <div className="hidden lg:block lg:col-span-2" style={{ position: 'relative', height: '600px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', boxShadow: '0 20px 50px rgba(0,0,0,0.45)' }}>
             <Image
               src="/images/temp_company_workers.webp"
               alt="Temp Company traffic management workers on site"

@@ -46,7 +46,7 @@ export default function HireStaffPage() {
         .hero-content { padding-bottom: clamp(50px, 7vw, 80px); }
         @media (max-width: 1279px) {
           .hero-section { min-height: auto; }
-          .hero-content { padding-top: 140px; padding-bottom: 32px; }
+          .hero-content { padding-top: 180px; padding-bottom: 32px; }
         }
         .hero-btn-primary {
           background: #facc15;
@@ -165,7 +165,7 @@ export default function HireStaffPage() {
         <div className="hero-content max-w-4xl mx-auto" style={{
           position: 'relative', zIndex: 10,
           paddingLeft: '24px', paddingRight: '24px',
-          paddingTop: 'clamp(110px, 10vw, 140px)',
+          paddingTop: 'clamp(170px, 15vw, 210px)',
           textAlign: 'center',
         }}>
 
@@ -177,8 +177,7 @@ export default function HireStaffPage() {
             letterSpacing: '-0.03em',
             color: '#fff',
           }}>
-            Traffic Management Workers<br />
-            Ready When You Need Them
+            Traffic Management Workers On Demand
           </h1>
 
           <p style={{
@@ -345,9 +344,9 @@ export default function HireStaffPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-14" style={{ maxWidth: '1152px', margin: '0 auto', padding: '0 24px', alignItems: 'start' }}>
 
           {/* LEFT — image */}
-          <div className="lg:col-span-2" style={{ position: 'relative', height: '600px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', boxShadow: '0 20px 50px rgba(0,0,0,0.45)' }}>
+          <div className="hidden lg:block lg:col-span-2" style={{ position: 'relative', height: '600px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', boxShadow: '0 20px 50px rgba(0,0,0,0.45)' }}>
             <Image
-              src="/images/temp_company_workers_hs.png"
+              src="/images/temp_company_workers_hsv1.webp"
               alt="Temp Company traffic management workers on site"
               fill
               className="object-cover"

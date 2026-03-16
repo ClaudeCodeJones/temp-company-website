@@ -32,10 +32,10 @@ export default function AboutPage() {
     <main>
       <style>{`
         .hero-section { min-height: 80vh; }
-        .hero-content { padding-bottom: clamp(50px, 7vw, 80px); }
+        .hero-content { padding-top: clamp(80px, 6.5vw, 110px); padding-bottom: clamp(50px, 7vw, 80px); }
         @media (max-width: 1279px) {
           .hero-section { min-height: auto; }
-          .hero-content { padding-top: 180px; padding-bottom: 32px; }
+          .hero-content { padding-top: 175px; padding-bottom: 32px; }
         }
         .strength-card {
           border-radius: 12px;
@@ -137,7 +137,6 @@ export default function AboutPage() {
         <div className="hero-content max-w-4xl mx-auto" style={{
           position: 'relative', zIndex: 10,
           paddingLeft: '24px', paddingRight: '24px',
-          paddingTop: 'clamp(150px, 13vw, 190px)',
           textAlign: 'center',
         }}>
 
@@ -149,8 +148,7 @@ export default function AboutPage() {
             letterSpacing: '-0.03em',
             color: '#fff',
           }}>
-            Reliable Workers Supporting<br />
-            Traffic Management and Civil Crews When Needed
+            Reliable Workers for Traffic Management and Civil Crews
           </h1>
 
           <p style={{
