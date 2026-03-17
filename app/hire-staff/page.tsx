@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { HardHat } from 'lucide-react'
 import Image from 'next/image'
 
 const faqs: { q: string; a: ReactNode }[] = [
@@ -39,9 +38,6 @@ export default function HireStaffPage() {
   return (
     <main>
       <style>{`
-        @media (min-width: 1280px) {
-          .employer-overlap { margin-top: -90px; }
-        }
         .hero-section { min-height: 80vh; }
         .hero-content { padding-bottom: clamp(50px, 7vw, 80px); }
         @media (max-width: 1279px) {
@@ -198,83 +194,71 @@ export default function HireStaffPage() {
         </div>
       </section>
 
-      {/* ── HOW TO REQUEST TM STAFF ── */}
+      {/* ── INTRO SECTION ── */}
       <section style={{
-        background: '#1a1a1a',
-        paddingTop: '20px',
-        paddingBottom: '100px',
+        background: 'linear-gradient(to bottom, transparent 80px, #1a1a1a 80px)',
+        marginTop: '-80px',
+        paddingTop: '0',
+        paddingLeft: '24px',
+        paddingRight: '24px',
+        paddingBottom: 'clamp(60px, 8vw, 100px)',
+        position: 'relative',
+        zIndex: 1,
       }}>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-start" style={{
-          maxWidth: '1152px',
-          margin: '0 auto',
-          padding: '0 24px',
-        }}>
+        <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
 
-          {/* LEFT — employer text */}
-          <div className="max-w-2xl employer-overlap" style={{ position: 'relative', zIndex: 10 }}>
-            <div className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: 'clamp(32px, 4vw, 40px)' }}>
-            <p className="font-display" style={{
-              fontSize: '0.7rem',
-              fontWeight: 700,
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-              color: 'var(--brand-primary)',
-              marginBottom: '20px',
-            }}>
-              For Employers
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                Finding reliable, fully ticketed TTM staff shouldn&rsquo;t be a gamble.
+          {/* Feature panel */}
+          <div style={{ maxWidth: '960px', margin: '0 auto 56px', position: 'relative', zIndex: 10 }}>
+            <div className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: 'clamp(36px, 5vw, 56px)' }}>
+              <p className="font-display" style={{
+                fontSize: '0.7rem',
+                fontWeight: 700,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'var(--brand-primary)',
+                marginBottom: '20px',
+              }}>
+                For Employers
               </p>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                At The Temp Company, we take the uncertainty out of workforce supply by connecting you with our team who are already qualified (TTM Worker), properly equipped, and ready to step into the job, no hand-holding required.
-              </p>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                We specialise in traffic management, that&rsquo;s our main focus. We also provide labourers for clients who need extra hands, offering reliable support to civil contractors, traffic companies, and event organisers across a range of projects.
-              </p>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                You get consistency, compliance, and confidence in every placement.
-              </p>
-            </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  Finding reliable, fully ticketed TTM staff shouldn&rsquo;t be a gamble.
+                </p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  At The Temp Company, we take the uncertainty out of workforce supply by connecting you with our team who are already qualified (TTM Worker), properly equipped, and ready to step into the job, no hand-holding required.
+                </p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  Traffic management is our core focus, supplying dependable workers who slot straight into live worksites. We also provide labourers to support civil contractors, traffic companies, and event crews when additional support is needed.
+                </p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  You get consistency, compliance, and confidence in every placement.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* RIGHT — glass panel, overlaps hero */}
-          <div className="employer-overlap" style={{ position: 'relative', zIndex: 10 }}>
+          {/* 2-column card row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            {/* Left — How to Request */}
             <div style={{
-              background: 'rgba(255,255,255,0.06)',
-              backdropFilter: 'blur(14px)',
-              border: '1px solid rgba(255,255,255,0.12)',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '14px',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.35)',
               padding: '32px 36px',
-              width: '100%',
-              maxWidth: '420px',
-              marginLeft: 'auto',
             }}>
-
-              {/* Helmet icon */}
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                <HardHat size={36} stroke="var(--brand-primary)" strokeWidth={1.5} aria-hidden="true" />
-              </div>
-
-              {/* Panel heading */}
-              <h3 className="font-display" style={{
+              <p className="font-display" style={{
                 fontWeight: 700,
                 fontSize: '0.7rem',
                 letterSpacing: '0.16em',
                 textTransform: 'uppercase',
                 color: 'var(--brand-primary)',
-                textAlign: 'center',
                 marginBottom: '28px',
               }}>
                 How to Request TM Staff
-              </h3>
+              </p>
 
-              {/* Steps */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-
                 {[
                   {
                     icon: (
@@ -328,12 +312,93 @@ export default function HireStaffPage() {
                 ))}
               </div>
 
-              {/* CTA */}
               <a href="#request-staff" className="request-btn">
                 Request Staff Now
               </a>
-
             </div>
+
+            {/* Right — Value proposition */}
+            <div style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '14px',
+              padding: '32px 36px',
+            }}>
+              <p className="font-display" style={{
+                fontWeight: 700,
+                fontSize: '0.7rem',
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'var(--brand-primary)',
+                marginBottom: '28px',
+              }}>
+                Built for Traffic Management
+              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {[
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                      </svg>
+                    ),
+                    title: 'Traffic Management Specialists',
+                    body: 'Workers who understand live sites and integrate quickly into established crews.',
+                  },
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                      </svg>
+                    ),
+                    title: 'Built for Industry',
+                    body: 'Ready-to-go labour for traffic management and civil crews.',
+                  },
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                      </svg>
+                    ),
+                    title: 'Quality and Reliability',
+                    body: 'People selected for attitude, reliability, and consistency on site.',
+                  },
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                    ),
+                    title: 'Fast Response',
+                    body: 'Crews available when you need them, including short notice placements.',
+                  },
+                ].map(({ icon, title, body }, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                    <div style={{
+                      flexShrink: 0,
+                      width: '36px', height: '36px',
+                      borderRadius: '8px',
+                      background: 'rgba(252,212,21,0.12)',
+                      border: '1px solid rgba(252,212,21,0.2)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--brand-primary)',
+                    }}>
+                      {icon}
+                    </div>
+                    <div>
+                      <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9375rem', color: '#fff', marginBottom: '4px' }}>
+                        {title}
+                      </p>
+                      <p style={{ fontSize: '0.875rem', lineHeight: 1.65, color: 'rgba(255,255,255,0.55)' }}>
+                        {body}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
 
         </div>

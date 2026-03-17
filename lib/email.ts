@@ -29,9 +29,10 @@ export async function sendEmail({
   })
 
   if (!response.ok) {
+    console.log('Autosend response status:', response.status)
     const errorText = await response.text()
-    console.error("Autosend error:", errorText)
-    throw new Error("Autosend email failed")
+    console.log('Autosend response body:', errorText)
+    throw new Error(`Autosend email failed: ${errorText}`)
   }
 
   return true

@@ -1,5 +1,5 @@
 # CLAUDE.md | Frontend Website Rules (Next.js App Router)
-My name is Jonesy, you can call me that rather than User
+My name is Jonesy, you can call me that rather than User, I'll often refer to you as CC
 
 ## Always Do First
 - Invoke the `frontend-design` skill before writing any frontend code, every session, no exceptions.

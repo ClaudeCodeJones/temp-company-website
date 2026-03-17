@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Archivo, Archivo_Black } from 'next/font/google'
 import './globals.css'
 import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+import FooterConditional from './components/FooterConditional'
 import { brand } from '../config/brand'
 
 const archivo = Archivo({
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${archivo.variable} ${archivoBlack.variable}`}>
         <Navbar />
         {children}
-        <Footer />
+        <FooterConditional />
       </body>
     </html>
   )

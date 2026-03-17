@@ -5,6 +5,9 @@ import { buildEmailTemplate } from "@/lib/emailTemplate"
 
 const rateLimitMap = new Map<string, { count: number; lastRequest: number }>()
 
+let globalEmailCount = 0
+const MAX_EMAILS_PER_DEPLOYMENT = 200
+
 function checkRateLimit(req: Request): boolean {
   const ip = req.headers.get('x-forwarded-for') ?? req.headers.get('x-real-ip') ?? 'unknown'
   const now = Date.now()
@@ -32,12 +35,21 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { name, email, phone, branch, message, turnstileToken, companyPhone } = body
 
-    // 2. Honeypot check
+    // 2. Global email cap
+    if (globalEmailCount >= MAX_EMAILS_PER_DEPLOYMENT) {
+      console.warn('Email cap reached:', globalEmailCount)
+      return NextResponse.json(
+        { error: 'Email limit reached. Please try again later.' },
+        { status: 429 }
+      )
+    }
+
+    // 3. Honeypot check
     if (companyPhone) {
       return NextResponse.json({ success: true })
     }
 
-    // 3. Turnstile verification
+    // 4. Turnstile verification
     const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -65,7 +77,7 @@ export async function POST(req: Request) {
       )
     }
 
-    // 4 & 5. Process and send email
+    // 5 & 6. Process and send email
     const content = `
 <table style="border-collapse:collapse;width:100%">
 
@@ -106,9 +118,15 @@ export async function POST(req: Request) {
       html,
     })
 
+    globalEmailCount++
+    console.log('Global email count:', globalEmailCount)
+
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error(error)
-    return NextResponse.json({ success: false }, { status: 500 })
+    console.error('Contact API error:', error)
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 }
+    )
   }
 }

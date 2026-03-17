@@ -148,10 +148,16 @@ export default function RequestQuotePageClient() {
 
   const heroContent = (
     <section
-      style={{ position: 'relative', background: 'var(--color-bg-deep)', paddingTop: '180px', paddingBottom: '56px', overflow: 'hidden' }}
+      style={{ position: 'relative', background: 'linear-gradient(to bottom, #0e1520 0%, #1a2535 55%, #000000 100%)', paddingTop: '180px', paddingBottom: '56px', overflow: 'hidden' }}
       aria-label="Request staff"
     >
-      <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
+      <div aria-hidden="true" style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: `
+          repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px),
+          repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px)
+        `,
+      }} />
 
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
         <div className="reveal" style={{ marginBottom: '20px' }}>

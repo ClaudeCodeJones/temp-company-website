@@ -97,14 +97,20 @@ export default function ContactPageClient() {
     <section
       style={{
         position: 'relative',
-        background: 'var(--color-bg-deep)',
+        background: 'linear-gradient(to bottom, #1c1508 0%, #111111 55%, #000000 100%)',
         paddingTop: '180px',
         paddingBottom: '56px',
         overflow: 'hidden',
       }}
       aria-label="Contact hero"
     >
-      <div style={{ position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(252,212,21,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} aria-hidden="true" />
+      <div aria-hidden="true" style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: `
+          repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px),
+          repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px)
+        `,
+      }} />
 
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
         <div className="reveal" style={{ marginBottom: '20px' }}>
@@ -148,7 +154,7 @@ export default function ContactPageClient() {
         {heroContent}
         <section style={{ background: 'var(--bg-dark)', padding: '36px 0 100px' }}>
           <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
-            <div style={{ background: 'var(--bg-mid)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '4px', padding: 'clamp(28px, 5vw, 48px)', textAlign: 'center' }}>
+            <div style={{ background: 'var(--bg-elevated)', border: '1px solid rgba(255,255,255,0.08)', borderTop: '3px solid var(--brand-primary)', borderRadius: '2px', padding: '40px', textAlign: 'center' }}>
               <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
@@ -201,10 +207,11 @@ export default function ContactPageClient() {
           <div
             className="reveal"
             style={{
-              background: 'var(--bg-mid)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: '4px',
-              padding: 'clamp(28px, 5vw, 48px)',
+              background: 'var(--bg-elevated)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderTop: '3px solid var(--brand-primary)',
+              borderRadius: '2px',
+              padding: '40px',
             }}
           >
             <form autoComplete="off" onSubmit={handleSubmit} noValidate>
@@ -280,7 +287,7 @@ export default function ContactPageClient() {
               {/* Turnstile – invisible mode */}
               <Turnstile
                 sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                size="invisible"
+                size="normal"
                 onVerify={(token) => setTurnstileToken(token)}
               />
 

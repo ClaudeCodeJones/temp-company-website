@@ -1,4 +1,5 @@
 export type HiringStatus = 'hiring' | 'closed'
+export type WorkerAvailability = 'available' | 'limited' | 'unavailable'
 
 export type Branch = {
   /** Display name, e.g. "Wellington" */
@@ -18,6 +19,8 @@ export type Branch = {
   /** Optional city illustration shown in the branch popup */
   illustration?: string
   hiringStatus: HiringStatus
+  /** Employer-facing worker availability for the hire staff page */
+  workerAvailability: WorkerAvailability
   /** Roles currently open at this branch */
   hiringRoles: string[]
   hiringTagline: string
@@ -36,6 +39,7 @@ export const branches: Branch[] = [
     serviceAreas: ['Wellington', 'Hutt Valley', 'Porirua', 'Kapiti Coast'],
     mapCoords:    [295, 414],
     hiringStatus: 'hiring',
+    workerAvailability: 'available',
     hiringRoles:  ['Traffic Management Workers', 'General Labourers'],
     hiringTagline:'Actively placing workers across the Wellington region.',
   },
@@ -50,6 +54,7 @@ export const branches: Branch[] = [
     serviceAreas: ['Marlborough', 'Nelson', 'Tasman'],
     mapCoords:    [332, 458],
     hiringStatus: 'closed',
+    workerAvailability: 'limited',
     hiringRoles:  ['Traffic Management Workers'],
     hiringTagline:'Selective intake. Experienced candidates welcome.',
   },
@@ -65,6 +70,7 @@ export const branches: Branch[] = [
     mapCoords:    [264, 560],
     isHeadOffice: true,
     hiringStatus: 'hiring',
+    workerAvailability: 'available',
     hiringRoles:  ['Traffic Management Workers', 'Civil Construction Labourers', 'Event Staff'],
     hiringTagline:'Growing fast. Looking for reliable workers across all industries.',
   },

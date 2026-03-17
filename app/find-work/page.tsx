@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { HardHat } from 'lucide-react'
 import Image from 'next/image'
 import { branches, statusLabel } from '@/data/branches'
 
@@ -40,9 +39,6 @@ export default function FindWorkPage() {
   return (
     <main>
       <style>{`
-        @media (min-width: 1280px) {
-          .employer-overlap { margin-top: -90px; }
-        }
         .hero-section { min-height: 80vh; }
         .hero-content { padding-bottom: clamp(50px, 7vw, 80px); }
         @media (max-width: 1279px) {
@@ -201,82 +197,74 @@ export default function FindWorkPage() {
 
       {/* ── INTRO SECTION ── */}
       <section style={{
-        background: '#1a1a1a',
-        paddingTop: '20px',
-        paddingBottom: '100px',
+        background: 'linear-gradient(to bottom, transparent 80px, #1a1a1a 80px)',
+        marginTop: '-80px',
+        paddingTop: '0',
+        paddingLeft: '24px',
+        paddingRight: '24px',
+        paddingBottom: 'clamp(60px, 8vw, 100px)',
+        position: 'relative',
+        zIndex: 1,
       }}>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-start" style={{
-          maxWidth: '1152px',
-          margin: '0 auto',
-          padding: '0 24px',
-        }}>
+        <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
 
-          {/* LEFT — worker text */}
-          <div className="max-w-2xl employer-overlap" style={{ position: 'relative', zIndex: 10 }}>
-            <div className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: 'clamp(32px, 4vw, 40px)' }}>
-            <p className="font-display" style={{
-              fontSize: '0.7rem',
-              fontWeight: 700,
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-              color: 'var(--brand-primary-dark)',
-              marginBottom: '20px',
-            }}>
-              For Job Seekers
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                The Temp Company connects traffic management workers with steady, well-run crews across the Wellington, Canterbury &amp; Marlborough regions.
+          {/* Feature panel */}
+          <div style={{ maxWidth: '960px', margin: '0 auto 56px', position: 'relative', zIndex: 10 }}>
+            <div className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: 'clamp(36px, 5vw, 56px)' }}>
+              <p className="font-display" style={{
+                fontSize: '0.7rem',
+                fontWeight: 700,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'var(--brand-primary-dark)',
+                marginBottom: '20px',
+              }}>
+                For Job Seekers
               </p>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                We don&rsquo;t just send anyone anywhere. We partner with reputable companies that respect the work and the people doing it.
-              </p>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                Whether you&rsquo;re after consistent shifts or short-term gigs, we&rsquo;ll match you with jobs that fit your experience, qualifications, and availability.
-              </p>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                If you&rsquo;re already TM qualified, great. If not, our certified trainers can get you trained and ready to hit the ground running. To join you&rsquo;ll need to:
-              </p>
-              <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'var(--brand-primary-dark)', fontWeight: 500 }}>
-                Pass a Drug Test &nbsp;|&nbsp; Have strong communication skills in English
-              </p>
-            </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  The Temp Company connects traffic management workers with steady work across Wellington, Canterbury and Marlborough.
+                </p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  We partner with reputable crews that run well, respect their people, and value good workers.
+                </p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  Whether you&rsquo;re after consistent shifts or short-term gigs, we match you with roles that suit your experience, qualifications, and availability.
+                </p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  Already TM qualified, great. If not, our certified trainers can get you ready to step onto site.
+                </p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
+                  To join, you&rsquo;ll need to:
+                </p>
+                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'var(--brand-primary-dark)', fontWeight: 500 }}>
+                  Pass a Drug Test &nbsp;|&nbsp; Have strong communication skills in English
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* RIGHT — glass panel, overlaps hero */}
-          <div className="employer-overlap" style={{ position: 'relative', zIndex: 10 }}>
+          {/* 2-column card row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            {/* Left — How to Apply */}
             <div style={{
-              background: 'rgba(255,255,255,0.06)',
-              backdropFilter: 'blur(14px)',
-              border: '1px solid rgba(255,255,255,0.12)',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: '14px',
-              boxShadow: '0 20px 50px rgba(0,0,0,0.35)',
               padding: '32px 36px',
-              width: '100%',
-              maxWidth: '420px',
-              marginLeft: 'auto',
             }}>
-
-              {/* Icon */}
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-                <HardHat size={36} stroke="var(--brand-primary-dark)" strokeWidth={1.5} aria-hidden="true" />
-              </div>
-
-              {/* Panel heading */}
-              <h3 className="font-display" style={{
+              <p className="font-display" style={{
                 fontWeight: 700,
                 fontSize: '0.7rem',
                 letterSpacing: '0.16em',
                 textTransform: 'uppercase',
                 color: 'var(--brand-primary-dark)',
-                textAlign: 'center',
                 marginBottom: '28px',
               }}>
                 How to Apply
-              </h3>
+              </p>
 
-              {/* Steps */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {[
                   {
@@ -331,66 +319,69 @@ export default function FindWorkPage() {
                 ))}
               </div>
 
-              {/* CTA */}
               <a href="/find-work/apply" className="request-btn">
                 Apply Now
               </a>
-
             </div>
-          </div>
 
-        </div>
-      </section>
+            {/* Right — Hiring Status */}
+            <div style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: '14px',
+              padding: '32px 36px',
+            }}>
+              <p className="font-display" style={{
+                fontWeight: 700,
+                fontSize: '0.7rem',
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'var(--brand-primary-dark)',
+                marginBottom: '28px',
+              }}>
+                Hiring Status
+              </p>
 
-      {/* ── HIRING STATUS ── */}
-      <section style={{ background: '#1a1a1a', paddingTop: '0', paddingBottom: '80px' }}>
-        <div style={{ maxWidth: '1152px', margin: '0 auto', padding: '0 24px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {branches.map((branch, i) => {
+                  const isHiring = branch.hiringStatus === 'hiring'
+                  const dotColor = isHiring ? '#4ade80' : '#f87171'
+                  const textColor = isHiring ? '#4ade80' : '#f87171'
+                  const label = isHiring ? 'Actively Hiring' : 'Not Currently Hiring'
+                  return (
+                    <div key={branch.slug} style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '18px 0',
+                      borderBottom: i < branches.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                    }}>
+                      <div>
+                        <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9375rem', color: '#fff', marginBottom: '3px' }}>
+                          {branch.name}
+                        </p>
+                        <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.4)' }}>
+                          {branch.region}
+                        </p>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                        <span style={{
+                          width: '8px', height: '8px',
+                          borderRadius: '50%',
+                          background: dotColor,
+                          flexShrink: 0,
+                          boxShadow: `0 0 6px ${dotColor}`,
+                        }} />
+                        <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: textColor }}>
+                          {label}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
 
-          <p className="font-display" style={{
-            fontSize: '0.7rem',
-            fontWeight: 700,
-            letterSpacing: '0.16em',
-            textTransform: 'uppercase',
-            color: 'var(--brand-primary-dark)',
-            marginBottom: '20px',
-          }}>
-            Hiring Status
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {branches.map((branch) => {
-              const isHiring = branch.hiringStatus === 'hiring'
-              const dotColor = isHiring ? '#4ade80' : '#f87171'
-              const textColor = isHiring ? '#4ade80' : '#f87171'
-              const label = isHiring ? 'Actively Hiring' : 'Not Currently Hiring'
-              return (
-                <div key={branch.slug} className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: '28px 32px' }}>
-                  <p className="font-display" style={{
-                    fontWeight: 700,
-                    fontSize: '1.1rem',
-                    color: '#fff',
-                    marginBottom: '12px',
-                  }}>
-                    {branch.name}
-                  </p>
-                  <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', marginBottom: '16px' }}>
-                    {branch.region}
-                  </p>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{
-                      width: '8px', height: '8px',
-                      borderRadius: '50%',
-                      background: dotColor,
-                      flexShrink: 0,
-                      boxShadow: `0 0 6px ${dotColor}`,
-                    }} />
-                    <span style={{ fontSize: '0.875rem', fontWeight: 600, color: textColor }}>
-                      {label}
-                    </span>
-                  </div>
-                </div>
-              )
-            })}
           </div>
 
         </div>

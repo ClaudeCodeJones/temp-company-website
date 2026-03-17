@@ -23,7 +23,7 @@ const strengths = [
 
 const team = [
   { name: 'Amy Carswell', role: 'Operations Co-ordinator', location: 'Wellington', phone: '027 836 7266', phoneTel: '0278367266', email: 'amy@thetempcompany.co.nz', image: '/people/amy_carswell.webp' },
-  { name: 'Eli Hyde', role: 'Operations Co-ordinator', location: 'Christchurch', phone: '021 836 930', phoneTel: '021836930', email: 'eli@thetempcompany.co.nz', image: '/people/eli_hyde.webp' },
+  { name: 'Eli Hyde', role: 'Operations Co-ordinator', location: 'Christchurch', phone: '021 836 930', phoneTel: '021836930', email: 'eli@thetempcompany.co.nz', image: '/people/eli_hyde_v1.webp' },
   { name: 'Luke Roberts', role: 'Operations Co-ordinator', location: 'Blenheim', phone: '027 836 7262', phoneTel: '0278367262', email: 'luke@thetempcompany.co.nz', image: '/people/luke_roberts_ttc1.webp' },
 ]
 
@@ -165,7 +165,16 @@ export default function AboutPage() {
       </section>
 
       {/* ── SECTION 2 — INTRO PANEL ── */}
-      <section style={{ background: '#1a1a1a', padding: 'clamp(60px, 8vw, 100px) 24px' }}>
+      <section style={{
+        background: 'linear-gradient(to bottom, transparent 80px, #1a1a1a 80px)',
+        marginTop: '-80px',
+        paddingTop: '0',
+        paddingLeft: '24px',
+        paddingRight: '24px',
+        paddingBottom: 'clamp(60px, 8vw, 100px)',
+        position: 'relative',
+        zIndex: 1,
+      }}>
         <div style={{ maxWidth: '960px', margin: '0 auto' }}>
           <div className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: 'clamp(36px, 5vw, 56px)' }}>
             <p className="font-display" style={{
@@ -190,10 +199,13 @@ export default function AboutPage() {
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
-                The Temp Company supports Wellington, Canterbury and Marlborough&rsquo;s traffic management companies and civil contractors with qualified, job-ready TM staff who turn up and get it done.
+                The Temp Company supports traffic management companies and civil contractors across Wellington, Canterbury and Marlborough with qualified, job-ready workers who turn up and get it done.
               </p>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
-                Traffic management is our specialty, and we also supply reliable labourers when crews need extra hands on site to keep projects moving.
+                Traffic management is our core focus, and we also supply reliable labourers when crews need extra hands on site to keep projects moving.
+              </p>
+              <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
+                Through our in-house training division, MW Training &amp; Planning, we ensure workers are trained to industry standards and ready for site from day one.
               </p>
             </div>
           </div>
@@ -270,10 +282,10 @@ export default function AboutPage() {
                 The Temp Company operates as part of MW Group, working alongside Men at Work Traffic Management, MW Training &amp; Planning, SweepCo and QualCard to support the wider traffic management and civil infrastructure industry.
               </p>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
-                This connection ensures our workers understand the expectations of active worksites and arrive prepared to contribute as part of an established crew.
+                This connection gives us direct insight into how sites operate and what&rsquo;s expected from crews, ensuring the workers we supply arrive prepared and ready to contribute.
               </p>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
-                Through our close relationship with MW Training &amp; Planning, workers also have access to industry training that supports ongoing development and site readiness.
+                Through this network, workers also have access to ongoing training and development pathways that support long-term capability on site.
               </p>
             </div>
           </div>
