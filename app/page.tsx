@@ -64,8 +64,7 @@ export default function HomePage() {
             letterSpacing: '-0.03em',
             color: '#fff',
           }}>
-            Temporary Staff<br />
-            <span style={{ color: 'var(--brand-primary)', fontSize: 'clamp(1.8rem,4vw,3.5rem)', display: 'block', marginTop: '-0.2em' }}>When You Need Them</span>
+            Staff When You Need <span style={{ color: 'var(--brand-primary)' }}>Them</span>
           </h1>
 
           <p className="reveal d2" style={{
@@ -75,8 +74,8 @@ export default function HomePage() {
             maxWidth: '680px',
             margin: '28px auto 0',
           }}>
-            The Temp Company supplies temporary workers to traffic management companies, civil contractors, and infrastructure projects across Christchurch, Wellington, and Blenheim.<br /><br />
-            If you need qualified workers at short notice, we can help.
+            Temporary workers for traffic management, civil and infrastructure projects.<br /><br />
+            <strong style={{ color: '#fff', fontWeight: 600 }}>Christchurch</strong>, <strong style={{ color: '#fff', fontWeight: 600 }}>Wellington</strong> and <strong style={{ color: '#fff', fontWeight: 600 }}>Blenheim</strong>. Ready at short notice.
           </p>
 
           {/* Gateway tiles */}

@@ -165,16 +165,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── SECTION 2 — INTRO PANEL ── */}
-      <section style={{
-        background: 'linear-gradient(to bottom, transparent 80px, #1a1a1a 80px)',
-        marginTop: '-80px',
-        paddingTop: '0',
-        paddingLeft: '24px',
-        paddingRight: '24px',
-        paddingBottom: 'clamp(60px, 8vw, 100px)',
-        position: 'relative',
-        zIndex: 1,
-      }}>
+      <section className="hero-overlap-section">
         <div style={{ maxWidth: '960px', margin: '0 auto' }}>
           <div className="rounded-2xl backdrop-blur-md border border-white/10 bg-white/10" style={{ padding: 'clamp(36px, 5vw, 56px)' }}>
             <p className="font-display" style={{

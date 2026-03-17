@@ -610,6 +610,25 @@ body {
 }
 .step-circle-outline .step-num { color: var(--brand-primary); }
 
+/* ── Hero overlap intro section ── */
+.hero-overlap-section {
+  background: #1a1a1a;
+  padding-top: clamp(40px, 6vw, 60px);
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: clamp(60px, 8vw, 100px);
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 1280px) {
+  .hero-overlap-section {
+    background: linear-gradient(to bottom, transparent 80px, #1a1a1a 80px);
+    margin-top: -80px;
+    padding-top: 0;
+  }
+}
+
 /* ── CTA section ── */
 .cta-section {
   position: relative;

@@ -195,16 +195,7 @@ export default function HireStaffPage() {
       </section>
 
       {/* ── INTRO SECTION ── */}
-      <section style={{
-        background: 'linear-gradient(to bottom, transparent 80px, #1a1a1a 80px)',
-        marginTop: '-80px',
-        paddingTop: '0',
-        paddingLeft: '24px',
-        paddingRight: '24px',
-        paddingBottom: 'clamp(60px, 8vw, 100px)',
-        position: 'relative',
-        zIndex: 1,
-      }}>
+      <section className="hero-overlap-section">
         <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
 
           {/* Feature panel */}
