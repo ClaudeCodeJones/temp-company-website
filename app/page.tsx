@@ -14,11 +14,53 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': ['LocalBusiness', 'EmploymentAgency'],
   name: brand.name,
   url: brand.domain,
   description: site.description,
   serviceType: site.businessType,
+  image: `${brand.domain}${brand.logoPath}`,
+  areaServed: ['Wellington', 'Marlborough', 'Canterbury'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    email: 'info@thetempcompany.co.nz',
+  },
+  location: [
+    {
+      '@type': 'Place',
+      name: 'Wellington Branch',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '23 Meachen St',
+        addressLocality: 'Seaview, Lower Hutt',
+        addressRegion: 'Wellington',
+        addressCountry: 'NZ',
+      },
+    },
+    {
+      '@type': 'Place',
+      name: 'Blenheim Branch',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '7 Freswick St',
+        addressLocality: 'Blenheim',
+        addressRegion: 'Marlborough',
+        addressCountry: 'NZ',
+      },
+    },
+    {
+      '@type': 'Place',
+      name: 'Christchurch Branch',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '25 Blakes Rd',
+        addressLocality: 'Belfast, Christchurch',
+        addressRegion: 'Canterbury',
+        addressCountry: 'NZ',
+      },
+    },
+  ],
   sameAs: [brand.social.facebook, brand.social.linkedin].filter(Boolean),
 }
 

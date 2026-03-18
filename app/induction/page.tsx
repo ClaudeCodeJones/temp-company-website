@@ -25,7 +25,7 @@ const cards = [
         <a href="#" style={{ color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>
           your details
         </a>
-        , so we can do important stuff like paying you.
+        , so we can do important stuff like paying you and getting you set up.
       </>
     ),
     cta: 'Fill Out Form',
@@ -41,13 +41,13 @@ const cards = [
       </svg>
     ),
     label: 'STEP 02',
-    title: 'Onboarding Video',
+    title: 'Onboarding Presentation',
     body: (
       <>
         <a href="#" style={{ color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>
-          This video
+          This presentation
         </a>{' '}
-        covers what you've signed up for, the good, the great, and the high-vis.
+        covers who&rsquo;s who, what matters around here, and what you&rsquo;re stepping into.
       </>
     ),
     cta: 'Watch Video',
@@ -128,7 +128,7 @@ export default function InductionPage() {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        background: 'linear-gradient(to bottom, #1e1a08 0%, #252010 35%, #1a1a1a 70%, #000000 100%)',
+        background: 'linear-gradient(160deg, #1e1a08 0%, #252010 30%, #2e3030 65%, #3a3a3a 100%)',
       }}>
 
         {/* Grid overlay */}

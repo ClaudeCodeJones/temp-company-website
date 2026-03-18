@@ -91,13 +91,13 @@ body {
 #navbar {
   background: #2f2f2f;
 }
-#navbar.home::before {
+#navbar::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
-    repeating-linear-gradient(0deg, rgba(169,135,31,0.12) 0px, rgba(169,135,31,0.12) 1px, transparent 1px, transparent 60px),
-    repeating-linear-gradient(90deg, rgba(169,135,31,0.12) 0px, rgba(169,135,31,0.12) 1px, transparent 1px, transparent 60px);
+    repeating-linear-gradient(0deg, rgba(169,135,31,0.22) 0px, rgba(169,135,31,0.22) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(90deg, rgba(169,135,31,0.22) 0px, rgba(169,135,31,0.22) 1px, transparent 1px, transparent 60px);
   pointer-events: none;
   z-index: 0;
 }

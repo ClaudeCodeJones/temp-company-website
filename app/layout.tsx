@@ -20,19 +20,19 @@ const archivoBlack = Archivo_Black({
 
 export const metadata: Metadata = {
   metadataBase: new URL(brand.domain),
-  title: brand.name,
-  description: `Professional services from ${brand.name}. Contact us today.`,
+  title: `${brand.name} | Traffic Management Staffing NZ`,
+  description: 'Specialist labour hire for traffic management. Supplying certified TTM workers, STMS and civil labour across Wellington, Blenheim and Christchurch.',
   openGraph: {
-    title: brand.name,
-    description: `Professional services from ${brand.name}.`,
+    title: `${brand.name} | Traffic Management Staffing NZ`,
+    description: 'Specialist labour hire for traffic management. Supplying certified TTM workers, STMS and civil labour across Wellington, Blenheim and Christchurch.',
     url: brand.domain,
     siteName: brand.name,
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: brand.name,
-    description: `Professional services from ${brand.name}.`,
+    title: `${brand.name} | Traffic Management Staffing NZ`,
+    description: 'Specialist labour hire for traffic management. Supplying certified TTM workers, STMS and civil labour across Wellington, Blenheim and Christchurch.',
   },
 }
 
