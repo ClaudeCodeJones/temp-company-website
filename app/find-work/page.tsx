@@ -223,14 +223,26 @@ export default function FindWorkPage() {
                   Whether you&rsquo;re after consistent shifts or short-term gigs, we match you with roles that suit your experience, qualifications, and availability.
                 </p>
                 <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                  Already TM qualified, great. If not, our certified trainers can get you ready to step onto site.
+                  Already TM qualified? Great. If not, our certified trainers can get you ready to step onto site.
                 </p>
-                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                  To join, you&rsquo;ll need to:
-                </p>
-                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'var(--brand-primary-dark)', fontWeight: 500 }}>
-                  Pass a Drug Test &nbsp;|&nbsp; Have strong communication skills in English
-                </p>
+                <div>
+                  <p style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--brand-primary-dark)', marginBottom: '12px' }}>
+                    To join, you&rsquo;ll need to:
+                  </p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px' }}>
+                    {[
+                      'Pass a Drug Test',
+                      'Have working rights in NZ',
+                      'Strong communication skills in English',
+                      'At least a restricted licence',
+                    ].map((req) => (
+                      <div key={req} style={{ display: 'flex', alignItems: 'center', gap: '10px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '12px 16px' }}>
+                        <span style={{ color: 'var(--brand-primary-dark)', fontSize: '0.875rem', flexShrink: 0 }}>✓</span>
+                        <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.85)', lineHeight: 1.4 }}>{req}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

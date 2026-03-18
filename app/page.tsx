@@ -36,18 +36,22 @@ export default function HomePage() {
         aria-label="Hero"
         style={{
           position: 'relative',
-          background: 'var(--color-bg-main)',
+          background: 'linear-gradient(to bottom, #37373b 0%, #2e3949 55%, #000000 100%)',
           overflow: 'hidden',
           minHeight: '100vh',
           display: 'flex',
           alignItems: 'center',
         }}
       >
-        {/* Radial glow */}
+        {/* Grid overlay */}
         <div aria-hidden="true" style={{
           position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
-          background: 'radial-gradient(circle at center, rgba(252,212,21,0.22) 0%, rgba(252,212,21,0.12) 25%, rgba(252,212,21,0.05) 40%, rgba(252,212,21,0) 60%)',
+          backgroundImage: `
+            repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px),
+            repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px)
+          `,
         }} />
+
 
         <div style={{
           position: 'relative', zIndex: 10,

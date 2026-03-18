@@ -48,7 +48,7 @@ export default function Navbar() {
   const isHome = pathname === '/'
 
   const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/')
+    pathname === href
 
   const navLinks = [
     { href: '/', label: 'Home' },

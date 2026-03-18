@@ -359,7 +359,6 @@ export default function RequestQuotePageClient() {
             {/* message */}
             <div style={fieldStyle}>
               <label htmlFor="message" style={labelStyle}>Tell us what staff you need *</label>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px', lineHeight: 1.6 }}>Example: 2 TMO workers for night shift traffic control in Lower Hutt next Tuesday.</p>
               <textarea
                 id="message"
                 rows={5}
