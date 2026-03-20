@@ -4,6 +4,10 @@ My name is Jonesy, you can call me that rather than User, I'll often refer to yo
 ## Always Do First
 - Invoke the `frontend-design` skill before writing any frontend code, every session, no exceptions.
 
+## SKILL USAGE RULES
+- Always use the `debug-fixer` skill when handling errors or debugging.
+- Always apply the `code-quality` skill when writing or modifying code.
+
 ---
 
 ## Commands
@@ -13,6 +17,20 @@ npm run build    # Production build
 npm run lint     # ESLint check
 
 ---
+## OUTPUT RULES (STRICT)
+
+- Always return full file contents when modifying a file.
+- Never return partial snippets.
+- Never explain changes unless explicitly asked.
+- Keep responses concise and structured.
+- All outputs must be copy-paste ready.
+
+When modifying files, always use this format:
+
+FILE: /app/example/page.tsx
+
+```tsx
+// full updated file content
 
 ## Environment & Architecture
 
@@ -206,6 +224,18 @@ app/demo/page.tsx
 - Use installed Tailwind configuration.
 - Mobile-first responsive.
 
+## DEBUG RULES
+
+When an error is provided:
+
+- Identify the root cause first.
+- Do not provide theory without a fix.
+- Provide the exact fix immediately.
+- Reference the exact file and location where possible.
+- If multiple fixes are possible, choose the simplest.
+
+Do not suggest broad refactors unless explicitly requested.
+
 ### Component Structure
 
 Reusable UI components must live in:
@@ -325,3 +355,13 @@ py-28 (desktop)
 - Production deploys handled via Git push to main and Vercel.
 - No automated pushes.
 - Wait for user instruction before committing or pushing.
+
+## MODE SYSTEM
+
+All responses must end with one of:
+
+MODE: BUILD   # creating or modifying code
+MODE: DEBUG   # fixing errors
+MODE: ASK     # asking for clarification
+
+Do not omit this.
