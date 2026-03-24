@@ -40,10 +40,10 @@ export default function FindWorkClient() {
     <main>
       <style>{`
         .hero-section { min-height: 80vh; }
-        .hero-content { padding-bottom: clamp(50px, 7vw, 80px); }
+        .hero-content { padding-bottom: clamp(140px, 14vw, 200px); }
         @media (max-width: 1279px) {
           .hero-section { min-height: auto; }
-          .hero-content { padding-top: 180px; padding-bottom: 32px; }
+          .hero-content { padding-top: 180px; padding-bottom: 72px; }
         }
         .hero-btn-primary {
           background: #bc9c22;

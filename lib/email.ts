@@ -20,6 +20,7 @@ export async function sendEmail({
     body: JSON.stringify({
       from: {
         email: brand.emailFrom,
+        name: brand.name,
       },
       to,
       subject,

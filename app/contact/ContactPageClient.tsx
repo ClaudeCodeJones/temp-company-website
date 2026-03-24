@@ -1,58 +1,18 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
+import { useTurnstile } from '../../hooks/useTurnstile'
 import Link from 'next/link'
 import { Phone, Mail } from 'lucide-react'
 import RevealObserver from '../components/RevealObserver'
 
-declare global {
-  interface Window {
-    turnstile: {
-      render: (container: HTMLElement, params: Record<string, unknown>) => string
-      execute: (widgetId: string) => void
-      reset: (widgetId: string) => void
-    }
-  }
-}
 import SelectWrapper from '../components/SelectWrapper'
+import FieldError from '../components/FieldError'
 import { brand } from '../../config/brand'
 import { branches as branchList } from '../../data/branches'
+import { inputStyle, labelStyle, fieldStyle } from '../components/formStyles'
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
-
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.12)',
-  borderRadius: '2px',
-  padding: '12px 16px',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '0.9rem',
-  color: '#fff',
-  outline: 'none',
-  appearance: 'none' as const,
-  colorScheme: 'dark' as const,
-}
-
-const labelStyle: React.CSSProperties = {
-  display: 'block',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '0.75rem',
-  fontWeight: 600,
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase' as const,
-  color: 'var(--text-light)',
-  marginBottom: '8px',
-}
-
-const fieldStyle: React.CSSProperties = {
-  marginBottom: '20px',
-}
-
-function FieldError({ msg }: { msg?: string }) {
-  if (!msg) return null
-  return <p style={{ fontSize: '0.75rem', color: '#f87171', marginTop: '4px' }}>{msg}</p>
-}
 
 
 export default function ContactPageClient() {
@@ -61,45 +21,7 @@ export default function ContactPageClient() {
   const [status, setStatus] = useState<FormState>('idle')
   const [errorMessage, setErrorMessage] = useState('Something went wrong. Please try again. If you need assistance, please contact your co-ordinator.')
   const honeypotRef = useRef<HTMLInputElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const widgetIdRef = useRef<string>('')
-  const callbackRef = useRef<((token: string) => void) | null>(null)
-
-  useEffect(() => {
-    const init = () => {
-      if (!containerRef.current || widgetIdRef.current) return
-      widgetIdRef.current = window.turnstile.render(containerRef.current, {
-        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
-        size: 'invisible',
-        callback: (token: string) => {
-          callbackRef.current?.(token)
-          callbackRef.current = null
-        },
-      })
-    }
-    if (typeof window !== 'undefined' && window.turnstile) {
-      init()
-    } else {
-      const interval = setInterval(() => {
-        if (window.turnstile) { clearInterval(interval); init() }
-      }, 100)
-      return () => clearInterval(interval)
-    }
-  }, [])
-
-  function getTurnstileToken(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject(new Error('Turnstile timeout')), 15000)
-      callbackRef.current = (token) => { clearTimeout(timeout); resolve(token) }
-      if (widgetIdRef.current) {
-        window.turnstile.reset(widgetIdRef.current)
-        window.turnstile.execute(widgetIdRef.current)
-      } else {
-        clearTimeout(timeout)
-        reject(new Error('Turnstile not ready'))
-      }
-    })
-  }
+  const { containerRef, getTurnstileToken } = useTurnstile()
 
   function set(field: keyof typeof form, value: string) {
     setForm(f => ({ ...f, [field]: value }))

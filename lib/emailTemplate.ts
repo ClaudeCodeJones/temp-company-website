@@ -62,9 +62,9 @@ export function buildEmailTemplate(title: string, rows: string): string {
 
           <!-- Header -->
           <tr>
-            <td style="background:#1a2535;padding:18px 24px;border-top:3px solid ${C.accent};">
-              <span style="font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:700;color:#ffffff;">${escape(brand.name)}</span>
-              <span style="font-family:Arial,Helvetica,sans-serif;font-size:13px;color:${C.muted};margin-left:12px;">${escape(title)}</span>
+            <td style="background:#1a2535;padding:20px 24px;border-top:3px solid ${C.accent};">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:700;color:#ffffff;margin-bottom:4px;">${escape(brand.name)}</div>
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:${C.accent};">${escape(title)}</div>
             </td>
           </tr>
 

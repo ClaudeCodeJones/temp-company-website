@@ -4,7 +4,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Mail } from 'lucide-react'
 import { brand } from '../../config/brand'
-import { site } from '../../config/site'
 import { branches } from '../../data/branches'
 
 export default function Footer() {
@@ -54,13 +53,7 @@ export default function Footer() {
                       <circle cx="4" cy="4" r="2"/>
                     </svg>
                   )}
-                  {label === 'Instagram' && (
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" aria-hidden="true">
-                      <rect x="2" y="2" width="20" height="20" rx="5"/>
-                      <circle cx="12" cy="12" r="4"/>
-                      <circle cx="17.5" cy="6.5" r="0.5" fill="var(--text-muted)"/>
-                    </svg>
-                  )}
+
                 </a>
               ))}
             </div>

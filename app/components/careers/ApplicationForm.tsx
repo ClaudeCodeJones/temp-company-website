@@ -1,21 +1,15 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
+import { useTurnstile } from '../../../hooks/useTurnstile'
 import { useSearchParams } from 'next/navigation'
 import { ArrowRight, Calendar } from 'lucide-react'
 import SelectWrapper from '../SelectWrapper'
+import FieldError from '../FieldError'
 
-declare global {
-  interface Window {
-    turnstile: {
-      render: (container: HTMLElement, params: Record<string, unknown>) => string
-      execute: (widgetId: string) => void
-      reset: (widgetId: string) => void
-    }
-  }
-}
 import { brand } from '../../../config/brand'
 import { branches as branchList } from '../../../data/branches'
+import { inputStyle, labelStyle, fieldStyle } from '../formStyles'
 
 const activeBranches = branchList.filter(b => b.hiringStatus === 'hiring')
 
@@ -28,39 +22,6 @@ const driversLicenceOptions = [
   { value: 'Class 2', label: 'Class 2' },
 ]
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.12)',
-  borderRadius: '2px',
-  padding: '12px 16px',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '0.9rem',
-  color: '#fff',
-  outline: 'none',
-  appearance: 'none' as const,
-  colorScheme: 'dark' as const,
-}
-
-const labelStyle: React.CSSProperties = {
-  display: 'block',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '0.75rem',
-  fontWeight: 600,
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase' as const,
-  color: 'var(--text-light)',
-  marginBottom: '8px',
-}
-
-const fieldGroupStyle: React.CSSProperties = {
-  marginBottom: '20px',
-}
-
-function FieldError({ msg }: { msg?: string }) {
-  if (!msg) return null
-  return <p style={{ fontSize: '0.75rem', color: '#f87171', marginTop: '4px' }}>{msg}</p>
-}
 
 function RadioOption({
   name, value, checked, onChange, label,
@@ -124,9 +85,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
   const honeypotRef = useRef<HTMLInputElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const dateRef = useRef<HTMLInputElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const widgetIdRef = useRef<string>('')
-  const callbackRef = useRef<((token: string) => void) | null>(null)
+  const { containerRef, getTurnstileToken } = useTurnstile()
 
   const branchParam = searchParams.get('branch')
   const preselectedBranch = branchParam
@@ -160,42 +119,6 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
       : ''
     setForm(prev => ({ ...prev, branch: matched }))
   }, [branchParam])
-
-  useEffect(() => {
-    const init = () => {
-      if (!containerRef.current || widgetIdRef.current) return
-      widgetIdRef.current = window.turnstile.render(containerRef.current, {
-        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
-        size: 'invisible',
-        callback: (token: string) => {
-          callbackRef.current?.(token)
-          callbackRef.current = null
-        },
-      })
-    }
-    if (typeof window !== 'undefined' && window.turnstile) {
-      init()
-    } else {
-      const interval = setInterval(() => {
-        if (window.turnstile) { clearInterval(interval); init() }
-      }, 100)
-      return () => clearInterval(interval)
-    }
-  }, [])
-
-  function getTurnstileToken(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject(new Error('Turnstile timeout')), 15000)
-      callbackRef.current = (token) => { clearTimeout(timeout); resolve(token) }
-      if (widgetIdRef.current) {
-        window.turnstile.reset(widgetIdRef.current)
-        window.turnstile.execute(widgetIdRef.current)
-      } else {
-        clearTimeout(timeout)
-        reject(new Error('Turnstile not ready'))
-      }
-    })
-  }
 
   function scrollToCard() {
     requestAnimationFrame(() => {
@@ -281,9 +204,12 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
         <h3 className="font-display" style={{ fontWeight: 700, fontSize: '1.4rem', color: '#fff', marginBottom: '12px' }}>
           Application Received
         </h3>
-        <p style={{ fontSize: '0.9rem', lineHeight: 1.7, color: 'var(--text-muted)', maxWidth: '360px', margin: '0 auto' }}>
+        <p style={{ fontSize: '0.9rem', lineHeight: 1.7, color: 'var(--text-muted)', maxWidth: '360px', margin: '0 auto 24px' }}>
           Thanks for getting in touch. Our team will review your application and reach out within a few days.
         </p>
+        <a href="/" style={{ display: 'inline-block', fontSize: '0.85rem', color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>
+          Back to Home
+        </a>
       </div>
     )
   }
@@ -321,7 +247,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           <input ref={honeypotRef} type="text" name="companyPhone" tabIndex={-1} autoComplete="off" className="absolute left-[-9999px] opacity-0 pointer-events-none" />
 
           {/* Full Name */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>Name</label>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Enter your first and last name</p>
             <input
@@ -333,7 +259,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           </div>
 
           {/* Email */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>Email Address</label>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Enter your email address</p>
             <input
@@ -345,7 +271,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           </div>
 
           {/* Phone */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>Phone</label>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Enter your phone number</p>
             <input
@@ -357,7 +283,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           </div>
 
           {/* City */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>Which city or town do you currently live in?</label>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>Where are you living now?</p>
             <input
@@ -369,7 +295,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           </div>
 
           {/* Branch */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>Which branch are you applying to?</label>
             <SelectWrapper value={form.branch} onChange={v => set('branch', v)} error={errors.branch} placeholder="Select branch">
               {activeBranches.map(b => (
@@ -380,7 +306,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           </div>
 
           {/* Driver Licence */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>What driver licence do you currently hold?</label>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginBottom: '10px' }}>
               You must hold at least a Restricted licence to be considered.
@@ -406,7 +332,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           </div>
 
           {/* Start Date */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>When is your earliest start date?</label>
             <div style={{ position: 'relative' }}>
               <input
@@ -440,7 +366,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
         <form autoComplete="off" onSubmit={handleSubmit} noValidate>
 
           {/* Work Background */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>Work Background</label>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.35)', marginBottom: '8px' }}>
               Tell us about your work experience over the last few years.
@@ -455,7 +381,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
           </div>
 
           {/* TM Experience */}
-          <div style={fieldGroupStyle}>
+          <div style={fieldStyle}>
             <label style={labelStyle}>
               Traffic Management Experience{' '}
               <span style={{ color: 'var(--text-muted)', fontWeight: 400, textTransform: 'none', letterSpacing: 0 }}>(optional)</span>
@@ -476,6 +402,21 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
 
           {/* Confirmations */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '28px' }}>
+            {/* Accept all shortcut */}
+            {!(form.englishConfirm && form.drugTestConfirm && form.casualConfirm && form.mojCheckConfirm) && (
+              <button
+                type="button"
+                onClick={() => {
+                  set('englishConfirm', true)
+                  set('drugTestConfirm', true)
+                  set('casualConfirm', true)
+                  set('mojCheckConfirm', true)
+                }}
+                style={{ alignSelf: 'flex-start', fontSize: '0.78rem', fontWeight: 600, color: 'var(--brand-primary)', background: 'none', border: 'none', cursor: 'pointer', padding: '0', textDecoration: 'underline', textUnderlineOffset: '3px' }}
+              >
+                Accept all confirmations
+              </button>
+            )}
             <div style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '2px' }}>
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px' }}>English Communication</p>
               <CheckboxOption

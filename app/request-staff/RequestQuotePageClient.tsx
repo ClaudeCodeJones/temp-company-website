@@ -1,54 +1,15 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
+import { useTurnstile } from '../../hooks/useTurnstile'
 import { Phone, Mail, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import RevealObserver from '../components/RevealObserver'
+import FieldError from '../components/FieldError'
 import { brand } from '../../config/brand'
+import { branches } from '../../data/branches'
+import { inputStyle, labelStyle, fieldStyle } from '../components/formStyles'
 
-declare global {
-  interface Window {
-    turnstile: {
-      render: (container: HTMLElement, params: Record<string, unknown>) => string
-      execute: (widgetId: string) => void
-      reset: (widgetId: string) => void
-    }
-  }
-}
-
-// ── Shared styles ─────────────────────────────────────────────────────────────
-
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  background: 'rgba(255,255,255,0.05)',
-  border: '1px solid rgba(255,255,255,0.12)',
-  borderRadius: '2px',
-  padding: '12px 16px',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '0.9rem',
-  color: '#fff',
-  outline: 'none',
-  appearance: 'none' as const,
-  colorScheme: 'dark' as const,
-}
-
-const labelStyle: React.CSSProperties = {
-  display: 'block',
-  fontFamily: 'Inter, sans-serif',
-  fontSize: '0.75rem',
-  fontWeight: 600,
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase' as const,
-  color: 'var(--text-light)',
-  marginBottom: '8px',
-}
-
-const fieldStyle: React.CSSProperties = { marginBottom: '20px' }
-
-function FieldError({ msg }: { msg?: string }) {
-  if (!msg) return null
-  return <p style={{ fontSize: '0.75rem', color: '#f87171', marginTop: '4px' }}>{msg}</p>
-}
 
 function RadioGroup({ name, value, onChange, options, error }: {
   name: string; value: string; onChange: (v: string) => void
@@ -102,11 +63,7 @@ type FormState = {
 type FormErrors = Partial<Record<keyof FormState, string>>
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 
-const branchOptions = [
-  { value: 'Wellington', label: 'Wellington' },
-  { value: 'Marlborough', label: 'Marlborough' },
-  { value: 'Canterbury', label: 'Canterbury' },
-]
+const branchOptions = branches.map(b => ({ value: b.name, label: b.name }))
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 
@@ -119,45 +76,7 @@ export default function RequestQuotePageClient() {
   const [errors, setErrors] = useState<FormErrors>({})
   const honeypotRef = useRef<HTMLInputElement>(null)
   const startDateRef = useRef<HTMLInputElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const widgetIdRef = useRef<string>('')
-  const callbackRef = useRef<((token: string) => void) | null>(null)
-
-  useEffect(() => {
-    const init = () => {
-      if (!containerRef.current || widgetIdRef.current) return
-      widgetIdRef.current = window.turnstile.render(containerRef.current, {
-        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
-        size: 'invisible',
-        callback: (token: string) => {
-          callbackRef.current?.(token)
-          callbackRef.current = null
-        },
-      })
-    }
-    if (typeof window !== 'undefined' && window.turnstile) {
-      init()
-    } else {
-      const interval = setInterval(() => {
-        if (window.turnstile) { clearInterval(interval); init() }
-      }, 100)
-      return () => clearInterval(interval)
-    }
-  }, [])
-
-  function getTurnstileToken(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject(new Error('Turnstile timeout')), 15000)
-      callbackRef.current = (token) => { clearTimeout(timeout); resolve(token) }
-      if (widgetIdRef.current) {
-        window.turnstile.reset(widgetIdRef.current)
-        window.turnstile.execute(widgetIdRef.current)
-      } else {
-        clearTimeout(timeout)
-        reject(new Error('Turnstile not ready'))
-      }
-    })
-  }
+  const { containerRef, getTurnstileToken } = useTurnstile()
 
   function setField(field: keyof FormState, value: string) {
     setForm(f => ({ ...f, [field]: value }))
@@ -196,7 +115,7 @@ export default function RequestQuotePageClient() {
 
   const heroContent = (
     <section
-      style={{ position: 'relative', background: 'linear-gradient(to bottom, #0e1520 0%, #1a2535 55%, #000000 100%)', paddingTop: '180px', paddingBottom: '56px', overflow: 'hidden' }}
+      style={{ position: 'relative', background: 'linear-gradient(to bottom, #0e1520 0%, #1a2535 55%, #000000 100%)', paddingTop: '180px', paddingBottom: '100px', overflow: 'hidden' }}
       aria-label="Request staff"
     >
       <div aria-hidden="true" style={{
@@ -407,6 +326,7 @@ export default function RequestQuotePageClient() {
               <textarea
                 id="message"
                 rows={5}
+                placeholder="e.g. We need 2 TTM workers for a road reseal project starting Monday. Site is in Christchurch CBD, 7am–4pm shifts."
                 value={form.message}
                 onChange={e => setField('message', e.target.value)}
                 style={{ ...inputStyle, borderColor: errors.message ? '#f87171' : 'rgba(255,255,255,0.12)', resize: 'vertical' as const }}

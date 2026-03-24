@@ -1,8 +1,10 @@
-import { NextResponse } from "next/server"
-import { brand } from "@/config/brand"
-import { sendEmail } from "@/lib/email"
-import { buildEmailTemplate, escape, section, row, rowHtml } from "@/lib/emailTemplate"
-import { checkRateLimit } from "@/lib/rateLimit"
+import { NextResponse } from 'next/server'
+import { brand } from '@/config/brand'
+import { sendEmail } from '@/lib/email'
+import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
+import { checkRateLimit } from '@/lib/rateLimit'
+import { emailRegex, phoneRegex } from '@/lib/validation'
+import { verifyTurnstile } from '@/lib/turnstile'
 
 export async function POST(req: Request) {
   try {
@@ -18,20 +20,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true })
     }
 
-    // 4. Turnstile verification
-    const token = body.turnstileToken
-    const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        secret: process.env.TURNSTILE_SECRET_KEY!,
-        response: token,
-      }),
-    })
-    const verifyData = await verifyResponse.json()
-    if (!verifyData.success) {
-      return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
-    }
+    // 3. Turnstile verification
+    const turnstileError = await verifyTurnstile(turnstileToken)
+    if (turnstileError) return turnstileError
 
     // Required field validation
     if (!name?.trim() || !email?.trim() || !branch?.trim()) {
@@ -39,7 +30,6 @@ export async function POST(req: Request) {
     }
 
     // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
     }
@@ -53,7 +43,6 @@ export async function POST(req: Request) {
     }
 
     // Phone validation
-    const phoneRegex = /^[0-9+\-\s]{7,20}$/
     if (!phoneRegex.test(phone)) {
       return NextResponse.json({ error: 'Invalid phone number format' }, { status: 400 })
     }
@@ -61,7 +50,7 @@ export async function POST(req: Request) {
     // Message validation
     if (!message || message.trim().length < 10) {
       return new Response(
-        JSON.stringify({ error: "Please enter a more detailed message." }),
+        JSON.stringify({ error: 'Please enter a more detailed message.' }),
         { status: 400 }
       )
     }

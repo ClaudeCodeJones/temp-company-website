@@ -10,9 +10,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
-  const h1Ref = useRef<HTMLSpanElement>(null)
-  const h2Ref = useRef<HTMLSpanElement>(null)
-  const h3Ref = useRef<HTMLSpanElement>(null)
+  const barTopRef = useRef<HTMLSpanElement>(null)
+  const barMidRef = useRef<HTMLSpanElement>(null)
+  const barBotRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16)
@@ -22,25 +22,25 @@ export default function Navbar() {
 
   const closeMenu = () => {
     setMenuOpen(false)
-    if (h1Ref.current && h2Ref.current && h3Ref.current) {
-      h1Ref.current.style.transform = ''
-      h2Ref.current.style.opacity = '1'
-      h3Ref.current.style.transform = ''
+    if (barTopRef.current && barMidRef.current && barBotRef.current) {
+      barTopRef.current.style.transform = ''
+      barMidRef.current.style.opacity = '1'
+      barBotRef.current.style.transform = ''
     }
   }
 
   const toggleMenu = () => {
     const next = !menuOpen
     setMenuOpen(next)
-    if (h1Ref.current && h2Ref.current && h3Ref.current) {
+    if (barTopRef.current && barMidRef.current && barBotRef.current) {
       if (next) {
-        h1Ref.current.style.transform = 'translateY(7px) rotate(45deg)'
-        h2Ref.current.style.opacity = '0'
-        h3Ref.current.style.transform = 'translateY(-7px) rotate(-45deg)'
+        barTopRef.current.style.transform = 'translateY(7px) rotate(45deg)'
+        barMidRef.current.style.opacity = '0'
+        barBotRef.current.style.transform = 'translateY(-7px) rotate(-45deg)'
       } else {
-        h1Ref.current.style.transform = ''
-        h2Ref.current.style.opacity = '1'
-        h3Ref.current.style.transform = ''
+        barTopRef.current.style.transform = ''
+        barMidRef.current.style.opacity = '1'
+        barBotRef.current.style.transform = ''
       }
     }
   }
@@ -101,9 +101,9 @@ export default function Navbar() {
               className="lg:hidden flex flex-col items-center justify-center gap-1.5"
               style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}
             >
-              <span ref={h1Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease, opacity 0.2s ease' }} />
-              <span ref={h2Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'opacity 0.2s ease' }} />
-              <span ref={h3Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease' }} />
+              <span ref={barTopRef} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease, opacity 0.2s ease' }} />
+              <span ref={barMidRef} className="block w-6 h-[2px] bg-white" style={{ transition: 'opacity 0.2s ease' }} />
+              <span ref={barBotRef} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease' }} />
             </button>
           </div>
         )}

@@ -1,20 +1,21 @@
 import { NextResponse } from 'next/server'
-import { sendEmail } from "@/lib/email"
-import { buildEmailTemplate, escape, section, row, rowHtml } from "@/lib/emailTemplate"
-import { brand } from "@/config/brand"
-import { checkRateLimit } from "@/lib/rateLimit"
+import { sendEmail } from '@/lib/email'
+import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
+import { brand } from '@/config/brand'
+import { checkRateLimit } from '@/lib/rateLimit'
+import { emailRegex, phoneRegex } from '@/lib/validation'
+import { verifyTurnstile } from '@/lib/turnstile'
 
 const allowedLicences = ['None', 'Car – Restricted', 'Car – Full', 'Class 2']
 
 export async function POST(req: Request) {
-
   try {
     const body = await req.json()
     const {
       fullName, email, phone, city, branch,
       driversLicence, startDate,
       workHistory, tmExperience,
-      workingRightsConfirm, englishConfirm, drugTestConfirm,
+      englishConfirm, drugTestConfirm,
       casualConfirm, mojCheckConfirm,
       turnstileToken, companyPhone,
     } = body
@@ -28,25 +29,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true })
     }
 
-    // Verify Turnstile token
-    const token = body.turnstileToken
-    const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        secret: process.env.TURNSTILE_SECRET_KEY!,
-        response: token,
-      }),
-    })
-    const verifyData = await verifyResponse.json()
-    if (!verifyData.success) {
-      return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
-    }
+    // Turnstile verification
+    const turnstileError = await verifyTurnstile(turnstileToken)
+    if (turnstileError) return turnstileError
 
     // Required field validation
     if (!fullName || !email || !phone || !city || !branch ||
         !driversLicence || !startDate || !workHistory ||
-        !workingRightsConfirm || !englishConfirm || !drugTestConfirm ||
+        !englishConfirm || !drugTestConfirm ||
         !casualConfirm || !mojCheckConfirm) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
     }
@@ -62,13 +52,11 @@ export async function POST(req: Request) {
     }
 
     // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
     }
 
     // Phone validation
-    const phoneRegex = /^[0-9+\-\s]{7,20}$/
     if (!phoneRegex.test(phone)) {
       return NextResponse.json({ error: 'Invalid phone number format' }, { status: 400 })
     }
@@ -96,11 +84,10 @@ export async function POST(req: Request) {
       row('Work Background', workHistory, false),
       row('TM Experience', tmExperience || 'Not provided', true),
       section('Confirmations'),
-      row('Working Rights', 'Confirmed', false),
-      row('English', 'Confirmed', true),
-      row('Drug Test', 'Confirmed', false),
-      row('Casual Worker Guide', 'Confirmed', true),
-      row('MOJ Check', 'Confirmed', false),
+      row('English', 'Confirmed', false),
+      row('Drug Test', 'Confirmed', true),
+      row('Casual Worker Guide', 'Confirmed', false),
+      row('MOJ Check', 'Confirmed', true),
     ].join('')
 
     const html = buildEmailTemplate('Job Application', rows)
