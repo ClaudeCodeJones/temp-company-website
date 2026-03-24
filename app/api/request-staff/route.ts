@@ -40,19 +40,19 @@ export async function POST(req: Request) {
     }
 
     // Verify Turnstile token
-    // TURNSTILE TEMPORARILY BYPASSED FOR DEBUGGING
-    // const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     secret: process.env.TURNSTILE_SECRET_KEY,
-    //     response: turnstileToken,
-    //   }),
-    // })
-    // const verifyData = await verifyResponse.json()
-    // if (!verifyData.success) {
-    //   return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
-    // }
+    const token = body.turnstileToken
+    const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        secret: process.env.TURNSTILE_SECRET_KEY!,
+        response: token,
+      }),
+    })
+    const verifyData = await verifyResponse.json()
+    if (!verifyData.success) {
+      return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
+    }
 
     // Required field validation
     if (!fullName?.trim() || !companyName?.trim() || !email?.trim() || !phone?.trim() || !branch?.trim() || !message?.trim()) {
