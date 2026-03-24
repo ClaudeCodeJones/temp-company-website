@@ -111,9 +111,9 @@ export async function POST(req: NextRequest) {
     const html = buildEmailTemplate("Website Job Application", content)
 
     await sendEmail({
-      to: { email: brand.emailCareers, name: brand.name },
+      to: { email: 'nathan@thetempcompany.co.nz', name: 'Nathan' },
       subject: `Job Application - ${fullName} (${branch})`,
-      replyTo: { email },
+      replyTo: { email: 'nathan@thetempcompany.co.nz' },
       html,
     })
 

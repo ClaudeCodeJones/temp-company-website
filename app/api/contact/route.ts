@@ -112,9 +112,9 @@ export async function POST(req: Request) {
     const html = buildEmailTemplate("Website Enquiry", content)
 
     await sendEmail({
-      to: { email: brand.emailContact, name: brand.name },
+      to: { email: 'nathan@thetempcompany.co.nz', name: 'Nathan' },
       subject: `${brand.name} Website Enquiry - ${name} (${branch})`,
-      replyTo: { email },
+      replyTo: { email: 'nathan@thetempcompany.co.nz' },
       html,
     })
 
