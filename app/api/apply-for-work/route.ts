@@ -51,6 +51,16 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
     }
 
+    // Input length limits
+    if (
+      fullName.length > 200 || email.length > 254 || city.length > 200 ||
+      branch.length > 200 || workHistory.length > 5000 ||
+      (tmExperience && tmExperience.length > 2000) ||
+      (startDate && startDate.length > 30)
+    ) {
+      return NextResponse.json({ error: 'Input exceeds maximum length.' }, { status: 400 })
+    }
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {

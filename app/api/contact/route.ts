@@ -33,6 +33,25 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
     }
 
+    // Required field validation
+    if (!name?.trim() || !email?.trim() || !branch?.trim()) {
+      return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
+    }
+
+    // Input length limits
+    if (
+      name.length > 200 || email.length > 254 || branch.length > 200 ||
+      (message?.length > 5000)
+    ) {
+      return NextResponse.json({ error: 'Input exceeds maximum length.' }, { status: 400 })
+    }
+
     // Phone validation
     const phoneRegex = /^[0-9+\-\s]{7,20}$/
     if (!phoneRegex.test(phone)) {
@@ -70,7 +89,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error('Contact API error:', error)
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Unknown error' },
+      { error: 'Something went wrong. Please try again.' },
       { status: 500 }
     )
   }

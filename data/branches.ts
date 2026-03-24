@@ -53,7 +53,7 @@ export const branches: Branch[] = [
     managerRole:  'Operations Co-Ordinator',
     serviceAreas: ['Marlborough', 'Nelson', 'Tasman'],
     mapCoords:    [332, 458],
-    hiringStatus: 'closed',
+    hiringStatus: 'hiring',
     workerAvailability: 'limited',
     hiringRoles:  ['Traffic Management Workers'],
     hiringTagline:'Selective intake. Experienced candidates welcome.',
