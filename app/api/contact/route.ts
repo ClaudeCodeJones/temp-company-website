@@ -50,18 +50,19 @@ export async function POST(req: Request) {
     }
 
     // 4. Turnstile verification
-    const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        secret: process.env.TURNSTILE_SECRET_KEY,
-        response: turnstileToken,
-      }),
-    })
-    const verifyData = await verifyResponse.json()
-    if (!verifyData.success) {
-      return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
-    }
+    // TURNSTILE TEMPORARILY BYPASSED FOR DEBUGGING
+    // const verifyResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     secret: process.env.TURNSTILE_SECRET_KEY,
+    //     response: turnstileToken,
+    //   }),
+    // })
+    // const verifyData = await verifyResponse.json()
+    // if (!verifyData.success) {
+    //   return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
+    // }
 
     // Phone validation
     const phoneRegex = /^[0-9+\-\s]{7,20}$/
