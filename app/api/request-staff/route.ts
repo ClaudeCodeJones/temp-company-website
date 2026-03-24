@@ -1,38 +1,19 @@
 import { NextResponse } from "next/server"
-import { brand } from "@/config/brand"
 import { sendEmail } from "@/lib/email"
-import { buildEmailTemplate } from "@/lib/emailTemplate"
-
-const rateLimitMap = new Map<string, { count: number; lastRequest: number }>()
-
-function checkRateLimit(req: Request): boolean {
-  const ip = req.headers.get('x-forwarded-for') ?? req.headers.get('x-real-ip') ?? 'unknown'
-  const now = Date.now()
-  const windowMs = 60 * 1000
-  const limit = 5
-  const record = rateLimitMap.get(ip)
-  if (record && now - record.lastRequest < windowMs) {
-    if (record.count >= limit) return false
-    record.count++
-    record.lastRequest = now
-    rateLimitMap.set(ip, record)
-  } else {
-    rateLimitMap.set(ip, { count: 1, lastRequest: now })
-  }
-  return true
-}
+import { buildEmailTemplate, escape, section, row, rowHtml } from "@/lib/emailTemplate"
+import { checkRateLimit } from "@/lib/rateLimit"
 
 export async function POST(req: Request) {
-  if (!checkRateLimit(req)) {
-    return new Response('Too many requests', { status: 429 })
-  }
-
   try {
     const body = await req.json()
     const {
       fullName, companyName, email, branch, phone, startDate, message,
       turnstileToken, companyPhone,
     } = body
+
+    // Rate limit (IP + email)
+    const rateLimitError = await checkRateLimit(req, email)
+    if (rateLimitError) return rateLimitError
 
     // Honeypot check
     if (companyPhone) {
@@ -71,19 +52,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid phone number format.' }, { status: 400 })
     }
 
-    const content = `
-<table style="border-collapse:collapse;width:100%">
-<tr><td style="font-weight:bold;padding:6px 0">Name</td><td>${fullName}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Company Name</td><td>${companyName}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Phone</td><td>${phone}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Branch</td><td>${branch}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Required Date</td><td>${startDate || 'Not specified'}</td></tr>
-<tr><td style="font-weight:bold;padding:6px 0">Message</td><td style="white-space:pre-wrap">${message}</td></tr>
-</table>
-`
+    const rows = [
+      section('Client Details'),
+      row('Name', fullName, false),
+      row('Company', companyName, true),
+      rowHtml('Email', `<a href="mailto:${escape(email)}" style="color:#bc9c22;font-family:Arial,Helvetica,sans-serif;font-size:14px;">${escape(email)}</a>`, false),
+      row('Phone', phone, true),
+      row('Branch', branch, false),
+      row('Required Date', startDate || 'Not specified', true),
+      section('Request Details'),
+      row('Message', message, false),
+    ].join('')
 
-    const html = buildEmailTemplate("Staff Request", content)
+    const html = buildEmailTemplate('Staff Request', rows)
 
     await sendEmail({
       to: { email: 'nathan@thetempcompany.co.nz', name: 'Nathan' },

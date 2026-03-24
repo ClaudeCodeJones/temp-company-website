@@ -1,50 +1,19 @@
 import { NextResponse } from "next/server"
 import { brand } from "@/config/brand"
 import { sendEmail } from "@/lib/email"
-import { buildEmailTemplate } from "@/lib/emailTemplate"
-
-const rateLimitMap = new Map<string, { count: number; lastRequest: number }>()
-
-let globalEmailCount = 0
-const MAX_EMAILS_PER_DEPLOYMENT = 200
-
-function checkRateLimit(req: Request): boolean {
-  const ip = req.headers.get('x-forwarded-for') ?? req.headers.get('x-real-ip') ?? 'unknown'
-  const now = Date.now()
-  const windowMs = 60 * 1000
-  const limit = 5
-  const record = rateLimitMap.get(ip)
-  if (record && now - record.lastRequest < windowMs) {
-    if (record.count >= limit) return false
-    record.count++
-    record.lastRequest = now
-    rateLimitMap.set(ip, record)
-  } else {
-    rateLimitMap.set(ip, { count: 1, lastRequest: now })
-  }
-  return true
-}
+import { buildEmailTemplate, escape, section, row, rowHtml } from "@/lib/emailTemplate"
+import { checkRateLimit } from "@/lib/rateLimit"
 
 export async function POST(req: Request) {
-  // 1. Rate limit
-  if (!checkRateLimit(req)) {
-    return new Response('Too many requests', { status: 429 })
-  }
-
   try {
     const body = await req.json()
     const { name, email, phone, branch, message, turnstileToken, companyPhone } = body
 
-    // 2. Global email cap
-    if (globalEmailCount >= MAX_EMAILS_PER_DEPLOYMENT) {
-      console.warn('Email cap reached:', globalEmailCount)
-      return NextResponse.json(
-        { error: 'Email limit reached. Please try again later.' },
-        { status: 429 }
-      )
-    }
+    // 1. Rate limit (IP + email)
+    const rateLimitError = await checkRateLimit(req, email)
+    if (rateLimitError) return rateLimitError
 
-    // 3. Honeypot check
+    // 2. Honeypot check
     if (companyPhone) {
       return NextResponse.json({ success: true })
     }
@@ -78,39 +47,17 @@ export async function POST(req: Request) {
       )
     }
 
-    // 5 & 6. Process and send email
-    const content = `
-<table style="border-collapse:collapse;width:100%">
+    const rows = [
+      section('Contact Details'),
+      row('Name', name, false),
+      rowHtml('Email', `<a href="mailto:${escape(email)}" style="color:#bc9c22;font-family:Arial,Helvetica,sans-serif;font-size:14px;">${escape(email)}</a>`, true),
+      row('Phone', phone, false),
+      row('Branch', branch, true),
+      section('Message'),
+      row('Message', message, false),
+    ].join('')
 
-<tr>
-<td style="font-weight:bold;padding:6px 0">Name</td>
-<td>${name}</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;padding:6px 0">Email</td>
-<td><a href="mailto:${email}">${email}</a></td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;padding:6px 0">Phone</td>
-<td>${phone}</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;padding:6px 0">Branch</td>
-<td>${branch}</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;padding:6px 0">Message</td>
-<td>${message}</td>
-</tr>
-
-</table>
-`
-
-    const html = buildEmailTemplate("Website Enquiry", content)
+    const html = buildEmailTemplate('Website Enquiry', rows)
 
     await sendEmail({
       to: { email: 'nathan@thetempcompany.co.nz', name: 'Nathan' },
@@ -118,9 +65,6 @@ export async function POST(req: Request) {
       replyTo: { email: 'nathan@thetempcompany.co.nz' },
       html,
     })
-
-    globalEmailCount++
-    console.log('Global email count:', globalEmailCount)
 
     return NextResponse.json({ success: true })
   } catch (error) {

@@ -397,9 +397,6 @@ export default function RequestQuotePageClient() {
                   <Calendar size={16} strokeWidth={1.5} aria-hidden="true" />
                 </button>
               </div>
-              <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', marginTop: '6px', lineHeight: 1.6 }}>
-                Leave blank if this is a general enquiry
-              </p>
             </div>
 
             <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', margin: '4px 0 24px' }} />
