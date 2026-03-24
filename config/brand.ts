@@ -10,7 +10,7 @@ export const brand = {
 
   phone: '',
 
-  emailFrom: 'website@thetempcompany.co.nz',
+  emailFrom: 'noreply@mg.thetempcompany.co.nz',
   emailContact: 'info@thetempcompany.co.nz',
   emailQuotes: 'info@thetempcompany.co.nz',
   emailCareers: 'info@thetempcompany.co.nz',
