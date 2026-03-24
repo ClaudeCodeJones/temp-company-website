@@ -3,8 +3,17 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { ArrowRight, Calendar } from 'lucide-react'
-import Turnstile from 'react-turnstile'
 import SelectWrapper from '../SelectWrapper'
+
+declare global {
+  interface Window {
+    turnstile: {
+      render: (container: HTMLElement, params: Record<string, unknown>) => string
+      execute: (widgetId: string) => void
+      reset: (widgetId: string) => void
+    }
+  }
+}
 import { brand } from '../../../config/brand'
 import { branches as branchList } from '../../../data/branches'
 
@@ -112,10 +121,12 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
   const [step, setStep] = useState<1 | 2>(1)
   const [state, setState] = useState<FormState>('idle')
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [turnstileToken, setTurnstileToken] = useState('')
   const honeypotRef = useRef<HTMLInputElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const dateRef = useRef<HTMLInputElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const widgetIdRef = useRef<string>('')
+  const callbackRef = useRef<((token: string) => void) | null>(null)
 
   const branchParam = searchParams.get('branch')
   const preselectedBranch = branchParam
@@ -149,6 +160,42 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
       : ''
     setForm(prev => ({ ...prev, branch: matched }))
   }, [branchParam])
+
+  useEffect(() => {
+    const init = () => {
+      if (!containerRef.current || widgetIdRef.current) return
+      widgetIdRef.current = window.turnstile.render(containerRef.current, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
+        size: 'invisible',
+        callback: (token: string) => {
+          callbackRef.current?.(token)
+          callbackRef.current = null
+        },
+      })
+    }
+    if (typeof window !== 'undefined' && window.turnstile) {
+      init()
+    } else {
+      const interval = setInterval(() => {
+        if (window.turnstile) { clearInterval(interval); init() }
+      }, 100)
+      return () => clearInterval(interval)
+    }
+  }, [])
+
+  function getTurnstileToken(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => reject(new Error('Turnstile timeout')), 15000)
+      callbackRef.current = (token) => { clearTimeout(timeout); resolve(token) }
+      if (widgetIdRef.current) {
+        window.turnstile.reset(widgetIdRef.current)
+        window.turnstile.execute(widgetIdRef.current)
+      } else {
+        clearTimeout(timeout)
+        reject(new Error('Turnstile not ready'))
+      }
+    })
+  }
 
   function scrollToCard() {
     requestAnimationFrame(() => {
@@ -198,10 +245,11 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
     setState('submitting')
 
     try {
+      const token = await getTurnstileToken()
       const res = await fetch('/api/apply-for-work', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, turnstileToken, companyPhone: honeypotRef.current?.value ?? '' }),
+        body: JSON.stringify({ ...form, turnstileToken: token, companyPhone: honeypotRef.current?.value ?? '' }),
       })
       if (res.ok) {
         if (onSuccess) { onSuccess(); return }
@@ -483,12 +531,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
             </p>
           )}
 
-          {/* Turnstile – invisible mode */}
-          <Turnstile
-            sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-            size="invisible"
-            onVerify={(token) => setTurnstileToken(token)}
-          />
+          <div ref={containerRef} style={{ display: 'none' }} />
 
           <div style={{ display: 'flex', gap: '12px' }}>
             <button

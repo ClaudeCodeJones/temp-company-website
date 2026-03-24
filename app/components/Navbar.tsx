@@ -56,9 +56,6 @@ export default function Navbar() {
     { href: '/find-work', label: 'Find Work' },
     { href: '/about-us', label: 'About' },
     { href: '/contact', label: 'Contact' },
-    { href: '/find-work/apply', label: 'App Form' },
-    { href: '/request-staff', label: 'Req Staff' },
-    { href: '/induction', label: 'Induction' },
   ]
 
   return (

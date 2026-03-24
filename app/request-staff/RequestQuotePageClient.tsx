@@ -1,11 +1,20 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Phone, Mail, Calendar } from 'lucide-react'
 import Link from 'next/link'
-import Turnstile from 'react-turnstile'
 import RevealObserver from '../components/RevealObserver'
 import { brand } from '../../config/brand'
+
+declare global {
+  interface Window {
+    turnstile: {
+      render: (container: HTMLElement, params: Record<string, unknown>) => string
+      execute: (widgetId: string) => void
+      reset: (widgetId: string) => void
+    }
+  }
+}
 
 // ── Shared styles ─────────────────────────────────────────────────────────────
 
@@ -108,9 +117,47 @@ export default function RequestQuotePageClient() {
     branch: '', phone: '', startDate: '', message: '',
   })
   const [errors, setErrors] = useState<FormErrors>({})
-  const [turnstileToken, setTurnstileToken] = useState('')
   const honeypotRef = useRef<HTMLInputElement>(null)
   const startDateRef = useRef<HTMLInputElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const widgetIdRef = useRef<string>('')
+  const callbackRef = useRef<((token: string) => void) | null>(null)
+
+  useEffect(() => {
+    const init = () => {
+      if (!containerRef.current || widgetIdRef.current) return
+      widgetIdRef.current = window.turnstile.render(containerRef.current, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
+        size: 'invisible',
+        callback: (token: string) => {
+          callbackRef.current?.(token)
+          callbackRef.current = null
+        },
+      })
+    }
+    if (typeof window !== 'undefined' && window.turnstile) {
+      init()
+    } else {
+      const interval = setInterval(() => {
+        if (window.turnstile) { clearInterval(interval); init() }
+      }, 100)
+      return () => clearInterval(interval)
+    }
+  }, [])
+
+  function getTurnstileToken(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => reject(new Error('Turnstile timeout')), 15000)
+      callbackRef.current = (token) => { clearTimeout(timeout); resolve(token) }
+      if (widgetIdRef.current) {
+        window.turnstile.reset(widgetIdRef.current)
+        window.turnstile.execute(widgetIdRef.current)
+      } else {
+        clearTimeout(timeout)
+        reject(new Error('Turnstile not ready'))
+      }
+    })
+  }
 
   function setField(field: keyof FormState, value: string) {
     setForm(f => ({ ...f, [field]: value }))
@@ -134,10 +181,11 @@ export default function RequestQuotePageClient() {
     if (!validate()) return
     setStatus('submitting')
     try {
+      const token = await getTurnstileToken()
       const res = await fetch('/api/request-staff', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, turnstileToken, companyPhone: honeypotRef.current?.value ?? '' }),
+        body: JSON.stringify({ ...form, turnstileToken: token, companyPhone: honeypotRef.current?.value ?? '' }),
       })
       if (!res.ok) throw new Error()
       setStatus('success')
@@ -371,12 +419,7 @@ export default function RequestQuotePageClient() {
 
             <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', margin: '4px 0 24px' }} />
 
-            {/* Turnstile */}
-            <Turnstile
-              sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-              size="invisible"
-              onVerify={(token) => setTurnstileToken(token)}
-            />
+            <div ref={containerRef} style={{ display: 'none' }} />
 
             <button
               type="button"
