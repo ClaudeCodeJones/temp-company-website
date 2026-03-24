@@ -373,7 +373,7 @@ export default function RequestQuotePageClient() {
 
             {/* startDate */}
             <div style={fieldStyle}>
-              <label htmlFor="startDate" style={labelStyle}>When do you require staff?</label>
+              <label htmlFor="startDate" style={labelStyle}>When do you require staff? <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, color: 'rgba(255,255,255,0.4)' }}>(optional)</span></label>
               <div style={{ position: 'relative' }}>
                 {!form.startDate && (
                   <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', fontFamily: 'Inter, sans-serif', fontSize: '0.9rem', color: 'rgba(255,255,255,0.45)', pointerEvents: 'none', zIndex: 1 }}>Select date</span>

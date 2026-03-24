@@ -311,8 +311,8 @@ export default function ContactPageClient() {
               <div style={fieldStyle}>
                 <label htmlFor="branch" style={labelStyle}>Branch</label>
                 <SelectWrapper id="branch" value={form.branch} onChange={v => set('branch', v)} error={errors.branch} placeholder="Select a branch">
-                  {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>{b.name}</option>)}
                   <option value="General Enquiry" style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>General Enquiry</option>
+                  {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>{b.name}</option>)}
                 </SelectWrapper>
                 <FieldError msg={errors.branch} />
               </div>

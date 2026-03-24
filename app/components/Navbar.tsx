@@ -91,20 +91,22 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Hamburger — always visible on homepage, mobile-only on other pages */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <button
-            id="ham-btn"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-            className={`${isHome ? 'flex' : 'lg:hidden flex'} flex-col items-center justify-center gap-1.5`}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}
-          >
-            <span ref={h1Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease, opacity 0.2s ease' }} />
-            <span ref={h2Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'opacity 0.2s ease' }} />
-            <span ref={h3Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease' }} />
-          </button>
-        </div>
+        {/* Hamburger — hidden on homepage, mobile-only on other pages */}
+        {!isHome && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <button
+              id="ham-btn"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              className="lg:hidden flex flex-col items-center justify-center gap-1.5"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}
+            >
+              <span ref={h1Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease, opacity 0.2s ease' }} />
+              <span ref={h2Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'opacity 0.2s ease' }} />
+              <span ref={h3Ref} className="block w-6 h-[2px] bg-white" style={{ transition: 'transform 0.2s ease' }} />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Mobile menu */}
@@ -123,6 +125,7 @@ export default function Navbar() {
           ))}
         </div>
       </div>
+
     </nav>
   )
 }

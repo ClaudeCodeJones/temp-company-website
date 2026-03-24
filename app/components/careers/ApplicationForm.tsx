@@ -298,6 +298,7 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
 
   return (
     <div ref={cardRef} style={cardStyle}>
+      <div ref={containerRef} style={{ display: 'none' }} />
       {/* Step indicator */}
       <div style={{ marginBottom: '32px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
@@ -530,8 +531,6 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
               {'If something went wrong, please contact your co-ordinator for assistance.'}
             </p>
           )}
-
-          <div ref={containerRef} style={{ display: 'none' }} />
 
           <div style={{ display: 'flex', gap: '12px' }}>
             <button
