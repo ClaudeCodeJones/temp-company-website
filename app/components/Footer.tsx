@@ -105,8 +105,7 @@ export default function Footer() {
         <div style={{ paddingTop: '28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
           <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>© {brand.copyright}</p>
           <div style={{ display: 'flex', gap: '24px' }}>
-            <a href="/privacy" className="footer-link" style={{ fontSize: '0.78rem' }}>Privacy Policy</a>
-            <a href="/terms" className="footer-link" style={{ fontSize: '0.78rem' }}>Terms of Service</a>
+            <a href="/terms" className="footer-link" style={{ fontSize: '0.78rem' }}>Terms and Conditions</a>
           </div>
         </div>
 
