@@ -23,6 +23,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(brand.domain),
   title: `${brand.name} | Traffic Management Staffing NZ`,
   description: 'Specialist labour hire for traffic management. Supplying certified TTM workers, STMS and civil labour across Wellington, Blenheim and Christchurch.',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     title: `${brand.name} | Traffic Management Staffing NZ`,
     description: 'Specialist labour hire for traffic management. Supplying certified TTM workers, STMS and civil labour across Wellington, Blenheim and Christchurch.',
