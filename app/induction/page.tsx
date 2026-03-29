@@ -74,7 +74,7 @@ const cards = [
       </>
     ),
     cta: 'Read Handbook',
-    href: '#',
+    href: '/docs/ttc_employee_handbook_2026.pdf',
   },
 ]
 
