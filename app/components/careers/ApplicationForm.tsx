@@ -402,21 +402,6 @@ export default function ApplicationForm({ onSuccess, sectionRef }: { onSuccess?:
 
           {/* Confirmations */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '28px' }}>
-            {/* Accept all shortcut */}
-            {!(form.englishConfirm && form.drugTestConfirm && form.casualConfirm && form.mojCheckConfirm) && (
-              <button
-                type="button"
-                onClick={() => {
-                  set('englishConfirm', true)
-                  set('drugTestConfirm', true)
-                  set('casualConfirm', true)
-                  set('mojCheckConfirm', true)
-                }}
-                style={{ alignSelf: 'flex-start', fontSize: '0.78rem', fontWeight: 600, color: 'var(--brand-primary)', background: 'none', border: 'none', cursor: 'pointer', padding: '0', textDecoration: 'underline', textUnderlineOffset: '3px' }}
-              >
-                Accept all confirmations
-              </button>
-            )}
             <div style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '2px' }}>
               <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '8px' }}>English Communication</p>
               <CheckboxOption

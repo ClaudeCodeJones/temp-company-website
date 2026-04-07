@@ -70,7 +70,12 @@ export default function ApplicationSection() {
             </p>
             <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)' }}>
               If you are applying for a casual traffic role, please read the{' '}
-              <a href="/docs/maw_casual_worker_guide.pdf" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand-primary)', textDecoration: 'none', fontWeight: 500 }}>
+              <a
+                href="/docs/What-to-Expect-as-a-Casual-Employee.pdf"
+                download
+                rel="noopener noreferrer"
+                style={{ color: 'var(--brand-primary)', textDecoration: 'none', fontWeight: 500 }}
+              >
                 What to Expect as a Casual Worker
               </a>
               {' '}guide before completing the application form.
