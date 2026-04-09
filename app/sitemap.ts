@@ -1,9 +1,17 @@
 import type { MetadataRoute } from 'next'
 import { brand } from '../config/brand'
+import { branches } from '../data/branches'
 
 const base = brand.domain
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const branchPages: MetadataRoute.Sitemap = branches.map((b) => ({
+    url: `${base}/branches/${b.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
   return [
     {
       url: base,
@@ -59,5 +67,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.4,
     },
+    ...branchPages,
   ]
 }

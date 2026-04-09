@@ -80,7 +80,7 @@ export default function AboutClient() {
         .card-maw:hover  { box-shadow: 0 8px 32px rgba(253,79,0,0.25); }
         .card-mwtp:hover { box-shadow: 0 8px 32px rgba(41,131,194,0.25); }
         .card-sweepco:hover { box-shadow: 0 8px 32px rgba(204,35,36,0.25); }
-        .card-qualcard:hover { box-shadow: 0 8px 32px rgba(162,128,255,0.25); }
+        .card-qualcard:hover { box-shadow: 0 8px 32px rgba(42,95,91,0.35); }
         .hero-btn-primary {
           background: #bc9c22;
           color: #fff;
@@ -295,7 +295,7 @@ export default function AboutClient() {
               <Image src="/logos/mwtrainingandplanning_white.webp" alt="MW Training and Planning" width={200} height={52} style={{ maxHeight: '44px', width: 'auto', objectFit: 'contain' }} />
             </a>
 
-            <a href="https://www.qualcard.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center px-8 brand-card card-qualcard" style={{ background: '#1c1f24', borderTop: '4px solid #a280ff', textDecoration: 'none', minHeight: '140px' }}>
+            <a href="https://www.qualcard.co.nz" target="_blank" rel="noopener noreferrer" className="rounded-xl border border-white/10 overflow-hidden flex items-center justify-center px-8 brand-card card-qualcard" style={{ background: '#1c1f24', borderTop: '4px solid #2a5f5b', textDecoration: 'none', minHeight: '140px' }}>
               <div className="flex items-center justify-center">
                 <Image src="/logos/qualcard_white.webp" alt="QualCard" width={160} height={40} className="max-h-10 md:max-h-12 object-contain w-auto" />
               </div>

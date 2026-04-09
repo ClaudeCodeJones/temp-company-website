@@ -137,6 +137,16 @@ export default function FindWorkClient() {
           transform: rotate(45deg);
           color: var(--brand-primary-dark);
         }
+        .faq-answer {
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+        .faq-answer.open {
+          max-height: 500px;
+          opacity: 1;
+        }
       `}</style>
 
       {/* ── HERO ── */}
@@ -454,7 +464,7 @@ export default function FindWorkClient() {
                   </span>
                 </button>
 
-                {openIndex === i && (
+                <div className={`faq-answer${openIndex === i ? ' open' : ''}`}>
                   <p style={{
                     fontSize: '0.95rem',
                     lineHeight: 1.6,
@@ -463,7 +473,7 @@ export default function FindWorkClient() {
                   }}>
                     {a}
                   </p>
-                )}
+                </div>
               </div>
             ))}
           </div>

@@ -74,7 +74,7 @@ export default function Footer() {
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '11px', listStyle: 'none' }}>
               {branches.map(({ name, slug }) => (
                 <li key={slug}>
-                  <span className="footer-link" style={{ cursor: 'default' }}>{name}</span>
+                  <a href={`/branches/${slug}`} className="footer-link">{name}</a>
                 </li>
               ))}
             </ul>
