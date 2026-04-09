@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
 import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
 import { brand } from '@/config/brand'
-import { checkRateLimit } from '@/lib/rateLimit'
+import { checkIpRateLimit, checkEmailRateLimit, getRequestIp } from '@/lib/rateLimit'
 import { emailRegex, phoneRegex } from '@/lib/validation'
 import { verifyTurnstile } from '@/lib/turnstile'
 
-const allowedLicences = ['None', 'Car – Restricted', 'Car – Full', 'Class 2']
+const allowedLicences = ['Car – Restricted', 'Car – Full', 'Class 2']
 
 export async function POST(req: Request) {
   try {
@@ -20,26 +20,35 @@ export async function POST(req: Request) {
       turnstileToken, companyPhone,
     } = body
 
-    // Rate limit (IP + email)
-    const rateLimitError = await checkRateLimit(req, email)
-    if (rateLimitError) return rateLimitError
+    // 1. IP rate limit
+    const ipError = await checkIpRateLimit(req)
+    if (ipError) return ipError
 
-    // Honeypot check
+    // 2. Honeypot check
     if (companyPhone) {
       return NextResponse.json({ success: true })
     }
 
-    // Turnstile verification
-    const turnstileError = await verifyTurnstile(turnstileToken)
+    // 3. Turnstile verification
+    const turnstileError = await verifyTurnstile(turnstileToken, getRequestIp(req))
     if (turnstileError) return turnstileError
 
-    // Required field validation
-    if (!fullName || !email || !phone || !city || !branch ||
-        !driversLicence || !startDate || !workHistory ||
+    // Required field validation (trim strings to reject whitespace-only)
+    if (!fullName?.trim() || !email?.trim() || !phone?.trim() || !city?.trim() || !branch?.trim() ||
+        !driversLicence?.trim() || !startDate || !workHistory?.trim() ||
         !englishConfirm || !drugTestConfirm ||
         !casualConfirm || !mojCheckConfirm) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
     }
+
+    // Email validation
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
+    }
+
+    // 4. Email rate limit (after proving human)
+    const emailError = await checkEmailRateLimit(email)
+    if (emailError) return emailError
 
     // Input length limits
     if (
@@ -49,11 +58,6 @@ export async function POST(req: Request) {
       (startDate && startDate.length > 30)
     ) {
       return NextResponse.json({ error: 'Input exceeds maximum length.' }, { status: 400 })
-    }
-
-    // Email validation
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
     }
 
     // Phone validation

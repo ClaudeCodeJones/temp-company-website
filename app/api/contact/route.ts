@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { brand } from '@/config/brand'
 import { sendEmail } from '@/lib/email'
 import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
-import { checkRateLimit } from '@/lib/rateLimit'
+import { checkIpRateLimit, checkEmailRateLimit, getRequestIp } from '@/lib/rateLimit'
 import { emailRegex, phoneRegex } from '@/lib/validation'
 import { verifyTurnstile } from '@/lib/turnstile'
 
@@ -11,9 +11,9 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { name, email, phone, branch, message, turnstileToken, companyPhone } = body
 
-    // 1. Rate limit (IP + email)
-    const rateLimitError = await checkRateLimit(req, email)
-    if (rateLimitError) return rateLimitError
+    // 1. IP rate limit
+    const ipError = await checkIpRateLimit(req)
+    if (ipError) return ipError
 
     // 2. Honeypot check
     if (companyPhone) {
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     }
 
     // 3. Turnstile verification
-    const turnstileError = await verifyTurnstile(turnstileToken)
+    const turnstileError = await verifyTurnstile(turnstileToken, getRequestIp(req))
     if (turnstileError) return turnstileError
 
     // Required field validation
@@ -33,6 +33,10 @@ export async function POST(req: Request) {
     if (!emailRegex.test(email)) {
       return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
     }
+
+    // 4. Email rate limit (after proving human)
+    const emailError = await checkEmailRateLimit(email)
+    if (emailError) return emailError
 
     // Input length limits
     if (

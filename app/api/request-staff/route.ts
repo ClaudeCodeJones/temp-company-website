@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
 import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
-import { checkRateLimit } from '@/lib/rateLimit'
+import { checkIpRateLimit, checkEmailRateLimit, getRequestIp } from '@/lib/rateLimit'
 import { emailRegex, phoneRegex } from '@/lib/validation'
 import { verifyTurnstile } from '@/lib/turnstile'
 
@@ -13,23 +13,32 @@ export async function POST(req: Request) {
       turnstileToken, companyPhone,
     } = body
 
-    // Rate limit (IP + email)
-    const rateLimitError = await checkRateLimit(req, email)
-    if (rateLimitError) return rateLimitError
+    // 1. IP rate limit
+    const ipError = await checkIpRateLimit(req)
+    if (ipError) return ipError
 
-    // Honeypot check
+    // 2. Honeypot check
     if (companyPhone) {
       return NextResponse.json({ success: true })
     }
 
-    // Turnstile verification
-    const turnstileError = await verifyTurnstile(turnstileToken)
+    // 3. Turnstile verification
+    const turnstileError = await verifyTurnstile(turnstileToken, getRequestIp(req))
     if (turnstileError) return turnstileError
 
     // Required field validation
     if (!fullName?.trim() || !companyName?.trim() || !email?.trim() || !phone?.trim() || !branch?.trim() || !message?.trim()) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 })
     }
+
+    // Email validation
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
+    }
+
+    // 4. Email rate limit (after proving human)
+    const emailError = await checkEmailRateLimit(email)
+    if (emailError) return emailError
 
     // Input length limits
     if (
@@ -38,11 +47,6 @@ export async function POST(req: Request) {
       (startDate && startDate.length > 30)
     ) {
       return NextResponse.json({ error: 'Input exceeds maximum length.' }, { status: 400 })
-    }
-
-    // Email validation
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
     }
 
     // Phone validation

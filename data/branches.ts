@@ -50,6 +50,11 @@ export type Branch = {
   coordinator: Coordinator
   /** SEO meta description for branch page */
   seoDescription: string
+  /** Hero gradient and grid overlay for branch page */
+  heroTheme?: {
+    gradient: string
+    gridColor: string
+  }
 }
 
 export const branches: Branch[] = [
@@ -84,6 +89,10 @@ export const branches: Branch[] = [
       image: '/people/amy_carswell.webp',
     },
     seoDescription: 'The Temp Company Wellington supplies certified traffic management workers and general labourers across Wellington, Hutt Valley, Porirua and Kapiti Coast.',
+    heroTheme: {
+      gradient: 'linear-gradient(180deg, #0e7a8a 0%, #0c6270 28%, #094550 55%, #1a1a1a 82%, #111 100%)',
+      gridColor: 'rgba(255,255,255,0.04)',
+    },
   },
   {
     name:         'Blenheim',
@@ -116,6 +125,10 @@ export const branches: Branch[] = [
       image: '/people/luke_roberts_ttc1.webp',
     },
     seoDescription: 'The Temp Company Blenheim supplies certified traffic management workers across Marlborough, Nelson and Tasman.',
+    heroTheme: {
+      gradient: 'linear-gradient(180deg, #0e7a8a 0%, #0c6270 28%, #094550 55%, #1a1a1a 82%, #111 100%)',
+      gridColor: 'rgba(255,255,255,0.04)',
+    },
   },
   {
     name:         'Christchurch',
@@ -149,6 +162,10 @@ export const branches: Branch[] = [
       image: '/people/eli_hyde_v1.webp',
     },
     seoDescription: 'The Temp Company Christchurch supplies certified traffic management workers, civil construction labourers and event staff across Canterbury, Selwyn, Waimakariri and Hurunui.',
+    heroTheme: {
+      gradient: 'linear-gradient(180deg, #0e7a8a 0%, #0c6270 28%, #094550 55%, #1a1a1a 82%, #111 100%)',
+      gridColor: 'rgba(255,255,255,0.04)',
+    },
   },
 ]
 

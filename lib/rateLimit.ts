@@ -21,19 +21,21 @@ const emailLimiter = new Ratelimit({
   prefix: 'ttc:email',
 })
 
-function getIp(req: Request): string {
-  return (
-    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ??
-    req.headers.get('x-real-ip') ??
-    'unknown'
-  )
+function getIp(req: Request): string | null {
+  const forwarded = req.headers.get('x-forwarded-for')?.split(',')[0].trim()
+  if (forwarded) return forwarded
+  const realIp = req.headers.get('x-real-ip')
+  if (realIp) return realIp
+  return null
 }
 
-export async function checkRateLimit(
-  req: Request,
-  email?: string
+// IP headers (x-forwarded-for, x-real-ip) are trusted only behind Vercel/edge proxy.
+// If no IP is available, IP limiting is skipped; Turnstile + email limiter still protect.
+export async function checkIpRateLimit(
+  req: Request
 ): Promise<NextResponse | null> {
   const ip = getIp(req)
+  if (!ip) return null
 
   const { success: ipOk } = await ipLimiter.limit(ip)
   if (!ipOk) {
@@ -43,15 +45,22 @@ export async function checkRateLimit(
     )
   }
 
-  if (email) {
-    const { success: emailOk } = await emailLimiter.limit(email.toLowerCase())
-    if (!emailOk) {
-      return NextResponse.json(
-        { error: 'Too many submissions from this email. Please try again later.' },
-        { status: 429 }
-      )
-    }
-  }
-
   return null
+}
+
+export async function checkEmailRateLimit(
+  email: string
+): Promise<NextResponse | null> {
+  const { success: emailOk } = await emailLimiter.limit(email.toLowerCase())
+  if (!emailOk) {
+    return NextResponse.json(
+      { error: 'Too many submissions from this email. Please try again later.' },
+      { status: 429 }
+    )
+  }
+  return null
+}
+
+export function getRequestIp(req: Request): string | undefined {
+  return getIp(req) ?? undefined
 }

@@ -9,7 +9,7 @@ import { brand } from '../../../config/brand'
 
 export default function BranchPageClient({ slug }: { slug: string }) {
   const branch = branches.find((b) => b.slug === slug)!
-  const { coordinator, structuredAddress, serviceAreas, coords } = branch
+  const { coordinator, structuredAddress, serviceAreas, coords, heroTheme } = branch
   const otherBranches = branches.filter((b) => b.slug !== slug)
 
   return (
@@ -95,14 +95,14 @@ export default function BranchPageClient({ slug }: { slug: string }) {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #a9871f 0%, #9a7c1d 28%, #6b5a20 55%, #2f2f2f 82%, #1a1a1a 100%)',
+        background: heroTheme?.gradient ?? 'linear-gradient(180deg, #a9871f 0%, #9a7c1d 28%, #6b5a20 55%, #2f2f2f 82%, #1a1a1a 100%)',
       }}>
         {/* Grid overlay */}
         <div aria-hidden="true" style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
           backgroundImage: `
-            repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px),
-            repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 60px)
+            repeating-linear-gradient(0deg, ${heroTheme?.gridColor ?? 'rgba(255,255,255,0.045)'} 0px, ${heroTheme?.gridColor ?? 'rgba(255,255,255,0.045)'} 1px, transparent 1px, transparent 60px),
+            repeating-linear-gradient(90deg, ${heroTheme?.gridColor ?? 'rgba(255,255,255,0.045)'} 0px, ${heroTheme?.gridColor ?? 'rgba(255,255,255,0.045)'} 1px, transparent 1px, transparent 60px)
           `,
         }} />
 

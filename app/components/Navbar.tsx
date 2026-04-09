@@ -80,9 +80,9 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop links — hidden on homepage */}
+        {/* Desktop links — centred, hidden on homepage */}
         {!isHome && (
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
             {navLinks.map(({ href, label }) => (
               <Link key={href} href={href} className={`nav-link${isActive(href) ? ' active' : ''}`}>
                 {label}
