@@ -95,25 +95,30 @@ const sections = [
   {
     number: '10.',
     title: 'Conversion to Direct Hire',
-    body: 'If you or a related third party wish to employ a TTC worker directly:',
-    list: [
-      'If the worker has completed fewer than 750 hours with you, a conversion fee will apply.',
-      'The fee will be calculated as a percentage of a notional salary based on 40 hours/week at $25/hour.',
-      'No fee applies after 750 hours worked.',
-    ],
+    body: 'If you, or any related third party, wish to employ a TTC worker directly, a conversion fee may apply.\n\nWhere the worker has completed fewer than 750 hours on assignment with you, a conversion fee will be charged.\n\nThe fee is calculated as a percentage of a notional annual salary based on 40 hours per week at $25 per hour.\n\nNo conversion fee applies once the worker has completed 750 hours.\n\nThis applies regardless of whether the engagement is direct or through any associated entity.',
   },
   {
     number: '11.',
+    title: 'Permanent Recruitment Services',
+    body: 'TTC may provide permanent recruitment services, including sourcing and placing candidates into employment with Clients.\n\nPlacement fees apply and are calculated as a percentage of the candidate\'s base salary.\n\nThe placement fee is payable upon acceptance of an offer of employment by the candidate.\n\nFull terms, including fee structure, payment terms, and replacement guarantees, are outlined in TTC\'s Recruitment Terms & Conditions.',
+  },
+  {
+    number: '12.',
+    title: 'Full Terms & Conditions',
+    body: 'These website terms are a summary only.\n\nTTC operates under a range of formal agreements, including Client Terms & Conditions, Recruitment Terms & Conditions, Health & Safety Declarations, and Triangular Employment Agreements.\n\nFull terms will be provided and must be accepted prior to engagement.',
+  },
+  {
+    number: '13.',
     title: 'Insurance',
     body: "TTC staff are not covered under TTC's liability insurance while on your site. You are responsible for ensuring appropriate cover is in place.",
   },
   {
-    number: '12.',
+    number: '14.',
     title: 'Limitation of Liability',
     body: 'TTC is not liable for any loss, damage, or cost incurred by you resulting from TTC staff conduct or from failure to supply staff. You indemnify TTC against any costs, claims, or damages resulting from TTC staff actions while under your control.',
   },
   {
-    number: '13.',
+    number: '15.',
     title: 'Governing Law',
     body: 'These terms are governed by New Zealand law.',
   },
@@ -164,7 +169,7 @@ export default function TermsPage() {
         <div style={{ maxWidth: '760px', margin: '0 auto', padding: '0 24px' }}>
 
           <div className="reveal" style={{ marginBottom: '56px' }}>
-            <p style={{ fontSize: '0.875rem', lineHeight: 1.7, color: 'var(--text-muted)', marginBottom: '20px' }}>
+            <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: '20px' }}>
               The Temp Company, a division of Men at Work Ltd (Hereafter referred to as "TTC")
             </p>
             <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: '12px' }}>
@@ -202,11 +207,11 @@ export default function TermsPage() {
                 {section.number} {section.title}
               </h3>
 
-              {section.body && (
-                <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: section.list ? '12px' : 0 }}>
-                  {section.body}
+              {section.body && section.body.split('\n\n').map((paragraph, pIdx, arr) => (
+                <p key={pIdx} style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: (pIdx < arr.length - 1) ? '12px' : (section.list ? '12px' : 0) }}>
+                  {paragraph}
                 </p>
-              )}
+              ))}
 
               {section.list && (
                 <ul style={{ listStyleType: 'disc', paddingLeft: '20px', marginBottom: section.footer ? '12px' : 0 }}>

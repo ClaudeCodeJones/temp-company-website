@@ -16,7 +16,8 @@
       "Bash(node screenshot.mjs http://localhost:3000 shapes-desktop)",
       "Bash(node screenshot.mjs http://localhost:3000 shapes-v2)",
       "Bash(node screenshot.mjs http://localhost:3000 shapes-v3)",
-      "Bash(winget --version)"
+      "Bash(winget --version)",
+      "Bash(node -e \"console.log\\(require\\('next/package.json'\\).version\\)\")"
     ]
   }
 }
