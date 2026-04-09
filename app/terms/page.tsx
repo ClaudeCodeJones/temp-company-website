@@ -14,11 +14,12 @@ const sections = [
   {
     number: '1.',
     title: 'Acceptance of Terms',
-    body: 'TTC supplies traffic management personnel to you, the client, on a casual basis. While on assignment, TTC staff work under your day-to-day supervision, direction, and control. TTC remains the employer and retains the right to manage its employment relationship.',
+    body: 'TTC supplies traffic management personnel to the Client on a casual basis. While on assignment, TTC staff work under the Client\'s day-to-day supervision, direction, and control. TTC remains the employer and retains the right to manage its employment relationship.',
   },
   {
     number: '2.',
     title: 'Relationship Between Parties',
+    body: 'TTC will:',
     list: [
       'Source and supply trained TTM workers.',
       'Pay wages, holiday pay, KiwiSaver, PAYE, and other entitlements.',
@@ -28,53 +29,51 @@ const sections = [
   {
     number: '3.',
     title: 'Responsibilities of TTC',
-    body: 'You agree to:',
+    body: 'TTC will:',
     list: [
-      'Provide a safe working environment.',
-      'Induct TTC staff into your health and safety procedures.',
-      'Supervise, instruct, and monitor TTC staff on site.',
-      'Ensure TTC staff are only performing duties within their assigned scope.',
-      'Treat TTC staff as you would your own employees while they are on assignment.',
-      'Accept liability for any damage or cost arising from the actions or omissions of TTC staff.',
-      'Not engage in any behaviour that would expose TTC to a personal grievance under the Employment Relations Act 2000.',
+      'Ensure all staff hold current qualifications relevant to their role.',
+      'Manage all employment obligations including pay, leave, and tax.',
+      'Provide standard PPE to staff prior to assignment.',
+      'Address any conduct or performance concerns raised by the Client in good faith.',
     ],
   },
   {
     number: '4.',
     title: 'Responsibilities of the Client',
-    body: 'You agree to:',
+    body: 'The Client agrees to:',
     list: [
       'Provide a safe working environment.',
-      'Induct TTC staff into your health and safety procedures.',
+      'Induct TTC staff into site-specific health and safety procedures.',
       'Supervise, instruct, and monitor TTC staff on site.',
       'Ensure TTC staff are only performing duties within their assigned scope.',
-      'Treat TTC staff as you would your own employees while they are on assignment.',
-      'Accept liability for any damage or cost arising from the actions or omissions of TTC staff.',
+      'Treat TTC staff as they would their own employees while on assignment.',
+      'Accept liability for any damage or cost arising from the actions or omissions of TTC staff while under the Client\'s control.',
       'Not engage in any behaviour that would expose TTC to a personal grievance under the Employment Relations Act 2000.',
     ],
   },
   {
     number: '5.',
     title: 'Conduct and Site Behaviour',
-    body: 'All TTC staff are subject to a Code of Conduct and are expected to behave professionally, respectfully, and in accordance with site rules at all times while on assignment. Clients may request the removal of a TTC staff member from site due to serious concerns relating to conduct or performance. TTC will review such requests in good faith and take appropriate steps, which may include reassignment, disciplinary action, or removal from future placements.',
+    body: 'All TTC staff are subject to a Code of Conduct and are expected to behave professionally, respectfully, and in accordance with site rules at all times while on assignment. The Client may request the removal of a TTC staff member from site due to serious concerns relating to conduct or performance. TTC will review such requests in good faith and take appropriate steps, which may include reassignment, disciplinary action, or removal from future placements.',
   },
   {
     number: '6.',
     title: 'Health & Safety',
+    body: 'The Client must:',
     list: [
-      'You must ensure full compliance with the Health and Safety at Work Act 2015.',
-      'All incidents, near misses, or unsafe conditions involving TTC staff must be reported to TTC immediately.',
-      'You must nominate a H&S contact person for TTC staff.',
-      'Agree to separate Health and Safety Document.',
+      'Ensure full compliance with the Health and Safety at Work Act 2015.',
+      'Report all incidents, near misses, or unsafe conditions involving TTC staff to TTC immediately.',
+      'Nominate a health and safety contact person for TTC staff.',
+      'Agree to and comply with TTC\'s separate Health and Safety Declaration.',
     ],
   },
   {
     number: '7.',
     title: 'Hours, Minimum Charge, and Cancellations',
-    body: 'Minimum daily charge is four (4) hours per staff member. Cancellation notices must be given:',
+    body: 'The minimum daily charge is four (4) hours per staff member. Cancellation notice must be given:',
     list: [
-      '24 hours prior for nightshift work',
-      '12 hours prior for dayshift work',
+      '24 hours prior for nightshift work.',
+      '12 hours prior for dayshift work.',
     ],
     footer: 'If cancelled inside these timeframes, the minimum charge will apply.',
   },
@@ -87,7 +86,7 @@ const sections = [
     number: '9.',
     title: 'Timesheets and Invoicing',
     list: [
-      'Staff hours will be logged through MyTTM (digital timesheet system). Clients may request paper forms as additional backup.',
+      'Staff hours will be logged through MyTTM (digital timesheet system). The Client may request paper forms as additional backup.',
       'Invoices are issued weekly and due within 7 days of receipt.',
       'Late payments may incur interest and/or result in withdrawal of TTC staff.',
     ],
@@ -95,7 +94,7 @@ const sections = [
   {
     number: '10.',
     title: 'Conversion to Direct Hire',
-    body: 'If you, or any related third party, wish to employ a TTC worker directly, a conversion fee may apply.\n\nWhere the worker has completed fewer than 750 hours on assignment with you, a conversion fee will be charged.\n\nThe fee is calculated as a percentage of a notional annual salary based on 40 hours per week at $25 per hour.\n\nNo conversion fee applies once the worker has completed 750 hours.\n\nThis applies regardless of whether the engagement is direct or through any associated entity.',
+    body: 'If the Client, or any related third party, wishes to employ a TTC worker directly, a conversion fee may apply.\n\nWhere the worker has completed fewer than 750 hours on assignment with the Client, a conversion fee will be charged.\n\nThe fee is calculated as a percentage of a notional annual salary based on 40 hours per week at $25 per hour.\n\nNo conversion fee applies once the worker has completed 750 hours.\n\nThis applies regardless of whether the engagement is direct or through any associated entity.',
   },
   {
     number: '11.',
@@ -104,23 +103,23 @@ const sections = [
   },
   {
     number: '12.',
-    title: 'Full Terms & Conditions',
-    body: 'These website terms are a summary only.\n\nTTC operates under a range of formal agreements, including Client Terms & Conditions, Recruitment Terms & Conditions, Health & Safety Declarations, and Triangular Employment Agreements.\n\nFull terms will be provided and must be accepted prior to engagement.',
+    title: 'Insurance',
+    body: "TTC staff are not covered under TTC's liability insurance while on the Client's site. The Client is responsible for ensuring appropriate cover is in place.",
   },
   {
     number: '13.',
-    title: 'Insurance',
-    body: "TTC staff are not covered under TTC's liability insurance while on your site. You are responsible for ensuring appropriate cover is in place.",
+    title: 'Limitation of Liability',
+    body: 'TTC is not liable for any loss, damage, or cost incurred by the Client resulting from the conduct of TTC staff or from failure to supply staff. While TTC staff are under the Client\'s supervision and control, the Client accepts responsibility for their actions and indemnifies TTC against any costs, claims, or damages that may arise.',
   },
   {
     number: '14.',
-    title: 'Limitation of Liability',
-    body: 'TTC is not liable for any loss, damage, or cost incurred by you resulting from TTC staff conduct or from failure to supply staff. You indemnify TTC against any costs, claims, or damages resulting from TTC staff actions while under your control.',
+    title: 'Governing Law',
+    body: 'These terms are governed by New Zealand law.',
   },
   {
     number: '15.',
-    title: 'Governing Law',
-    body: 'These terms are governed by New Zealand law.',
+    title: 'Full Terms & Conditions',
+    body: 'These website terms are a summary only.\n\nTTC operates under a range of formal agreements, including Client Terms & Conditions, Recruitment Terms & Conditions, Health & Safety Declarations, and Triangular Employment Agreements.\n\nFull terms will be provided and must be accepted prior to engagement.',
   },
 ]
 
@@ -170,7 +169,7 @@ export default function TermsPage() {
 
           <div className="reveal" style={{ marginBottom: '56px' }}>
             <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: '20px' }}>
-              The Temp Company, a division of Men at Work Ltd (Hereafter referred to as "TTC")
+              The Temp Company, a division of Men at Work Ltd (hereafter referred to as "TTC")
             </p>
             <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: '12px' }}>
               These terms apply when you engage TTC to supply temporary traffic management staff.
