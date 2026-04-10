@@ -46,8 +46,8 @@ export default function FindWorkClient() {
           .hero-content { padding-top: 180px; padding-bottom: 72px; }
         }
         .hero-btn-primary {
-          background: #bc9c22;
-          color: #fff;
+          background: #facc15;
+          color: #111;
           border: none;
           border-radius: 999px;
           padding: 14px 32px;
@@ -59,7 +59,7 @@ export default function FindWorkClient() {
           cursor: pointer;
         }
         .hero-btn-primary:hover {
-          background: #d4b128;
+          background: #ffd84d;
           transform: translateY(-1px);
         }
         .hero-btn-secondary {
@@ -82,8 +82,8 @@ export default function FindWorkClient() {
         .request-btn {
           display: block;
           width: 100%;
-          background: #bc9c22;
-          color: #fff;
+          background: #facc15;
+          color: #111;
           border: none;
           border-radius: 999px;
           padding: 14px 26px;
@@ -156,7 +156,7 @@ export default function FindWorkClient() {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        background: 'linear-gradient(to bottom, #2e3949 0%, #37373b 55%, #000000 100%)',
+        background: 'linear-gradient(180deg, #3a3a3e 0%, #2e2e32 28%, #202020 60%, #111 85%, #1a1a1a 100%)',
       }}>
 
         {/* Grid overlay */}
@@ -179,7 +179,7 @@ export default function FindWorkClient() {
           <h1 className="font-display" style={{
             fontWeight: 700,
             fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            lineHeight: 1.05,
+            lineHeight: 1.15,
             textAlign: 'center',
             letterSpacing: '-0.03em',
             color: '#fff',
@@ -470,6 +470,7 @@ export default function FindWorkClient() {
                     lineHeight: 1.6,
                     color: 'rgba(188,156,34,0.9)',
                     marginTop: '10px',
+                    paddingLeft: '16px',
                   }}>
                     {a}
                   </p>

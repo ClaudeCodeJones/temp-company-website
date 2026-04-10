@@ -7,36 +7,36 @@ import Link from 'next/link'
 
 const faqs: { q: string; a: ReactNode }[] = [
   {
-    q: 'What types of roles can you supply?',
-    a: 'We specialise in temporary traffic management, and all staff are at least TTM Workers, but can supply general labour too.',
+    q: 'What types of roles do you recruit for permanently?',
+    a: "We recruit across construction and trades, including traffic management, civil works, and infrastructure. If you're not sure whether your role fits, just get in touch and we'll let you know.",
   },
   {
-    q: 'Do your workers have their own gear and transport?',
-    a: 'Our workers come with their own PPE and transport.',
+    q: 'What does the recruitment process look like?',
+    a: 'You give us the brief, we go and find the candidates. We handle sourcing, screening, and reference checks, then present you with a shortlist. You interview and make the call. We support you through to offer and beyond.',
   },
   {
-    q: 'Can you supply staff at short notice?',
-    a: "Yes, we're built for fast turnaround. If you need crew urgently, give us a call and we'll do our best to fill it the same day.",
+    q: 'How much does it cost?',
+    a: "Our fee is 18% of the candidate's annual base salary, invoiced on acceptance of the offer. There are no upfront costs and no charge if we don't find you someone.",
   },
   {
-    q: 'What areas do you cover?',
-    a: "We currently supply labour across Wellington, Marlborough and Canterbury (Christchurch), and we're growing. If you're outside that, flick us a message and we'll see what we can do.",
+    q: "What happens if the candidate doesn't work out?",
+    a: "If a placement leaves within the first four weeks we'll find you a replacement at no cost. Between four and eight weeks we'll either find a replacement or provide a 50% credit toward your next placement. After eight weeks no replacement or refund applies.",
   },
   {
-    q: 'Are your workers trained and compliant?',
-    a: "Yes. Every worker is briefed and checked before heading to site. We handle inductions, qualifications, and only place people who meet your safety standards.",
+    q: 'Which regions do you cover?',
+    a: 'We operate from Christchurch, Wellington, and Blenheim and recruit permanent candidates across New Zealand.',
   },
   {
-    q: 'What are your rates?',
-    a: 'We operate on clear hourly rates for each role, with an additional loading for night shifts. Get in touch and we\'ll send through our current rate card.',
+    q: 'How long does it take to find someone?',
+    a: "It depends on the role and the market, but we'll always give you an honest timeframe upfront. We'd rather set realistic expectations than overpromise.",
   },
   {
-    q: 'Are there formal terms and conditions for hiring staff?',
-    a: <>Yes. Our t&rsquo;s and c&rsquo;s are available on our <Link href="/terms" style={{ color: 'var(--brand-primary)', textDecoration: 'none', fontWeight: 500 }}>Terms and Conditions</Link> page, and complete client documentation is available on request. Just get in touch with your local TTC coordinator.</>,
+    q: 'Are there formal terms and conditions for the recruitment service?',
+    a: <>Yes. Our T&rsquo;s and C&rsquo;s are available on our <Link href="/terms" style={{ color: 'var(--brand-primary)', textDecoration: 'none', fontWeight: 500 }}>Terms and Conditions</Link> page, and complete client documentation is available on request. Just get in touch with your local TTC coordinator.</>,
   },
 ]
 
-export default function HireStaffClient() {
+export default function FindTalentClient() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i)
@@ -160,7 +160,7 @@ export default function HireStaffClient() {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #7a5e10 0%, #6b520e 28%, #4a380a 60%, #111 85%, #1a1a1a 100%)',
+        background: 'linear-gradient(180deg, #1a2a3a 0%, #152230 28%, #0d161e 60%, #111 85%, #1a1a1a 100%)',
       }}>
 
         {/* Grid overlay */}
@@ -188,7 +188,7 @@ export default function HireStaffClient() {
             letterSpacing: '-0.03em',
             color: '#fff',
           }}>
-            Traffic Management Workers On Demand
+            Permanent Recruitment for Construction and Trades
           </h1>
 
           <p style={{
@@ -198,11 +198,11 @@ export default function HireStaffClient() {
             maxWidth: '650px',
             margin: '24px auto 0',
           }}>
-            The Temp Company supplies reliable traffic management workers across Christchurch, Wellington and Blenheim.
+            The Temp Company connects employers with permanent hires across traffic management, civil, and construction trades in Christchurch, Wellington and Blenheim.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', marginTop: '40px' }}>
-            <a href="/request-staff" className="hero-btn-primary">Request Staff</a>
+            <a href="/find-talent/enquire" className="hero-btn-primary">Find Talent</a>
             <a href="/about-us#operations-team" className="hero-btn-secondary">Call Us Now</a>
           </div>
 
@@ -228,16 +228,13 @@ export default function HireStaffClient() {
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                  Finding reliable, fully ticketed TTM staff shouldn&rsquo;t be a gamble.
+                  Finding the right permanent hire in construction and trades is harder than it looks. At The Temp Company, recruitment is an extension of what we already do. We live and breathe this industry, which means we understand the roles you are trying to fill and the kind of people who actually perform in them.
                 </p>
                 <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                  At The Temp Company, we take the uncertainty out of workforce supply by connecting you with our team who are already qualified (TTM Worker), properly equipped, and ready to step into the job, no hand-holding required.
+                  We source, screen, and present candidates who are a genuine fit for your team. You get a shortlist worth your time, not a stack of resumes to wade through.
                 </p>
                 <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                  Traffic management is our core focus, supplying dependable workers who slot straight into live worksites. We also provide labourers to support civil contractors, traffic companies, and event crews when additional support is needed.
-                </p>
-                <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.62)' }}>
-                  You get consistency, compliance, and confidence in every placement.
+                  If a placement doesn't work out in the first eight weeks, we'll find you a replacement.
                 </p>
               </div>
             </div>
@@ -246,7 +243,7 @@ export default function HireStaffClient() {
           {/* 2-column card row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-            {/* Left — How to Request */}
+            {/* Left — How It Works */}
             <div style={{
               background: 'rgba(255,255,255,0.04)',
               border: '1px solid rgba(255,255,255,0.08)',
@@ -261,7 +258,7 @@ export default function HireStaffClient() {
                 color: 'var(--brand-primary)',
                 marginBottom: '28px',
               }}>
-                How to Request TM Staff
+                How It Works
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -269,11 +266,11 @@ export default function HireStaffClient() {
                   {
                     icon: (
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 7.91a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
                       </svg>
                     ),
-                    title: 'Contact Us',
-                    body: 'Reach out via phone, email or complete our form.',
+                    title: 'Tell Us About the Role',
+                    body: 'Give us the brief. Role requirements, team environment, location, and salary range.',
                   },
                   {
                     icon: (
@@ -281,8 +278,8 @@ export default function HireStaffClient() {
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                       </svg>
                     ),
-                    title: 'We Match',
-                    body: "We'll match your needs with our pool of qualified TM workers or labourers.",
+                    title: 'We Find the People',
+                    body: 'We source and screen candidates from our network. You only meet the ones worth talking to.',
                   },
                   {
                     icon: (
@@ -290,8 +287,8 @@ export default function HireStaffClient() {
                         <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
                       </svg>
                     ),
-                    title: 'Staff Deployed',
-                    body: 'Your selected crew arrives ready to work safely and efficiently.',
+                    title: 'You Make the Call',
+                    body: 'We coordinate interviews and support you through to offer. The decision is always yours.',
                   },
                 ].map(({ icon, title, body }, i) => (
                   <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
@@ -318,12 +315,12 @@ export default function HireStaffClient() {
                 ))}
               </div>
 
-              <a href="/request-staff" className="request-btn">
-                Request Staff Now
+              <a href="/find-talent/enquire" className="request-btn">
+                Find Talent Now
               </a>
             </div>
 
-            {/* Right — Value proposition */}
+            {/* Right — Why TTC */}
             <div style={{
               background: 'rgba(255,255,255,0.04)',
               border: '1px solid rgba(255,255,255,0.08)',
@@ -338,7 +335,7 @@ export default function HireStaffClient() {
                 color: 'var(--brand-primary)',
                 marginBottom: '28px',
               }}>
-                Built for Traffic Management
+                Why TTC for Recruitment
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -349,17 +346,8 @@ export default function HireStaffClient() {
                         <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
                       </svg>
                     ),
-                    title: 'Traffic Management Specialists',
-                    body: 'Workers who understand live sites and integrate quickly into established crews.',
-                  },
-                  {
-                    icon: (
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                      </svg>
-                    ),
-                    title: 'Built for Industry',
-                    body: 'Ready-to-go labour for traffic management and civil crews.',
+                    title: 'Industry Focused',
+                    body: 'We recruit exclusively across construction, traffic management, and civil trades. We know what good looks like.',
                   },
                   {
                     icon: (
@@ -367,17 +355,26 @@ export default function HireStaffClient() {
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                       </svg>
                     ),
-                    title: 'Quality and Reliability',
-                    body: 'People selected for attitude, reliability, and consistency on site.',
+                    title: 'No Time Wasters',
+                    body: 'Candidates are screened and reference-checked before you see them.',
                   },
                   {
                     icon: (
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
                       </svg>
                     ),
-                    title: 'Fast Response',
-                    body: 'Crews available when you need them, including short notice placements.',
+                    title: 'Replacement Guarantee',
+                    body: "If it doesn't work out in the first eight weeks, we've got you covered.",
+                  },
+                  {
+                    icon: (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/>
+                      </svg>
+                    ),
+                    title: 'National Network',
+                    body: 'Operating from three regions, recruiting talent across New Zealand.',
                   },
                 ].map(({ icon, title, body }, i) => (
                   <div key={i} style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
@@ -417,8 +414,8 @@ export default function HireStaffClient() {
           {/* LEFT — image */}
           <div className="hidden lg:block lg:col-span-2" style={{ position: 'relative', height: '600px', borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.14)', boxShadow: '0 20px 50px rgba(0,0,0,0.45)' }}>
             <Image
-              src="/images/temp_company_workers_hsv1.webp"
-              alt="Temp Company traffic management workers on site"
+              src="/images/temp_company_talent.webp"
+              alt="Temp Company permanent recruitment"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 40vw"
@@ -517,7 +514,7 @@ export default function HireStaffClient() {
             color: '#fff',
             marginBottom: '16px',
           }}>
-            Need Traffic Management Staff?
+            Ready to Find Your Next Permanent Hire?
           </h2>
           <p style={{
             fontSize: '1rem',
@@ -526,10 +523,10 @@ export default function HireStaffClient() {
             maxWidth: '480px',
             margin: '0 auto 36px',
           }}>
-            Get qualified workers on site quickly with The Temp Company.
+            Talk to your local TTC coordinator today.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px' }}>
-            <a href="/request-staff" className="hero-btn-primary">Request Staff</a>
+            <a href="/find-talent/enquire" className="hero-btn-primary">Find Talent</a>
             <a href="/about-us#operations-team" className="hero-btn-secondary">Call Us Now</a>
           </div>
         </div>

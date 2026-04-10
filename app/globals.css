@@ -520,14 +520,28 @@ body {
   color: var(--brand-primary);
 }
 
+/* ── Hero locations sentence ── */
+.hero-locations {
+  display: inline;
+}
+@media (max-width: 768px) {
+  .hero-locations {
+    display: block;
+    margin-top: 12px;
+  }
+}
+
 /* ── Gateway hero tiles ── */
 .gateway-hero-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 380px));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   justify-content: center;
   align-items: start;
   margin-top: 32px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .gateway-hero-card {
   width: 100%;
@@ -540,40 +554,61 @@ body {
   box-shadow: 0 18px 40px rgba(0,0,0,0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.gateway-hero-card--staff { background: #fcd415; border: 2px solid #fff; }
+.gateway-hero-card--staff { background: #7a5e10; border: 2px solid #fff; }
 .gateway-hero-card--staff:hover {
   transform: translateY(-6px);
   box-shadow: 0 0 56px rgba(255, 255, 255, 0.45), 0 24px 56px rgba(0, 0, 0, 0.4);
 }
 .gateway-hero-card--staff .gateway-hero-card-title {
-  color: #2e3949;
+  color: #ffffff;
 }
-.gateway-hero-card--work { background: #2e3949; border: 2px solid #fcd415; }
+.gateway-hero-card--work { background: #3a3a3e; border: 2px solid #fff; }
 .gateway-hero-card--work:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 56px rgba(252, 212, 21, 0.38), 0 24px 56px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 56px rgba(255, 255, 255, 0.35), 0 24px 56px rgba(0, 0, 0, 0.45);
 }
 .gateway-hero-card--work .gateway-hero-card-title {
   color: #f5f2ef;
 }
+.gateway-hero-card--talent { background: #1a2a3a; border: 2px solid #fff; }
+.gateway-hero-card--talent:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 56px rgba(255, 255, 255, 0.35), 0 24px 56px rgba(0, 0, 0, 0.45);
+}
+.gateway-hero-card--talent .gateway-hero-card-title {
+  color: #F5C842;
+}
 .gateway-hero-card-title {
   font-weight: 700;
-  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
   line-height: 1.2;
   letter-spacing: 0.01em;
   text-align: center;
-  padding: 0 28px;
+  padding: 0 24px;
 }
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .gateway-hero-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .gateway-hero-card {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: unset;
+    height: 100px;
+    width: 100%;
+  }
+  .gateway-hero-card--talent {
+    grid-column: unset;
+    aspect-ratio: unset;
+    height: 100px;
+    max-width: unset;
+    margin: unset;
+    width: 100%;
   }
   .gateway-hero-card-title {
-    font-size: clamp(0.95rem, 4vw, 1.1rem);
+    font-size: 1rem;
     padding: 0 16px;
   }
 }

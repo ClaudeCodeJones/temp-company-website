@@ -160,18 +160,30 @@ export default function ContactPageClient() {
       <section style={{ background: 'var(--bg-dark)', padding: '36px 0 100px' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px' }}>
 
-          <div style={{ marginBottom: '32px', padding: '24px', background: 'rgba(252,212,21,0.06)', border: '1px solid rgba(252,212,21,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
-            <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff', marginBottom: '8px' }}>Looking for Staff?</p>
-            <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)', marginBottom: '14px' }}>
-              If you need temporary or contract workers, please use our{' '}
-              <a href="/request-staff" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Request Staff</a>{' '}
-              form so we can match you with the right people.
-            </p>
-            <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)', marginBottom: '14px' }}>
-              If you are looking for work, please use our{' '}
-              <a href="/find-work/apply" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Job Application</a> form.
-            </p>
-            <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)' }}>For general enquiries, feel free to use the form below.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '32px' }}>
+
+            {/* Box 1 — temp staff or looking for work */}
+            <div style={{ padding: '24px', background: 'rgba(252,212,21,0.06)', border: '1px solid rgba(252,212,21,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
+              <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff', marginBottom: '8px' }}>Looking for Temp Staff or Looking for Work?</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)', marginBottom: '14px' }}>
+                If you need temporary or contract workers, please use our{' '}
+                <a href="/request-staff" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Request Staff</a>{' '}
+                form so we can match you with the right people.
+              </p>
+              <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)' }}>
+                If you are looking for work, please use our{' '}
+                <a href="/find-work/apply" style={{ color: 'var(--brand-primary)', fontWeight: 500, textDecoration: 'none' }}>Job Application</a> form.
+              </p>
+            </div>
+
+            {/* Box 2 — permanent recruitment */}
+            <div style={{ padding: '24px', background: 'rgba(252,212,21,0.06)', border: '1px solid rgba(252,212,21,0.15)', borderLeft: '3px solid var(--brand-primary)', borderRadius: '2px' }}>
+              <p className="font-display" style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff', marginBottom: '8px' }}>Looking to Fill a Permanent Position?</p>
+              <p style={{ fontSize: '0.85rem', lineHeight: 1.65, color: 'var(--text-muted)' }}>
+                If you are looking to permanently fill a role in construction, traffic management, or civil trades, complete the contact form below. In the message box, let us know the position you are looking to fill and what you are looking for in a candidate. Our team will be in touch.
+              </p>
+            </div>
+
           </div>
 
           <div
@@ -234,6 +246,7 @@ export default function ContactPageClient() {
                 <label htmlFor="branch" style={labelStyle}>Branch</label>
                 <SelectWrapper id="branch" value={form.branch} onChange={v => set('branch', v)} error={errors.branch} placeholder="Select a branch">
                   <option value="General Enquiry" style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>General Enquiry</option>
+                  <option value="Looking to Fill a Permanent Position" style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>Looking to Fill a Permanent Position</option>
                   {branchList.map(b => <option key={b.slug} value={b.name} style={{ background: 'var(--color-bg-deep)', color: '#fff' }}>{b.name}</option>)}
                 </SelectWrapper>
                 <FieldError msg={errors.branch} />

@@ -110,7 +110,7 @@ export default function HomePage() {
             letterSpacing: '-0.03em',
             color: '#fff',
           }}>
-            Staff When You Need <span style={{ color: 'var(--brand-primary)' }}>Them</span>
+            People When You Need <span style={{ color: 'var(--brand-primary)' }}>Them</span>
           </h1>
 
           <p className="reveal d2" style={{
@@ -120,15 +120,19 @@ export default function HomePage() {
             maxWidth: '680px',
             margin: '28px auto 0',
           }}>
-            Temporary workers for traffic management, civil and infrastructure projects.<br /><br />
-            <strong style={{ color: '#fff', fontWeight: 600 }}>Christchurch</strong>, <strong style={{ color: '#fff', fontWeight: 600 }}>Wellington</strong> and <strong style={{ color: '#fff', fontWeight: 600 }}>Blenheim</strong>. Ready at short notice.
+            Whether you need someone <strong style={{ color: '#fff', fontWeight: 600 }}>tomorrow</strong> or <strong style={{ color: '#fff', fontWeight: 600 }}>someone for keeps</strong>, we&rsquo;ve got you covered.{' '}
+            <span className="hero-locations">Temporary workers ready at short notice in <strong style={{ color: '#fff', fontWeight: 600 }}>Christchurch</strong>, <strong style={{ color: '#fff', fontWeight: 600 }}>Wellington</strong> and <strong style={{ color: '#fff', fontWeight: 600 }}>Blenheim</strong>.{' '}<span className="hero-locations">Permanent recruitment services are available <strong style={{ color: '#fff', fontWeight: 600 }}>nationwide</strong> across all industries.</span></span>
           </p>
 
           {/* Gateway tiles */}
           <div className="reveal d3 gateway-hero-grid">
 
             <Link href="/hire-staff" className="gateway-hero-card gateway-hero-card--staff">
-              <span className="font-display gateway-hero-card-title">I&rsquo;m Looking<br />for Staff</span>
+              <span className="font-display gateway-hero-card-title">I&rsquo;m Looking<br />for Temp Staff</span>
+            </Link>
+
+            <Link href="/find-talent" className="gateway-hero-card gateway-hero-card--talent">
+              <span className="font-display gateway-hero-card-title">I&rsquo;m Looking<br />to Fill a Position</span>
             </Link>
 
             <Link href="/find-work" className="gateway-hero-card gateway-hero-card--work">

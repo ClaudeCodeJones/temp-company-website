@@ -41,6 +41,11 @@ const faqSchema = {
       name: 'What are your rates?',
       acceptedAnswer: { '@type': 'Answer', text: "We operate on clear hourly rates for each role, with an additional loading for night shifts. Get in touch and we'll send through our current rate card." },
     },
+    {
+      '@type': 'Question',
+      name: 'Are there formal terms and conditions for hiring staff?',
+      acceptedAnswer: { '@type': 'Answer', text: "Yes. Our t's and c's are available on our Terms and Conditions page, and complete client documentation is available on request. Just get in touch with your local TTC coordinator." },
+    },
   ],
 }
 

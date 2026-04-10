@@ -53,6 +53,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/hire-staff', label: 'Hire Staff' },
+    { href: '/find-talent', label: 'Find Talent' },
     { href: '/find-work', label: 'Find Work' },
     { href: '/about-us', label: 'About' },
     { href: '/contact', label: 'Contact' },

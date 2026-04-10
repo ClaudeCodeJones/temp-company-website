@@ -124,7 +124,7 @@ export default function AboutClient() {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        background: 'linear-gradient(to bottom, #37373b 0%, #2e3949 55%, #000000 100%)',
+        background: 'linear-gradient(180deg, #0d2260 0%, #0a1a50 28%, #060f32 60%, #111 85%, #1a1a1a 100%)',
       }}>
 
         {/* Grid overlay */}
@@ -328,7 +328,7 @@ export default function AboutClient() {
               <div key={location} className="team-card" style={{ maxWidth: '340px', margin: '0 auto', width: '100%' }}>
                 <div className="w-full aspect-[3/4] relative flex items-end justify-center overflow-hidden" style={{ background: 'radial-gradient(circle at 50% 30%, #3a4048 0%, #2a2f36 60%, #1a1d22 100%)', maxHeight: '260px' }}>
                   {image && (
-                    <Image src={image} alt={name} fill style={{ objectFit: 'contain', objectPosition: 'bottom' }} />
+                    <Image src={image} alt={name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'contain', objectPosition: 'bottom' }} />
                   )}
                   <div aria-hidden="true" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(transparent 65%, rgba(0,0,0,0.25))', pointerEvents: 'none' }} />
                 </div>
