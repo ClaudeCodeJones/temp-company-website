@@ -169,10 +169,13 @@ export default function TermsPage() {
 
           <div className="reveal" style={{ marginBottom: '56px' }}>
             <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: '20px' }}>
-              The Temp Company, a division of Men at Work Ltd (hereafter referred to as "TTC")
+              The Temp Company, a division of Men at Work Ltd (hereafter referred to as &ldquo;TTC&rdquo;)
             </p>
             <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: '12px' }}>
-              These terms apply when you engage TTC to supply temporary traffic management staff.
+              TTC provides both temporary traffic management staff and permanent recruitment services.
+            </p>
+            <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: '12px' }}>
+              These terms primarily apply when you engage TTC to supply temporary traffic management staff. For permanent recruitment services, refer to section 11 and the associated Recruitment Terms &amp; Conditions.
             </p>
             <p style={{ fontSize: '1rem', lineHeight: 1.78, color: 'var(--text-muted)', marginBottom: '8px' }}>
               Acceptance is confirmed either by:

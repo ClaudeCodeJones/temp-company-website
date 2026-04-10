@@ -24,7 +24,7 @@ export default function Footer() {
               style={{ height: '36px', width: 'auto', marginBottom: '16px' }}
             />
             <p style={{ fontSize: '0.9375rem', color: 'var(--text-muted)', lineHeight: 1.72, maxWidth: '280px' }}>
-              Reliable temporary staffing solutions built on trust, responsiveness, and performance.
+              Reliable permanent and temporary staffing solutions built on trust, relationships, and performance.
             </p>
             <div style={{ display: 'flex', gap: '10px', marginTop: '24px' }}>
               {[
@@ -59,11 +59,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Need Staff / Work */}
+          {/* Services */}
           <div>
-            <div className="footer-heading">Need Staff / Work</div>
+            <div className="footer-heading">Services</div>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '11px', listStyle: 'none' }}>
               <li><a href="/request-staff" className="footer-link">Request Staff</a></li>
+              <li><a href="/find-talent" className="footer-link">Find Talent</a></li>
               <li><a href="/find-work/apply" className="footer-link">Apply for Work</a></li>
             </ul>
           </div>
