@@ -198,7 +198,7 @@ export default function FindTalentClient() {
             maxWidth: '650px',
             margin: '24px auto 0',
           }}>
-            The Temp Company connects employers with permanent hires across traffic management, civil, and construction trades in Christchurch, Wellington and Blenheim.
+            The Temp Company connects employers with permanent hires across traffic management, civil, and construction trades nationwide.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', marginTop: '40px' }}>
