@@ -1,23 +1,36 @@
 'use client'
 
 import Image from 'next/image'
-import { MapPin, Users, TrendingUp } from 'lucide-react'
+import { Users } from 'lucide-react'
 
 const strengths = [
   {
-    icon: <MapPin size={28} strokeWidth={1.5} aria-hidden="true" />,
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20.3799 21.13C20.1799 21.13 19.9899 21.05 19.8499 20.91L13.4699 14.53C13.1799 14.24 13.1799 13.76 13.4699 13.47L21.2 5.74001C21.39 5.55001 21.6799 5.48001 21.9399 5.55001C22.1999 5.63001 22.3999 5.84001 22.4599 6.10001C22.6499 6.95001 22.7499 7.90001 22.7499 9.00001V15C22.7499 17.77 22.1699 19.64 20.9099 20.91C20.7699 21.05 20.5599 21.08 20.3799 21.13ZM15.0599 14L20.3199 19.26C20.9499 18.29 21.2499 16.91 21.2499 15V9.00001C21.2499 8.59001 21.2399 8.21001 21.2099 7.85001L15.0599 14Z" />
+        <path d="M6.26999 22.48C6.20999 22.48 6.16001 22.47 6.10001 22.46C2.79001 21.7 1.25 19.33 1.25 15V9C1.25 3.57 3.57 1.25 9 1.25H15C19.33 1.25 21.7 2.79001 22.46 6.10001C22.52 6.35001 22.44 6.62 22.26 6.8L6.79999 22.26C6.65999 22.4 6.46999 22.48 6.26999 22.48ZM9 2.75C4.39 2.75 2.75 4.39 2.75 9V15C2.75 18.47 3.71001 20.21 6.04001 20.9L20.89 6.05C20.21 3.72 18.46 2.75999 14.99 2.75999H9V2.75Z" />
+        <path d="M14.9999 22.7495H8.99989C7.89989 22.7495 6.95989 22.6595 6.09989 22.4595C5.82989 22.3995 5.61987 22.1995 5.54987 21.9395C5.46987 21.6795 5.54988 21.3994 5.73988 21.1994L13.4699 13.4695C13.7599 13.1795 14.2399 13.1795 14.5299 13.4695L20.9099 19.8495C21.0499 19.9895 21.1299 20.1795 21.1299 20.3795C21.1299 20.5795 21.0499 20.7695 20.9099 20.9095C19.6399 22.1695 17.7699 22.7495 14.9999 22.7495ZM7.84989 21.2095C8.20989 21.2395 8.58989 21.2495 8.99989 21.2495H14.9999C16.9199 21.2495 18.2899 20.9495 19.2599 20.3195L13.9999 15.0594L7.84989 21.2095Z" />
+        <path d="M9.11994 13.3091C8.48994 13.3091 7.85993 13.0791 7.35993 12.6091C5.76993 11.0991 5.12996 9.43908 5.50996 7.81908C5.88996 6.15908 7.33994 5.03906 9.11994 5.03906C10.8999 5.03906 12.35 6.15908 12.73 7.81908C13.1 9.44908 12.4599 11.0991 10.8699 12.6091C10.3799 13.0691 9.74994 13.3091 9.11994 13.3091ZM6.96995 8.14906C6.64995 9.50906 7.56994 10.7291 8.39994 11.5191C8.80994 11.9091 9.43994 11.9091 9.83994 11.5191C10.6599 10.7391 11.5799 9.51906 11.2699 8.14906C10.9999 6.95906 9.93994 6.52907 9.11994 6.52907C8.29994 6.52907 7.24995 6.95906 6.96995 8.14906Z" />
+        <path d="M9.1499 9.49023C8.5999 9.49023 8.1499 9.04023 8.1499 8.49023C8.1499 7.94023 8.5899 7.49023 9.1499 7.49023H9.15991C9.70991 7.49023 10.1599 7.94023 10.1599 8.49023C10.1599 9.04023 9.6999 9.49023 9.1499 9.49023Z" />
+      </svg>
+    ),
     title: 'Blenheim Beginnings',
     body: 'We started in Blenheim, working alongside traffic management companies who needed reliable people at short notice. From there we expanded to Christchurch, then Wellington.',
   },
   {
-    icon: <TrendingUp size={28} strokeWidth={1.5} aria-hidden="true" />,
-    title: 'Three Regions, One Standard',
-    body: 'We now operate across Marlborough, Canterbury and Wellington. Each region has a dedicated coordinator on the ground who knows the local crews, sites and requirements.',
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M7.56 2C7.56 5.11 10 7.56 13.12 7.56C10.01 7.56 7.56 10 7.56 13.12C7.56 10.01 5.12 7.56 2 7.56C5.11 7.56 7.56 5.12 7.56 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path opacity="0.4" d="M16.4409 10.89C16.4409 14 18.8809 16.45 22.0009 16.45C18.8909 16.45 16.4409 18.89 16.4409 22.01C16.4409 18.9 14.0009 16.45 10.8809 16.45C13.9909 16.45 16.4409 14.01 16.4409 10.89Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    title: 'Built on Standards',
+    body: "Whether we're placing a temp worker on site or finding your next permanent hire, the standard doesn't change. Vetted, capable, and ready to go.",
   },
   {
     icon: <Users size={28} strokeWidth={1.5} aria-hidden="true" />,
     title: 'People First',
-    body: 'We take time to understand the people we place, not just their qualifications. That means better matches, fewer dropouts, and workers who show up ready to contribute.',
+    body: 'We take time to understand the people we place and the employers we work with. That means better matches, stronger hires, and workers who show up ready to contribute.',
   },
 ]
 
@@ -151,7 +164,7 @@ export default function AboutClient() {
             letterSpacing: '-0.03em',
             color: '#fff',
           }}>
-            Reliable Workers for Traffic Management and Civil Crews
+            Connecting the Right People with the Right Roles
           </h1>
 
           <p style={{
@@ -161,7 +174,7 @@ export default function AboutClient() {
             maxWidth: '650px',
             margin: '24px auto 0',
           }}>
-            Specialising in traffic management staffing while also supplying dependable labourers when crews need extra hands on site.
+            From temporary traffic management staffing to permanent recruitment, we connect reliable people with the right roles across civil and construction.
           </p>
 
         </div>
@@ -189,17 +202,17 @@ export default function AboutClient() {
               color: '#fff',
               marginBottom: '28px',
             }}>
-              Your Specialised Partner for Traffic Management Staffing
+              Your Staffing and Recruitment Partner for Construction and Trades
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
-                The Temp Company supports traffic management companies and civil contractors across Wellington, Canterbury and Marlborough with qualified, job-ready workers who turn up and get it done.
+                The Temp Company supports traffic management companies, civil contractors, and construction businesses across Christchurch, Wellington, and Blenheim with qualified, job-ready workers who turn up and get it done.
               </p>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
-                Traffic management is our core focus, and we also supply reliable labourers when crews need extra hands on site to keep projects moving.
+                We provide temporary staffing across traffic management and civil labour to keep your projects moving, and permanent recruitment across construction and trades to help employers find the right people for the long term.
               </p>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
-                Through our in-house training division, MW Training &amp; Planning, we ensure workers are trained to industry standards and ready for site from day one.
+                Through our in-house training division, MW Training and Planning, we ensure workers are trained to industry standards and ready for site from day one.
               </p>
             </div>
           </div>
@@ -273,7 +286,7 @@ export default function AboutClient() {
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
-                The Temp Company operates as part of MW Group, working alongside Men at Work Traffic Management, MW Training &amp; Planning, SweepCo and QualCard to support the wider traffic management and civil infrastructure industry.
+                The Temp Company operates as part of MW Group, working alongside Men at Work Traffic Management, MW Training and Planning, SweepCo and QualCard to support the wider traffic management, civil, and construction trades industry.
               </p>
               <p style={{ fontSize: '0.9375rem', lineHeight: 1.78, color: 'rgba(255,255,255,0.65)' }}>
                 This connection gives us direct insight into how sites operate and what&rsquo;s expected from crews, ensuring the workers we supply arrive prepared and ready to contribute.
@@ -380,20 +393,21 @@ export default function AboutClient() {
             color: '#fff',
             marginBottom: '16px',
           }}>
-            Need Workers or Looking for Work?
+            Hiring, Recruiting, or Looking for Work?
           </h2>
           <p style={{
             fontSize: '1rem',
             lineHeight: 1.75,
             color: 'rgba(255,255,255,0.75)',
-            maxWidth: '480px',
+            maxWidth: '680px',
             margin: '0 auto 36px',
           }}>
-            The Temp Company connects reliable workers with traffic management and civil crews when extra hands are needed.
+            The Temp Company provides temporary staffing across Christchurch, Wellington and Blenheim, and permanent recruitment nationwide across traffic management, civil, and construction trades.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px' }}>
             <a href="/request-staff" className="hero-btn-primary">Request Staff</a>
-            <a href="/find-work/apply" className="hero-btn-secondary">Apply for Work</a>
+            <a href="/find-talent" className="hero-btn-secondary">Find Talent</a>
+            <a href="/find-work/apply" className="hero-btn-primary">Apply for Work</a>
           </div>
         </div>
       </section>
