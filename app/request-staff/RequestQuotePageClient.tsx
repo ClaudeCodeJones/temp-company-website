@@ -182,7 +182,13 @@ export default function RequestQuotePageClient() {
               </p>
               <Link
                 href="/"
-                className="text-orange-500 text-sm hover:text-orange-400 transition mt-6 inline-block"
+                style={{
+                  display: 'inline-block',
+                  marginTop: '28px',
+                  color: 'var(--brand-primary)',
+                  fontSize: '0.9rem',
+                  textDecoration: 'none',
+                }}
               >
                 Back to Home →
               </Link>

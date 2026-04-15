@@ -3,3 +3,6 @@ temporary screenshots/
 .DS_Store
 Thumbs.db
 .next/
+
+# Sentry Config File
+.env.sentry-build-plugin

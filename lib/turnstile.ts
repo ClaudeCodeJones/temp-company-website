@@ -14,6 +14,7 @@ export async function verifyTurnstile(token: string, remoteip?: string): Promise
   })
   const data = await res.json()
   if (!data.success) {
+    console.warn('Turnstile verify failed', { codes: data['error-codes'] })
     return NextResponse.json({ error: 'Turnstile verification failed' }, { status: 400 })
   }
   return null

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import RevealObserver from '@/app/components/RevealObserver'
 
 export const metadata: Metadata = {
@@ -22,14 +23,14 @@ const cards = [
     body: (
       <>
         Kick things off by filling out{' '}
-        <a href="#" style={{ color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>
+        <a href="/onboarding" style={{ color: 'var(--color-accent)', textDecoration: 'none', fontWeight: 600 }}>
           your details
         </a>
         , so we can do important stuff like paying you and getting you set up.
       </>
     ),
     cta: 'Fill Out Form',
-    href: 'https://forms.fillout.com/t/hgDB1LRpPMus',
+    href: '/onboarding',
   },
   {
     icon: (
@@ -273,9 +274,15 @@ export default function InductionPage() {
                 </p>
 
                 {/* CTA */}
-                <a href={card.href} className="induction-card-btn" target="_blank" rel="noopener noreferrer">
-                  {card.cta}
-                </a>
+                {card.href.startsWith('/') ? (
+                  <Link href={card.href} className="induction-card-btn">
+                    {card.cta}
+                  </Link>
+                ) : (
+                  <a href={card.href} className="induction-card-btn" target="_blank" rel="noopener noreferrer">
+                    {card.cta}
+                  </a>
+                )}
 
               </div>
             ))}

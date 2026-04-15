@@ -8,6 +8,7 @@ declare global {
       render: (container: HTMLElement, params: Record<string, unknown>) => string
       execute: (widgetId: string) => void
       reset: (widgetId: string) => void
+      remove: (widgetId: string) => void
     }
   }
 }
@@ -22,7 +23,9 @@ export function useTurnstile() {
       if (!containerRef.current || widgetIdRef.current) return
       widgetIdRef.current = window.turnstile.render(containerRef.current, {
         sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
-        size: 'invisible',
+        size: 'flexible',
+        execution: 'execute',
+        appearance: 'interaction-only',
         callback: (token: string) => {
           callbackRef.current?.(token)
           callbackRef.current = null
@@ -53,5 +56,12 @@ export function useTurnstile() {
     })
   }
 
-  return { containerRef, getTurnstileToken }
+  function removeTurnstile() {
+    if (widgetIdRef.current && window.turnstile?.remove) {
+      try { window.turnstile.remove(widgetIdRef.current) } catch {}
+      widgetIdRef.current = ''
+    }
+  }
+
+  return { containerRef, getTurnstileToken, removeTurnstile }
 }

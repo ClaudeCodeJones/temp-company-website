@@ -147,6 +147,24 @@ export default function SelectWrapper({
               boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
             }}
           >
+            {!value && (
+              <li
+                role="option"
+                aria-selected={false}
+                aria-disabled
+                style={{
+                  padding: '10px 16px',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '0.85rem',
+                  color: 'rgba(255,255,255,0.35)',
+                  cursor: 'default',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                  fontStyle: 'italic',
+                }}
+              >
+                {placeholder}
+              </li>
+            )}
             {options.map(opt => (
               <li
                 key={opt.value}
@@ -159,7 +177,7 @@ export default function SelectWrapper({
                   fontSize: '0.9rem',
                   cursor: 'pointer',
                   color: opt.value === value ? 'var(--brand-primary)' : '#fff',
-                  background: opt.value === value ? 'rgba(253,79,0,0.08)' : 'transparent',
+                  background: opt.value === value ? 'rgba(252,212,21,0.1)' : 'transparent',
                 }}
                 onMouseEnter={e => {
                   if (opt.value !== value) (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.05)'

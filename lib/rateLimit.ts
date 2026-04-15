@@ -31,18 +31,31 @@ function getIp(req: Request): string | null {
 
 // IP headers (x-forwarded-for, x-real-ip) are trusted only behind Vercel/edge proxy.
 // If no IP is available, IP limiting is skipped; Turnstile + email limiter still protect.
+function rateLimitUnavailable(): NextResponse {
+  return NextResponse.json(
+    { error: 'Service temporarily unavailable. Please try again shortly.' },
+    { status: 503 }
+  )
+}
+
 export async function checkIpRateLimit(
   req: Request
 ): Promise<NextResponse | null> {
   const ip = getIp(req)
   if (!ip) return null
 
-  const { success: ipOk } = await ipLimiter.limit(ip)
-  if (!ipOk) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please try again shortly.' },
-      { status: 429 }
-    )
+  try {
+    const { success: ipOk } = await ipLimiter.limit(ip)
+    if (!ipOk) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again shortly.' },
+        { status: 429 }
+      )
+    }
+  } catch (err) {
+    const name = err instanceof Error ? err.name : 'UnknownError'
+    console.warn('IP rate limit check failed', { name })
+    if (process.env.NODE_ENV === 'production') return rateLimitUnavailable()
   }
 
   return null
@@ -51,12 +64,18 @@ export async function checkIpRateLimit(
 export async function checkEmailRateLimit(
   email: string
 ): Promise<NextResponse | null> {
-  const { success: emailOk } = await emailLimiter.limit(email.toLowerCase())
-  if (!emailOk) {
-    return NextResponse.json(
-      { error: 'Too many submissions from this email. Please try again later.' },
-      { status: 429 }
-    )
+  try {
+    const { success: emailOk } = await emailLimiter.limit(email.toLowerCase())
+    if (!emailOk) {
+      return NextResponse.json(
+        { error: 'Too many submissions from this email. Please try again later.' },
+        { status: 429 }
+      )
+    }
+  } catch (err) {
+    const name = err instanceof Error ? err.name : 'UnknownError'
+    console.warn('Email rate limit check failed', { name })
+    if (process.env.NODE_ENV === 'production') return rateLimitUnavailable()
   }
   return null
 }

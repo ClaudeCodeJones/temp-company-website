@@ -96,8 +96,18 @@ export async function POST(req: Request) {
 
     const html = buildEmailTemplate('Job Application', rows)
 
+    const branchRecipients: Record<string, { email: string; name: string }> = {
+      Wellington: { email: 'amy@thetempcompany.co.nz', name: 'Amy' },
+      Blenheim: { email: 'luke@thetempcompany.co.nz', name: 'Luke' },
+      Christchurch: { email: 'eli@thetempcompany.co.nz', name: 'Eli' },
+    }
+
+    const recipients = [{ email: 'nathan@thetempcompany.co.nz', name: 'Nathan' }]
+    const branchRecipient = branchRecipients[branch]
+    if (branchRecipient) recipients.push(branchRecipient)
+
     await sendEmail({
-      to: { email: 'nathan@thetempcompany.co.nz', name: 'Nathan' },
+      to: recipients,
       subject: `Job Application - ${fullName} (${branch})`,
       replyTo: { email: 'nathan@thetempcompany.co.nz' },
       html,
