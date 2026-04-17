@@ -107,12 +107,14 @@ export async function POST(req: Request) {
     const branchRecipient = branchRecipients[branch]
     if (branchRecipient) recipients.push(branchRecipient)
 
-    await sendEmail({
-      to: recipients,
-      subject: `Job Application - ${fullName} (${branch})`,
-      replyTo: { email: 'nathan@thetempcompany.co.nz' },
-      html,
-    })
+    await Promise.all(recipients.map(recipient =>
+      sendEmail({
+        to: recipient,
+        subject: `Job Application - ${fullName} (${branch})`,
+        replyTo: { email: 'nathan@thetempcompany.co.nz' },
+        html,
+      })
+    ))
 
     return NextResponse.json({ success: true })
   } catch (error) {
