@@ -30,6 +30,7 @@ export async function POST(req: Request) {
     }
 
     // 3. Turnstile verification
+    console.log('Turnstile token received:', typeof turnstileToken, turnstileToken ? 'has value' : 'empty/undefined')
     const turnstileError = await verifyTurnstile(turnstileToken, getRequestIp(req))
     if (turnstileError) return turnstileError
 
@@ -114,7 +115,8 @@ export async function POST(req: Request) {
     })
 
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (error) {
+    console.error('Apply form error:', error)
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }
