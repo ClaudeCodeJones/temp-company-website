@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: blob:",
               "frame-src https://challenges.cloudflare.com",
               "connect-src 'self' https://challenges.cloudflare.com",
+              "worker-src 'self' blob:",
             ].join('; '),
           },
         ],
