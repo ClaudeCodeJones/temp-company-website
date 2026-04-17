@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { sendEmail } from '@/lib/email'
 import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
-import { brand } from '@/config/brand'
 import { checkIpRateLimit, checkEmailRateLimit, getRequestIp } from '@/lib/rateLimit'
 import { emailRegex, phoneRegex } from '@/lib/validation'
 import { verifyTurnstile } from '@/lib/turnstile'
@@ -9,16 +9,20 @@ import { verifyTurnstile } from '@/lib/turnstile'
 const allowedLicences = ['Car – Restricted', 'Car – Full', 'Class 2']
 
 export async function POST(req: Request) {
+  let branch = ''
+  let city = ''
   try {
     const body = await req.json()
     const {
-      fullName, email, phone, city, branch,
+      fullName, email, phone, city: _city, branch: _branch,
       driversLicence, startDate,
       workHistory, tmExperience,
       englishConfirm, drugTestConfirm,
       casualConfirm, mojCheckConfirm,
       turnstileToken, companyPhone,
     } = body
+    branch = _branch
+    city = _city
 
     // 1. IP rate limit
     const ipError = await checkIpRateLimit(req)
@@ -30,7 +34,6 @@ export async function POST(req: Request) {
     }
 
     // 3. Turnstile verification
-    console.log('Turnstile token received:', typeof turnstileToken, turnstileToken ? 'has value' : 'empty/undefined')
     const turnstileError = await verifyTurnstile(turnstileToken, getRequestIp(req))
     if (turnstileError) return turnstileError
 
@@ -107,18 +110,19 @@ export async function POST(req: Request) {
     const branchRecipient = branchRecipients[branch]
     if (branchRecipient) recipients.push(branchRecipient)
 
-    await Promise.all(recipients.map(recipient =>
-      sendEmail({
-        to: recipient,
-        subject: `Job Application - ${fullName} (${branch})`,
-        replyTo: { email: 'nathan@thetempcompany.co.nz' },
-        html,
-      })
-    ))
+    await sendEmail({
+      to: recipients,
+      subject: `Job Application - ${fullName} (${branch})`,
+      replyTo: { email: 'nathan@thetempcompany.co.nz' },
+      html,
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Apply form error:', error)
+    Sentry.captureException(error, {
+      tags: { form: 'apply', branch: branch || 'unknown' },
+      extra: { branch, city },
+    })
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }

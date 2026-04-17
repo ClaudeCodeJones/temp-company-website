@@ -19,38 +19,40 @@ export async function sendEmail({
   replyTo?: { email: string }
   attachments?: EmailAttachment[]
 }) {
-  const payload: Record<string, unknown> = {
-    from: {
-      email: brand.emailFrom,
-      name: brand.name,
-    },
-    to,
-    subject,
-    html,
-    replyTo,
-  }
+  const recipients = Array.isArray(to) ? to : [to]
 
-  if (attachments && attachments.length > 0) {
-    payload.attachments = attachments.map(a => ({
-      fileName: a.filename,
-      content: a.content,
-      contentType: a.contentType,
-    }))
-  }
+  const mappedAttachments = attachments && attachments.length > 0
+    ? attachments.map(a => ({ fileName: a.filename, content: a.content, contentType: a.contentType }))
+    : undefined
 
-  const response = await fetch("https://api.autosend.com/v1/mails/send", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.AUTOSEND_API_KEY}`,
-    },
-    body: JSON.stringify(payload),
-  })
+  await Promise.all(recipients.map(async (recipient) => {
+    const payload: Record<string, unknown> = {
+      from: {
+        email: brand.emailFrom,
+        name: brand.name,
+      },
+      to: recipient,
+      subject,
+      html,
+      replyTo,
+    }
 
-  if (!response.ok) {
-    console.error('Autosend send failed', { status: response.status })
-    throw new Error('Autosend send failed')
-  }
+    if (mappedAttachments) payload.attachments = mappedAttachments
+
+    const response = await fetch("https://api.autosend.com/v1/mails/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.AUTOSEND_API_KEY}`,
+      },
+      body: JSON.stringify(payload),
+    })
+
+    if (!response.ok) {
+      console.error('Autosend send failed', { status: response.status, recipient: recipient.email })
+      throw new Error('Autosend send failed')
+    }
+  }))
 
   return true
 }

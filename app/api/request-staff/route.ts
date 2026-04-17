@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { sendEmail } from '@/lib/email'
 import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
 import { checkIpRateLimit, checkEmailRateLimit, getRequestIp } from '@/lib/rateLimit'
@@ -6,12 +7,14 @@ import { emailRegex, phoneRegex } from '@/lib/validation'
 import { verifyTurnstile } from '@/lib/turnstile'
 
 export async function POST(req: Request) {
+  let branch = ''
   try {
     const body = await req.json()
     const {
-      fullName, companyName, email, branch, phone, startDate, message,
+      fullName, companyName, email, branch: _branch, phone, startDate, message,
       turnstileToken, companyPhone,
     } = body
+    branch = _branch
 
     // 1. IP rate limit
     const ipError = await checkIpRateLimit(req)
@@ -77,7 +80,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error(error)
+    Sentry.captureException(error, {
+      tags: { form: 'request-staff', branch: branch || 'unknown' },
+      extra: { branch },
+    })
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }

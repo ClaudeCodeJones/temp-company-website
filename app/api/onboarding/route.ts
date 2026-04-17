@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { sendEmail, type EmailAttachment } from '@/lib/email'
 import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
 import { brand } from '@/config/brand'
@@ -135,6 +136,7 @@ function isAllowedOrigin(origin: string | null): boolean {
 }
 
 export async function POST(req: Request) {
+  let branch = ''
   try {
     // 0. Origin allow-list (CSRF mitigation)
     if (!isAllowedOrigin(req.headers.get('origin'))) {
@@ -184,6 +186,7 @@ export async function POST(req: Request) {
       visaFile: body.visaFile,
       kiwiSaverOptOutFile: body.kiwiSaverOptOutFile,
     }
+    branch = p2.branch
     const p3 = {
       ethnicBackground: Array.isArray(body.ethnicBackground) ? body.ethnicBackground.filter((x: unknown): x is string => typeof x === 'string') : [],
       ethnicBackgroundOther: str(body.ethnicBackgroundOther),
@@ -506,9 +509,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true })
   } catch (error) {
     const requestId = crypto.randomUUID()
-    const name = error instanceof Error ? error.name : 'UnknownError'
-    const message = error instanceof Error ? error.message.slice(0, 200) : ''
-    console.error('Onboarding API error', { requestId, name, message })
+    Sentry.captureException(error, {
+      tags: { form: 'onboarding', branch: branch || 'unknown' },
+      extra: { branch, requestId },
+    })
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.', requestId },
       { status: 500 }

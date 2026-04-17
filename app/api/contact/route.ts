@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { brand } from '@/config/brand'
 import { sendEmail } from '@/lib/email'
 import { buildEmailTemplate, escape, section, row, rowHtml } from '@/lib/emailTemplate'
@@ -7,9 +8,11 @@ import { emailRegex, phoneRegex } from '@/lib/validation'
 import { verifyTurnstile } from '@/lib/turnstile'
 
 export async function POST(req: Request) {
+  let branch = ''
   try {
     const body = await req.json()
-    const { name, email, phone, branch, message, turnstileToken, companyPhone } = body
+    const { name, email, phone, branch: _branch, message, turnstileToken, companyPhone } = body
+    branch = _branch
 
     // 1. IP rate limit
     const ipError = await checkIpRateLimit(req)
@@ -80,7 +83,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Contact API error:', error)
+    Sentry.captureException(error, {
+      tags: { form: 'contact', branch: branch || 'unknown' },
+      extra: { branch },
+    })
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }
